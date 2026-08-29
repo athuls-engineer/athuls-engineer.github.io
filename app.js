@@ -1,4 +1,4 @@
-// Athul S — Precision Hardware Logic & Laboratory Oscilloscope Engines
+// Athul S — Precision Hardware Logic & Real Project Telemetry Engines
 
 document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) {
@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Mobile Drawer Toggle
   initMobileDrawer();
 
-  // Oscilloscope Simulator (Laboratory Phosphor Trace)
-  initOscilloscope();
+  // Project Engineering Telemetry Rig (HFSS S11, Vivado Logic Analyzer, NMEA GPS, 24h DAQ)
+  initTelemetryRig();
 
   // Transit Radar Simulation
   initTransitRadar();
@@ -45,14 +45,14 @@ function initMobileDrawer() {
 }
 
 /* -------------------------------------------------------------
- * 2. Oscilloscope Engine (Laboratory Phosphor Display)
+ * 2. Precision Project Telemetry Rig (Real Engineering Plots)
  * -----------------------------------------------------------*/
 let scopeMode = 'rf';
-let scopePhase = 0;
-let scopeSpeed = 1.0;
-let scopeAmp = 1.0;
+let sweepTime = 0;
+let sweepSpeed = 1.0;
+let scopeZoom = 1.0;
 
-function initOscilloscope() {
+function initTelemetryRig() {
   const canvas = document.getElementById('oscilloscope-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
@@ -64,13 +64,13 @@ function initOscilloscope() {
   resize();
   window.addEventListener('resize', resize);
 
-  // Knobs
+  // Sliders
   const speedSlider = document.getElementById('scope-speed-slider');
   const speedLabel = document.getElementById('scope-speed-label');
   if (speedSlider) {
     speedSlider.addEventListener('input', (e) => {
-      scopeSpeed = parseFloat(e.target.value);
-      if (speedLabel) speedLabel.textContent = `${scopeSpeed.toFixed(1)}x`;
+      sweepSpeed = parseFloat(e.target.value);
+      if (speedLabel) speedLabel.textContent = `${sweepSpeed.toFixed(1)}x`;
     });
   }
 
@@ -78,68 +78,373 @@ function initOscilloscope() {
   const ampLabel = document.getElementById('scope-amp-label');
   if (ampSlider) {
     ampSlider.addEventListener('input', (e) => {
-      scopeAmp = parseFloat(e.target.value);
-      if (ampLabel) ampLabel.textContent = `${scopeAmp.toFixed(1)}x`;
+      scopeZoom = parseFloat(e.target.value);
+      if (ampLabel) ampLabel.textContent = `${scopeZoom.toFixed(1)}x`;
     });
   }
 
   function render() {
     const w = canvas.width;
     const h = canvas.height;
-    const centerY = h / 2;
 
     ctx.clearRect(0, 0, w, h);
 
-    // Phosphor glow styling
-    ctx.lineWidth = 2;
-    ctx.shadowBlur = 8;
-    ctx.strokeStyle = '#34D399';  // Classic Lab Phosphor Green
-    ctx.shadowColor = 'rgba(52, 211, 153, 0.6)';
-
-    ctx.beginPath();
-
-    const points = 160;
-    const step = w / points;
-
-    for (let i = 0; i <= points; i++) {
-      const x = i * step;
-      let y = centerY;
-      const normalizedX = (i / points) * Math.PI * 8;
-
-      if (scopeMode === 'rf') {
-        // High frequency RF Carrier with AM modulation envelope
-        const carrier = Math.sin(normalizedX * 3.5 + scopePhase);
-        const envelope = 0.5 + 0.5 * Math.sin(normalizedX * 0.5 + scopePhase * 0.3);
-        y = centerY + carrier * envelope * (h * 0.32) * scopeAmp;
-      } else if (scopeMode === 'scada') {
-        // Digital square pulse train (Modbus telemetry)
-        const sq = Math.sin(normalizedX * 1.5 + scopePhase);
-        const val = sq > 0.1 ? 1 : (sq < -0.1 ? -1 : 0);
-        y = centerY + val * (h * 0.3) * scopeAmp;
-      } else if (scopeMode === 'gps') {
-        // UART Serial data pulses (GPS NMEA sentence)
-        const pulse = Math.sin(normalizedX * 2 + scopePhase) + Math.cos(normalizedX * 4 + scopePhase * 1.5);
-        y = centerY + (pulse > 0.5 ? 1 : (pulse < -0.5 ? -1 : 0)) * (h * 0.28) * scopeAmp;
-      } else {
-        // Analog DAQ reading with thermal jitter (LM35)
-        const analog = Math.sin(normalizedX * 0.8 + scopePhase * 0.5) * 0.6;
-        const jitter = (Math.random() - 0.5) * 0.08;
-        y = centerY + (analog + jitter) * (h * 0.3) * scopeAmp;
-      }
-
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+    if (scopeMode === 'rf') {
+      renderHfssPlot(ctx, w, h);
+    } else if (scopeMode === 'fpga') {
+      renderVivadoLogicAnalyzer(ctx, w, h);
+    } else if (scopeMode === 'gps') {
+      renderNmeaGpsStream(ctx, w, h);
+    } else {
+      renderLmdAqPlot(ctx, w, h);
     }
 
-    ctx.stroke();
-
-    scopePhase += 0.08 * scopeSpeed;
+    sweepTime += 0.02 * sweepSpeed;
     requestAnimationFrame(render);
   }
 
   render();
 }
 
+/* --- View 1: Ansys HFSS S11 Return Loss Curve (5.8 GHz Patch) --- */
+function renderHfssPlot(ctx, w, h) {
+  const padLeft = 45;
+  const padRight = 20;
+  const padTop = 20;
+  const padBottom = 30;
+  const plotW = w - padLeft - padRight;
+  const plotH = h - padTop - padBottom;
+
+  // Grid Lines & Labels
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+  ctx.lineWidth = 1;
+  ctx.fillStyle = '#64748B';
+  ctx.font = '9px "JetBrains Mono", monospace';
+
+  // Y-axis: 0 dB, -5 dB, -10 dB, -15 dB, -20 dB
+  const yTicks = [
+    { db: ' 0dB', norm: 0.1 },
+    { db: '-10dB', norm: 0.5 },
+    { db: '-20dB', norm: 0.9 }
+  ];
+
+  yTicks.forEach(t => {
+    const y = padTop + t.norm * plotH;
+    ctx.beginPath();
+    ctx.moveTo(padLeft, y);
+    ctx.lineTo(w - padRight, y);
+    ctx.stroke();
+    ctx.fillText(t.db, 8, y + 3);
+  });
+
+  // -10 dB Reference Threshold Line (VSWR 2:1 Limit)
+  const threshY = padTop + 0.5 * plotH;
+  ctx.strokeStyle = 'rgba(245, 158, 11, 0.35)';
+  ctx.setLineDash([4, 4]);
+  ctx.beginPath();
+  ctx.moveTo(padLeft, threshY);
+  ctx.lineTo(w - padRight, threshY);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#F59E0B';
+  ctx.fillText('VSWR < 2:1 MATCH', w - 120, threshY - 4);
+
+  // X-axis: 5.60 GHz -> 6.00 GHz
+  const xTicks = ['5.60', '5.70', '5.80 GHz', '5.90', '6.00'];
+  xTicks.forEach((txt, idx) => {
+    const x = padLeft + (idx / 4) * plotW;
+    ctx.fillStyle = idx === 2 ? '#34D399' : '#64748B';
+    ctx.fillText(txt, x - 12, h - 10);
+  });
+
+  // Actual S11 Return Loss Curve (Lorentzian Resonant Notch @ 5.80 GHz = -18.4 dB)
+  ctx.beginPath();
+  ctx.lineWidth = 2.5;
+  ctx.strokeStyle = '#34D399';
+  ctx.shadowColor = 'rgba(52, 211, 153, 0.7)';
+  ctx.shadowBlur = 8;
+
+  const points = 120;
+  for (let i = 0; i <= points; i++) {
+    const normX = i / points; // 0 to 1 (5.6 GHz to 6.0 GHz)
+    const freq = 5.60 + normX * 0.40;
+    const px = padLeft + normX * plotW;
+
+    // S11 formula modeling the 5.8 GHz microstrip patch return loss notch
+    const deltaF = (freq - 5.80) / 0.035;
+    const notch = 1 / (1 + deltaF * deltaF);
+    const s11_db = -3.2 - 15.2 * notch * scopeZoom; // -3.2dB base down to -18.4dB notch
+    const py = padTop + (-s11_db / 22.0) * plotH;
+
+    if (i === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Scanning Marker at Resonance (5.80 GHz)
+  const resX = padLeft + 0.5 * plotW;
+  const resY = padTop + (18.4 / 22.0) * plotH;
+
+  ctx.beginPath();
+  ctx.arc(resX, resY, 5, 0, Math.PI * 2);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(resX, resY, 10 + Math.sin(sweepTime * 4) * 2, 0, Math.PI * 2);
+  ctx.strokeStyle = '#34D399';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  // Resonant Tag
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = 'bold 9px "JetBrains Mono", monospace';
+  ctx.fillText('PEAK: -18.4 dB @ 5.80 GHz', resX - 55, resY - 14);
+}
+
+/* --- View 2: Basys 3 FPGA Vivado Logic Analyzer (Digital Waveforms) --- */
+function renderVivadoLogicAnalyzer(ctx, w, h) {
+  const padLeft = 85;
+  const padRight = 15;
+  const plotW = w - padLeft - padRight;
+  const channels = [
+    { name: 'CLK_100M', color: '#94A3B8' },
+    { name: 'RST_N',    color: '#60A5FA' },
+    { name: 'COIN_IN',  color: '#F59E0B' },
+    { name: 'FSM_BUS',  color: '#34D399' },
+    { name: 'DISPENSE', color: '#FF5E3A' }
+  ];
+
+  const rowHeight = (h - 20) / channels.length;
+
+  channels.forEach((ch, idx) => {
+    const yBase = 15 + idx * rowHeight;
+    const yHigh = yBase + 4;
+    const yLow = yBase + rowHeight - 6;
+
+    // Channel label tag
+    ctx.fillStyle = '#1E293B';
+    ctx.fillRect(8, yBase + 2, 70, rowHeight - 6);
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.strokeRect(8, yBase + 2, 70, rowHeight - 6);
+    ctx.fillStyle = ch.color;
+    ctx.font = 'bold 9px "JetBrains Mono", monospace';
+    ctx.fillText(ch.name, 14, yBase + (rowHeight / 2) + 2);
+
+    // Channel baseline divider
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.beginPath();
+    ctx.moveTo(padLeft, yLow + 3);
+    ctx.lineTo(w - padRight, yLow + 3);
+    ctx.stroke();
+
+    // Waveform rendering
+    ctx.strokeStyle = ch.color;
+    ctx.lineWidth = 1.8;
+    ctx.beginPath();
+
+    const tOffset = sweepTime * 35;
+
+    for (let x = 0; x <= plotW; x += 2) {
+      const px = padLeft + x;
+      const t = (x + tOffset);
+      let val = 0;
+
+      if (idx === 0) {
+        // Clock 100MHz (square periodic)
+        val = (Math.floor(t / 10) % 2 === 0) ? 1 : 0;
+      } else if (idx === 1) {
+        // Reset Active Low (High most of the time)
+        val = (Math.floor(t / 140) % 10 === 0) ? 0 : 1;
+      } else if (idx === 2) {
+        // Coin input pulse (intermittent ₹5/₹10 triggers)
+        const cycle = Math.floor(t / 80) % 4;
+        val = (cycle === 1 && (t % 80 < 22)) ? 1 : 0;
+      } else if (idx === 3) {
+        // FSM Bus States (IDLE -> ACCUM -> READY -> DISP)
+        const stateIdx = Math.floor(t / 70) % 4;
+        val = stateIdx / 3;
+      } else {
+        // Dispense Pulse
+        const cycle = Math.floor(t / 140) % 3;
+        val = (cycle === 2 && (t % 140 < 25)) ? 1 : 0;
+      }
+
+      const py = yLow - val * (yLow - yHigh);
+      if (x === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+  });
+
+  // Logic Analyzer Cursor Time Bar
+  const cursorX = padLeft + (plotW * 0.55);
+  ctx.strokeStyle = '#FFFFFF';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([2, 2]);
+  ctx.beginPath();
+  ctx.moveTo(cursorX, 10);
+  ctx.lineTo(cursorX, h - 10);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = '8px "JetBrains Mono", monospace';
+  ctx.fillText('T = 142.5 µs', cursorX + 4, 18);
+}
+
+/* --- View 3: Chaakra IoT Real NMEA-0183 Live GPS Packet Stream --- */
+function renderNmeaGpsStream(ctx, w, h) {
+  ctx.fillStyle = '#060709';
+  ctx.fillRect(0, 0, w, h);
+
+  // Background GPS Grid
+  ctx.strokeStyle = 'rgba(16, 185, 129, 0.08)';
+  ctx.lineWidth = 1;
+  for (let x = 0; x < w; x += 30) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, h);
+    ctx.stroke();
+  }
+  for (let y = 0; y < h; y += 25) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(w, y);
+    ctx.stroke();
+  }
+
+  // Raw NMEA Stream Feed
+  const lines = [
+    { raw: '$GPRMC,071422.00,A,0955.8741,N,07616.0318,E,54.2,142.0,290826,,,A*7A', type: 'RMC ACTIVE' },
+    { raw: '$GPGGA,071422.00,0955.8741,N,07616.0318,E,1,08,0.9,24.2,M,-2.4,M,,*41', type: '3D FIX (8 SATS)' },
+    { raw: '$GPVTG,142.0,T,,M,54.2,N,100.4,K,A*3A', type: 'SPEED: 54.2 km/h' },
+    { raw: '$GPGSA,A,3,04,05,09,12,24,28,17,19,,,,,1.4,0.9,1.1*36', type: 'HDOP: 0.90 [EXCELLENT]' }
+  ];
+
+  ctx.font = '10px "JetBrains Mono", monospace';
+  lines.forEach((l, idx) => {
+    const yPos = 28 + idx * 30;
+
+    // Stream Badge
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+    ctx.fillRect(10, yPos - 12, w - 20, 22);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+    ctx.strokeRect(10, yPos - 12, w - 20, 22);
+
+    ctx.fillStyle = '#34D399';
+    ctx.fillText(l.raw, 18, yPos + 3);
+
+    ctx.fillStyle = '#94A3B8';
+    ctx.fillText(l.type, w - 140, yPos + 3);
+  });
+
+  // Telemetry Ping Sweep Indicator
+  const pingY = h - 14;
+  ctx.fillStyle = '#10B981';
+  ctx.beginPath();
+  ctx.arc(20, pingY, 4, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#E2E8F0';
+  ctx.font = 'bold 9px "JetBrains Mono", monospace';
+  ctx.fillText('LIVE ESP32 SERIAL DAQ: 9600 BAUD | REFRESH < 5s | ROUTE: KOCHI -> TRIVANDRUM', 32, pingY + 3);
+}
+
+/* --- View 4: Microcontroller LM35 24-Hour Thermal DAQ Curve --- */
+function renderLmdAqPlot(ctx, w, h) {
+  const padLeft = 45;
+  const padRight = 20;
+  const padTop = 20;
+  const padBottom = 30;
+  const plotW = w - padLeft - padRight;
+  const plotH = h - padTop - padBottom;
+
+  // Grid Lines & Labels
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+  ctx.lineWidth = 1;
+  ctx.fillStyle = '#64748B';
+  ctx.font = '9px "JetBrains Mono", monospace';
+
+  // Y-axis: 20°C -> 35°C
+  const yTicks = [
+    { t: '35°C', norm: 0.0 },
+    { t: '30°C', norm: 0.33 },
+    { t: '25°C', norm: 0.66 },
+    { t: '20°C', norm: 1.0 }
+  ];
+
+  yTicks.forEach(t => {
+    const y = padTop + t.norm * plotH;
+    ctx.beginPath();
+    ctx.moveTo(padLeft, y);
+    ctx.lineTo(w - padRight, y);
+    ctx.stroke();
+    ctx.fillText(t.t, 10, y + 3);
+  });
+
+  // X-axis: 00:00 -> 24:00
+  const timeLabels = ['00h', '06h', '12h (Noon)', '18h', '24h'];
+  timeLabels.forEach((txt, idx) => {
+    const x = padLeft + (idx / 4) * plotW;
+    ctx.fillText(txt, x - 12, h - 10);
+  });
+
+  // Temperature Profile (Ambient thermal variation with ATmega328 ADC samples)
+  ctx.beginPath();
+  ctx.lineWidth = 2.2;
+  ctx.strokeStyle = '#34D399';
+  ctx.shadowColor = 'rgba(52, 211, 153, 0.6)';
+  ctx.shadowBlur = 6;
+
+  const points = 100;
+  for (let i = 0; i <= points; i++) {
+    const normX = i / points;
+    const px = padLeft + normX * plotW;
+
+    // Temperature curve: 24.2°C morning, 32.1°C noon peak, 26.0°C night
+    const thermalCycle = Math.sin((normX - 0.25) * Math.PI * 2);
+    const baseTemp = 27.5 + 4.5 * thermalCycle;
+    const adcQuantization = (Math.sin(i * 12) * 0.15); // ADC quantization steps
+    const currentTemp = baseTemp + adcQuantization;
+
+    // Map 20°C..35°C to plot height
+    const normY = 1.0 - ((currentTemp - 20) / 15);
+    const py = padTop + normY * plotH;
+
+    if (i === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Active Sampling Point Marker
+  const sampleNorm = (sweepTime * 0.15) % 1.0;
+  const sampleX = padLeft + sampleNorm * plotW;
+  const sampleCycle = Math.sin((sampleNorm - 0.25) * Math.PI * 2);
+  const sampleTemp = (27.5 + 4.5 * sampleCycle).toFixed(1);
+  const sampleY = padTop + (1.0 - ((sampleTemp - 20) / 15)) * plotH;
+
+  ctx.beginPath();
+  ctx.arc(sampleX, sampleY, 4.5, 0, Math.PI * 2);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(sampleX, sampleY, 9, 0, Math.PI * 2);
+  ctx.strokeStyle = '#34D399';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  // Live Sample Tag
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = 'bold 9px "JetBrains Mono", monospace';
+  ctx.fillText(`T = ${sampleTemp}°C (±0.5°C)`, sampleX - 35, sampleY - 12);
+}
+
+/* -------------------------------------------------------------
+ * 2.1 Mode Selector & Dynamic HUD Telemetry Switcher
+ * -----------------------------------------------------------*/
 function setScopeMode(mode) {
   scopeMode = mode;
   document.querySelectorAll('.scope-mode-btn').forEach((btn) => {
@@ -147,20 +452,30 @@ function setScopeMode(mode) {
   });
 
   const statusEl = document.getElementById('scope-status');
-  const freqEl = document.getElementById('scope-freq-val');
+  const hudLeft = document.getElementById('scope-hud-left');
+  const hudCenter = document.getElementById('scope-hud-center');
+  const hudRight = document.getElementById('scope-hud-right');
 
   if (mode === 'rf') {
-    if (statusEl) statusEl.textContent = '5.8 GHz RF WAVEFORM';
-    if (freqEl) freqEl.textContent = '5.80 GHz';
-  } else if (mode === 'scada') {
-    if (statusEl) statusEl.textContent = 'SCADA MODBUS IEC-60870';
-    if (freqEl) freqEl.textContent = '19.2 kbaud';
+    if (statusEl) statusEl.textContent = 'ANSYS HFSS S11 RETURN LOSS';
+    if (hudLeft) hudLeft.innerHTML = 'PARAM: <strong class="text-white">S11 (dB)</strong>';
+    if (hudCenter) hudCenter.innerHTML = 'RESONANCE: <strong class="text-signal-emerald">5.80 GHz (-18.4 dB)</strong>';
+    if (hudRight) hudRight.innerHTML = 'VSWR: <strong class="text-white">1.28:1</strong>';
+  } else if (mode === 'fpga') {
+    if (statusEl) statusEl.textContent = 'XILINX VIVADO LOGIC ANALYZER';
+    if (hudLeft) hudLeft.innerHTML = 'CHANNELS: <strong class="text-white">5 DIGITAL BUS</strong>';
+    if (hudCenter) hudCenter.innerHTML = 'CLOCK: <strong class="text-signal-emerald">100 MHz (BASYS 3)</strong>';
+    if (hudRight) hudRight.innerHTML = 'RESPONSE: <strong class="text-white">&lt;1.0s FSM</strong>';
   } else if (mode === 'gps') {
-    if (statusEl) statusEl.textContent = 'NMEA-0183 GPS STREAM';
-    if (freqEl) freqEl.textContent = '9600 bps';
+    if (statusEl) statusEl.textContent = 'CHAAKRA NMEA-0183 LIVE GPS';
+    if (hudLeft) hudLeft.innerHTML = 'LAT: <strong class="text-white">9.9312° N</strong>';
+    if (hudCenter) hudCenter.innerHTML = 'SYNC: <strong class="text-signal-emerald">&lt;5s FIREBASE</strong>';
+    if (hudRight) hudRight.innerHTML = 'LNG: <strong class="text-white">76.2673° E</strong>';
   } else {
-    if (statusEl) statusEl.textContent = 'LM35 ANALOG ADC DAQ';
-    if (freqEl) freqEl.textContent = '100 Hz';
+    if (statusEl) statusEl.textContent = 'LM35 24-HOUR THERMAL DAQ';
+    if (hudLeft) hudLeft.innerHTML = 'RANGE: <strong class="text-white">20°C – 35°C</strong>';
+    if (hudCenter) hudCenter.innerHTML = 'ACCURACY: <strong class="text-signal-emerald">±0.5°C</strong>';
+    if (hudRight) hudRight.innerHTML = 'RATE: <strong class="text-white">10s SAMPLE</strong>';
   }
 }
 

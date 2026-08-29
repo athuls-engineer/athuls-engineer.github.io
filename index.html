@@ -227,70 +227,73 @@
 
       </div>
 
-      <!-- Hero Right: Industrial Hardware Oscilloscope Rig -->
+      <!-- Hero Right: Industrial Hardware & Simulation Telemetry Rig -->
       <div class="lg:col-span-5 relative">
         <div class="bento-card rounded-2xl p-5 sm:p-6 shadow-2xl space-y-4 border border-white/[0.1]">
           
-          <!-- Oscilloscope Header -->
+          <!-- Rig Header -->
           <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
             <div class="flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-signal-emerald"></span>
-              <span class="font-mono text-xs font-semibold text-slate-200 tracking-wider">HARDWARE SIGNAL RIG</span>
+              <span class="font-mono text-xs font-semibold text-slate-200 tracking-wider">PROJECT TELEMETRY & DATA RIG</span>
             </div>
             <span id="scope-status" class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.05] text-slate-300 border border-white/[0.1]">
-              5.8 GHz RF WAVEFORM
+              ANSYS HFSS S11 RETURN LOSS
             </span>
           </div>
 
-          <!-- Oscilloscope Screen (Laboratory Phosphor Display) -->
-          <div class="relative w-full h-44 rounded-xl bg-black border border-white/[0.08] overflow-hidden shadow-inner flex items-center justify-center">
-            <div class="absolute inset-0 grid-scope-overlay opacity-40 pointer-events-none"></div>
+          <!-- Screen (Laboratory Phosphor & Logic Display) -->
+          <div class="relative w-full h-48 rounded-xl bg-black border border-white/[0.08] overflow-hidden shadow-inner flex items-center justify-center">
+            <div class="absolute inset-0 grid-scope-overlay opacity-30 pointer-events-none"></div>
             <canvas id="oscilloscope-canvas" class="w-full h-full relative z-10"></canvas>
             
             <!-- Real-time HUD Telemetry -->
-            <div class="absolute bottom-2 left-3 z-20 flex gap-3 text-[10px] font-mono text-slate-400 bg-base-950/90 px-2.5 py-1 rounded border border-white/[0.08]">
-              <span>FREQ: <strong id="scope-freq-val" class="text-white">5.80 GHz</strong></span>
-              <span>Vpp: <strong class="text-white">3.30 V</strong></span>
-              <span>THD: <strong class="text-slate-300">&lt;0.02%</strong></span>
+            <div id="scope-hud-container" class="absolute bottom-2 left-2 right-2 z-20 flex items-center justify-between text-[10px] font-mono text-slate-300 bg-base-950/95 px-3 py-1.5 rounded-lg border border-white/[0.1] backdrop-blur-md">
+              <span id="scope-hud-left">PARAM: <strong class="text-white">S11 (dB)</strong></span>
+              <span id="scope-hud-center">RESONANCE: <strong id="scope-freq-val" class="text-signal-emerald">5.80 GHz (-18.4 dB)</strong></span>
+              <span id="scope-hud-right">VSWR: <strong class="text-white">1.28:1</strong></span>
             </div>
           </div>
 
-          <!-- Interactive Waveform Presets -->
+          <!-- Interactive Engineering Project Presets -->
           <div>
-            <label class="block text-[11px] font-mono text-slate-400 mb-2 uppercase">Select Telemetry Preset:</label>
+            <label class="block text-[11px] font-mono text-slate-400 mb-2 uppercase">Select Project Engineering View:</label>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5" id="scope-mode-selector">
-              <button onclick="setScopeMode('rf')" class="scope-mode-btn active px-2.5 py-2 rounded-lg text-[11px] font-mono font-medium transition-all text-center" data-mode="rf">
-                5.8GHz V2V
+              <button onclick="setScopeMode('rf')" class="scope-mode-btn active px-2 py-2 rounded-lg text-[11px] font-mono font-medium transition-all text-center" data-mode="rf" title="5.8 GHz V2V Antenna HFSS Simulation">
+                5.8GHz HFSS
               </button>
-              <button onclick="setScopeMode('scada')" class="scope-mode-btn px-2.5 py-2 rounded-lg text-[11px] font-mono font-medium transition-all text-center" data-mode="scada">
-                SCADA Bus
+              <button onclick="setScopeMode('fpga')" class="scope-mode-btn px-2 py-2 rounded-lg text-[11px] font-mono font-medium transition-all text-center" data-mode="fpga" title="Basys 3 FPGA Vivado Logic Analyzer">
+                Basys3 FSM
               </button>
-              <button onclick="setScopeMode('gps')" class="scope-mode-btn px-2.5 py-2 rounded-lg text-[11px] font-mono font-medium transition-all text-center" data-mode="gps">
+              <button onclick="setScopeMode('gps')" class="scope-mode-btn px-2 py-2 rounded-lg text-[11px] font-mono font-medium transition-all text-center" data-mode="gps" title="Chaakra IoT NMEA GPS Telemetry">
                 GPS NMEA
               </button>
-              <button onclick="setScopeMode('daq')" class="scope-mode-btn px-2.5 py-2 rounded-lg text-[11px] font-mono font-medium transition-all text-center" data-mode="daq">
+              <button onclick="setScopeMode('daq')" class="scope-mode-btn px-2 py-2 rounded-lg text-[11px] font-mono font-medium transition-all text-center" data-mode="daq" title="LM35 24-Hour Temperature Acquisition">
                 LM35 DAQ
               </button>
             </div>
           </div>
 
-          <!-- Interactive Tuning Knobs -->
+          <!-- Interactive Tuning Controls -->
           <div class="grid grid-cols-2 gap-3 pt-1 border-t border-white/[0.06]">
             <div>
               <div class="flex justify-between text-[11px] font-mono text-slate-400 mb-1">
-                <span>Phase Velocity</span>
+                <span>Sweep / Time Base</span>
                 <span id="scope-speed-label" class="text-white">1.0x</span>
               </div>
-              <input type="range" id="scope-speed-slider" min="0.2" max="3" step="0.1" value="1" class="w-full h-1.5 bg-base-800 rounded-lg appearance-none cursor-pointer accent-white" />
+              <input type="range" id="scope-speed-slider" min="0.5" max="2.5" step="0.1" value="1" class="w-full h-1.5 bg-base-800 rounded-lg appearance-none cursor-pointer accent-white" />
             </div>
             <div>
               <div class="flex justify-between text-[11px] font-mono text-slate-400 mb-1">
-                <span>Modulation Amplitude</span>
+                <span>Zoom / Span</span>
                 <span id="scope-amp-label" class="text-white">1.0x</span>
               </div>
-              <input type="range" id="scope-amp-slider" min="0.2" max="2" step="0.1" value="1" class="w-full h-1.5 bg-base-800 rounded-lg appearance-none cursor-pointer accent-white" />
+              <input type="range" id="scope-amp-slider" min="0.6" max="1.6" step="0.1" value="1" class="w-full h-1.5 bg-base-800 rounded-lg appearance-none cursor-pointer accent-white" />
             </div>
           </div>
+
+        </div>
+      </div>
 
         </div>
       </div>
