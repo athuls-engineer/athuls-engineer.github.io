@@ -752,20 +752,92 @@ function showToast(message) {
 }
 
 /* -------------------------------------------------------------
- * 9. Contact Form Handler (Mailto Trigger)
+ * 9. Contact Form Handler (Async Dispatch with Fallback)
  * -----------------------------------------------------------*/
-function handleContactSubmit(e) {
+async function handleContactSubmit(e) {
   e.preventDefault();
-  const name = document.getElementById('sender-name').value;
-  const email = document.getElementById('sender-email').value;
-  const subject = document.getElementById('msg-subject').value;
-  const body = document.getElementById('msg-body').value;
+  const btn = document.getElementById('contact-submit-btn');
+  const btnText = document.getElementById('contact-btn-text');
+  const statusDiv = document.getElementById('contact-status');
 
-  const formattedBody = `Sender: ${name} (${email})\n\nMessage:\n${body}`;
-  const mailtoLink = `mailto:athuls2580@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formattedBody)}`;
+  const name = document.getElementById('sender-name')?.value.trim() || '';
+  const email = document.getElementById('sender-email')?.value.trim() || '';
+  const subject = document.getElementById('msg-subject')?.value.trim() || '';
+  const body = document.getElementById('msg-body')?.value.trim() || '';
 
-  window.location.href = mailtoLink;
-  showToast('Opening default email client...');
+  if (!name || !email || !body) return;
+
+  if (btn) btn.disabled = true;
+  if (btnText) btnText.textContent = 'Dispatching Telemetry...';
+
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        access_key: 'a0a038bf-2775-430b-b184-7a33a36db5f6',
+        name: name,
+        email: email,
+        subject: `[Portfolio Direct] ${subject}`,
+        message: body,
+        to: 'athuls2580@gmail.com'
+      })
+    });
+
+    const result = await response.json();
+
+    if (response.ok && result.success) {
+      if (statusDiv) {
+        statusDiv.className = 'text-xs font-mono text-center p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 block';
+        statusDiv.innerHTML = '✓ Message dispatched successfully! Received at <strong>athuls2580@gmail.com</strong>. I will respond within 24 hours.';
+      }
+      showToast('Message sent to Athul S!');
+      document.getElementById('contact-form')?.reset();
+    } else {
+      throw new Error(result.message || 'Dispatch error');
+    }
+  } catch (err) {
+    console.warn('Direct web dispatch fallback activated:', err);
+    const formattedBody = `Sender: ${name} (${email})\n\nMessage:\n${body}`;
+    const mailtoLink = `mailto:athuls2580@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formattedBody)}`;
+    if (statusDiv) {
+      statusDiv.className = 'text-xs font-mono text-center p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 block';
+      statusDiv.innerHTML = `Direct dispatch unavailable. <a href="${mailtoLink}" class="underline font-bold text-white hover:text-amber-200">Click here to open email client</a>.`;
+    }
+    showToast('Fallback email ready');
+    window.location.href = mailtoLink;
+  } finally {
+    if (btn) btn.disabled = false;
+    if (btnText) btnText.textContent = 'Send Message to Athul S';
+    if (window.lucide) lucide.createIcons();
+  }
+}
+
+/* -------------------------------------------------------------
+ * 9B. Interactive CLAHE Low-Light Filter Toggle
+ * -----------------------------------------------------------*/
+let isClaheActive = true;
+function toggleClaheFilter() {
+  isClaheActive = !isClaheActive;
+  const feed = document.getElementById('clahe-feed-display');
+  const badge = document.getElementById('clahe-status-badge');
+  const btnText = document.getElementById('clahe-toggle-text');
+  if (!feed || !badge) return;
+
+  if (isClaheActive) {
+    feed.style.filter = 'contrast(1.4) brightness(1.2) saturate(1.1)';
+    badge.textContent = 'CLAHE: ACTIVE (Dynamic Equalization)';
+    badge.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold';
+    if (btnText) btnText.textContent = 'Disable CLAHE (View Raw 12 Lux Feed)';
+  } else {
+    feed.style.filter = 'contrast(0.7) brightness(0.4) saturate(0.8)';
+    badge.textContent = 'RAW LOW-LIGHT: OFF (12 Lux Dim Feed)';
+    badge.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.08] text-slate-400 border border-white/[0.1]';
+    if (btnText) btnText.textContent = 'Activate CLAHE Low-Light Enhancement';
+  }
 }
 
 /* -------------------------------------------------------------
@@ -777,6 +849,7 @@ const projectDetails = {
     duration: '10/2025 – 05/2026',
     category: 'IoT &bull; Mobile Architecture &bull; Cloud Telemetry',
     tags: ['ESP32', 'Neo-6M GPS Module', 'React Native', 'Firebase Realtime DB', 'Leaflet Maps'],
+    repoUrl: 'https://github.com/athuls-engineer/chakraa-smart-bus-tracking-system',
     description: 'An intelligent real-time fleet transit solution bridging bare-metal microcontroller telematics with high-concurrency cloud listeners and dynamic mobile mapping.',
     highlights: [
       'Engineered onboard microcontroller telemetry nodes using ESP32 paired with GPS modules.',
@@ -790,7 +863,53 @@ const projectDetails = {
   [Firebase Realtime Database] 
           │ (Dynamic WebSocket Listeners <5s)
           ▼
-  [React Native Mobile App (Leaflet Maps + ETA Router)]`
+  [React Native Mobile App (Leaflet Maps + ETA Router)]`,
+    pinouts: [
+      { signal: 'ESP32 UART2 Rx (GPIO 16)', pin: 'Neo-6M GPS Module Tx' },
+      { signal: 'ESP32 UART2 Tx (GPIO 17)', pin: 'Neo-6M GPS Module Rx' },
+      { signal: 'VCC / Regulated Logic', pin: '3.3V LDO Regulator (AMS1117)' },
+      { signal: 'Cloud Sync Cadence', pin: '< 5 Seconds WebSocket Polling' }
+    ]
+  },
+
+  edgevision: {
+    title: 'VisionSentinel: Edge AI Surveillance & CLAHE Gateway',
+    duration: '04/2025 – 08/2026',
+    category: 'Edge AI &bull; Computer Vision &bull; IoT Telemetry',
+    tags: ['Python 3.10+', 'OpenCV', 'CLAHE Algorithm', 'FastAPI', 'HOG + Linear SVM', 'Telegram Bot API'],
+    repoUrl: 'https://github.com/athuls-engineer/edgevision-iot',
+    description: 'A production-ready Edge AI surveillance monitor that transforms standard webcams and ESP32-CAM nodes into intelligent security monitors with real-time low-light enhancement and instant smartphone photo alerts.',
+    highlights: [
+      'Engineered real-time person and face detection pipeline using OpenCV HOG + Linear SVM and Haar cascades.',
+      'Developed Adaptive CLAHE (Contrast Limited Adaptive Histogram Equalization) on Luminance channel for clear detection in dim lighting (<15 lux).',
+      'Automated high-res watermarked JPEG evidence capture to secure local storage with dwell-time heuristics.',
+      'Implemented real-time Telegram Bot API dispatcher delivering intrusion photo alerts straight to smartphones within 500ms.'
+    ],
+    architecture: `[ Physical Camera / ESP32-CAM ]
+                     │
+                     ▼
+       [ OpenCV Video Ingestion Loop ]
+                     │
+                     ▼
+  [ Low-Light CLAHE Histogram Equalization ]
+                     │
+                     ▼
+  [ Real AI Detector (HOG Person + Haar Face + MOG2) ]
+                     │
+        ┌────────────┴────────────┐
+        ▼                         ▼
+[ MJPEG Live Stream ]    [ Security Trigger Engine ]
+(Web UI /video_feed)              │
+                    ┌─────────────┼─────────────┐
+                    ▼             ▼             ▼
+             [ Save Evidence ] [ Audible ] [ Telegram Bot ]
+             (evidence/*.jpg)  (Siren/Beep) (Photo Alert)`,
+    pinouts: [
+      { signal: 'Video Input Source', pin: 'UVC Webcam / RTSP IP Stream / ESP32-CAM' },
+      { signal: 'Low-Light Equalizer', pin: 'Adaptive CLAHE (clipLimit=2.0, tileGrid=8x8)' },
+      { signal: 'Vision Inference Engine', pin: 'HOG Pedestrian SVM + Haar Cascades' },
+      { signal: 'Telemetry Dispatch', pin: 'Telegram Bot API (<500ms latency)' }
+    ]
   },
 
   fpga: {
@@ -811,7 +930,13 @@ const projectDetails = {
                                       │
                ┌──────────────────────┴──────────────────────┐
                ▼                                             ▼
-     [Item Dispense Drivers]                      [BCD Converter & 7-Segment]`
+     [Item Dispense Drivers]                      [BCD Converter & 7-Segment]`,
+    pinouts: [
+      { signal: '7-Segment Cathodes (CA..CG)', pin: 'Basys 3 Pins W7, W6, U8, V5, U5, V8, U7' },
+      { signal: 'Display Anodes (AN0..AN3)', pin: 'Basys 3 Pins W4, V4, U4, U2' },
+      { signal: 'Coin Input Buttons', pin: 'BTNC (Reset), BTNU (₹5 Coin), BTND (₹10 Coin)' },
+      { signal: '100 MHz Master Oscillator', pin: 'Basys 3 Pin W5 (Prescaled to 1 kHz display refresh)' }
+    ]
   },
 
   antenna: {
@@ -829,7 +954,13 @@ const projectDetails = {
                                                               │
                                               (>85% Efficiency, <10ms Latency)
                                                               ▼
-                                               [Peer Vehicle V2V Node]`
+                                               [Peer Vehicle V2V Node]`,
+    pinouts: [
+      { signal: 'Dielectric Substrate', pin: 'Rogers RT/duroid 5880 (εr = 2.2)' },
+      { signal: 'Dielectric Thickness (h)', pin: '1.575 mm' },
+      { signal: 'Patch Radiator Geometry', pin: '2.50 cm × 2.50 cm Microstrip' },
+      { signal: 'Resonance Center / Return Loss', pin: '5.80 GHz (S11 = -18.4 dB, VSWR < 1.3)' }
+    ]
   },
 
   logger: {
@@ -847,7 +978,14 @@ const projectDetails = {
                                                               │
                                                  (Embedded C Timer Interrupts)
                                                               ▼
-                                                   [16x2 LCD Screen Display]`
+                                                   [16x2 LCD Screen Display]`,
+    pinouts: [
+      { signal: 'LM35 Analog Vout', pin: 'ATmega328 ADC0 (Pin 23 / PC0)' },
+      { signal: 'HD44780 Register Select (RS)', pin: 'PORTD Pin 2 (PD2)' },
+      { signal: 'HD44780 Enable Strobe (EN)', pin: 'PORTD Pin 3 (PD3)' },
+      { signal: 'HD44780 Data 4-bit Bus', pin: 'PORTD Pin 4..7 (PD4..PD7)' },
+      { signal: 'Sampling Trigger Interrupt', pin: 'Timer 1 CTC Mode (10s Periodic Flag)' }
+    ]
   }
 };
 
@@ -860,20 +998,43 @@ function openProjectModal(projectId) {
 
   content.innerHTML = `
     <div class="border-b border-white/[0.08] pb-4">
-      <div class="flex items-center justify-between gap-2 mb-1.5">
+      <div class="flex items-center justify-between gap-2 mb-2">
         <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-white/[0.06] text-white border border-white/[0.1] font-semibold">${data.category}</span>
         <span class="text-xs font-mono text-slate-400">${data.duration}</span>
       </div>
-      <h3 class="text-2xl font-heading font-bold text-white mt-2">${data.title}</h3>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-1">
+        <h3 class="text-2xl font-heading font-bold text-white">${data.title}</h3>
+        ${data.repoUrl ? `
+          <a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer" class="self-start sm:self-auto px-3.5 py-1.5 rounded-lg text-xs font-mono text-black bg-white hover:bg-slate-200 font-semibold transition-all flex items-center gap-1.5 shrink-0 shadow-lg shadow-white/10">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+            <span>View Source Code</span>
+            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+          </a>
+        ` : ''}
+      </div>
       <p class="text-xs sm:text-sm text-slate-300 mt-2 font-light leading-relaxed">${data.description}</p>
     </div>
 
     <div>
       <h4 class="text-xs font-mono font-bold text-white uppercase tracking-wider mb-2">Technical Highlights</h4>
       <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
-        ${data.highlights.map(h => `<li class="flex items-start gap-2"><span class="text-slate-400 mt-0.5">&bull;</span><span>${h}</span></li>`).join('')}
+        ${data.highlights.map(h => `<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">&bull;</span><span>${h}</span></li>`).join('')}
       </ul>
     </div>
+
+    ${data.pinouts ? `
+    <div>
+      <h4 class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+        <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+        <span>Hardware Pinout & Physical Signal Mapping</span>
+      </h4>
+      <div class="p-3.5 rounded-xl bg-black border border-white/[0.08] text-xs font-mono">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300">
+          ${data.pinouts.map(p => `<div class="flex items-center justify-between p-2 rounded bg-base-950 border border-white/[0.04]"><span class="text-slate-400 font-medium">${p.signal}</span><span class="text-white font-bold">${p.pin}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    ` : ''}
 
     <div>
       <h4 class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider mb-2">System Architecture / Flow</h4>
@@ -886,6 +1047,17 @@ function openProjectModal(projectId) {
         ${data.tags.map(tag => `<span class="tech-badge">${tag}</span>`).join('')}
       </div>
     </div>
+
+    ${data.repoUrl ? `
+    <div class="pt-3 border-t border-white/[0.08] flex items-center justify-between">
+      <span class="text-xs font-mono text-slate-400">Official Open Source Repository</span>
+      <a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl text-xs font-mono font-semibold bg-white text-black hover:bg-slate-200 transition-all flex items-center gap-2">
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+        <span>Open on GitHub</span>
+        <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+      </a>
+    </div>
+    ` : ''}
   `;
 
   modal.classList.remove('hidden');
