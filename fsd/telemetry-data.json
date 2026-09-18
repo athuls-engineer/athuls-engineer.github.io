@@ -1,0 +1,12 @@
+{
+  "referenceAnchorMiles": 14586254064,
+  "referenceTimestamp": "2026-09-17T15:00:00.000Z",
+  "fleetVelocityPerSecond": 231.48,
+  "dailyAccumulationMiles": 20000000,
+  "activeFleetVehicles": "2M+",
+  "jurisdictionsCount": 12,
+  "verifiedBenchmark": "7.4x",
+  "activeNeuralNetVersion": "V12.5 / V13",
+  "dataSource": "Official Tesla Vehicle Safety Report & Shareholder Disclosures",
+  "lastCalibrated": "2026-09-18T00:00:00.000Z"
+}
