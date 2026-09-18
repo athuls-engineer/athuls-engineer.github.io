@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="iconGlow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#e82127" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#050505" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="frameGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#222222" />
+      <stop offset="100%" stop-color="#111111" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer Rounded Squircle -->
+  <rect width="512" height="512" rx="115" fill="#050505" />
+  <rect width="512" height="512" rx="115" fill="url(#iconGlow)" />
+  <rect x="12" y="12" width="488" height="488" rx="103" fill="none" stroke="url(#frameGrad)" stroke-width="4" />
+
+  <!-- Tesla T Logo in Red -->
+  <g transform="translate(106, 110) scale(0.88)">
+    <!-- Top curved eyebrow -->
+    <path fill="#e82127" d="M38 48 C 100 24, 240 24, 302 48 C 290 62, 230 46, 170 46 C 110 46, 50 62, 38 48 Z" />
+    
+    <!-- Main Crossbar & Downward T-Stem -->
+    <path fill="#e82127" d="M12 90 C 70 70, 140 70, 160 84 L 160 300 C 160 310, 180 310, 180 300 L 180 84 C 200 70, 270 70, 328 90 C 314 112, 276 96, 210 102 L 210 320 C 210 350, 130 350, 130 320 L 130 102 C 64 96, 26 112, 12 90 Z" />
+  </g>
+
+  <!-- Live Pulse Dot -->
+  <circle cx="256" cy="430" r="8" fill="#34c759" />
+</svg>
