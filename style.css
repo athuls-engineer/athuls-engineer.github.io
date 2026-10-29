@@ -1,129 +1,310 @@
 /* ==========================================================================
-   INDUSTRIAL OBSIDIAN & PRECISION SILICON DESIGN SYSTEM
-   Inspired by Teenage Engineering, Linear, Keysight & Apple Pro Hardware
+   Athul S — Engineering Portfolio Stylesheet
+   Modern, Precision Dark Theme (Slate & Deep Carbon)
+   Zero bloat, high readability, responsive, accessible
    ========================================================================== */
 
 :root {
-  --bg-base: #08090C;
-  --bg-surface: #0E1015;
-  --bg-surface-raised: #14171F;
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-hover: rgba(255, 255, 255, 0.16);
-  --accent-amber: #FF5E3A;       /* Industrial International Amber / Signal */
-  --accent-cobalt: #3B82F6;      /* Precision RF Cobalt */
-  --accent-phosphor: #10B981;    /* Laboratory Phosphor Green */
+  --bg-primary: #07090D;
+  --bg-secondary: #0D1117;
+  --bg-card: #121721;
+  --bg-card-hover: #171E2B;
+  --bg-surface: #1B2332;
+  
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.14);
+  --border-highlight: rgba(255, 255, 255, 0.25);
+  
+  --accent-blue: #3B82F6;
+  --accent-blue-glow: rgba(59, 130, 246, 0.15);
+  --accent-emerald: #10B981;
+  --accent-emerald-glow: rgba(16, 185, 129, 0.15);
+  --accent-amber: #F59E0B;
+  
   --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
+  --text-secondary: #CBD5E1;
+  --text-muted: #8492A6;
+  --text-faint: #4B5565;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* Subtle Technical Dot Matrix Background */
+/* Base Setup */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
 body {
-  background-color: var(--bg-base);
-  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 32px 32px;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 17, 23, 0.8), rgba(7, 9, 13, 1));
+  background-size: 32px 32px, 100% 100%;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: rgba(59, 130, 246, 0.3);
+  color: #FFFFFF;
 }
 
 /* Custom Sleek Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #08090C;
+  background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1E232E;
+  background: #1F2937;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #333C4D;
+  background: #374151;
 }
 
-/* Luxury Hardware Bento Card System */
+/* Typography Helpers */
+.font-heading { font-family: var(--font-heading); }
+.font-mono { font-family: var(--font-mono); }
+
+/* Bento Card Design System */
 .bento-card {
-  background: rgba(14, 16, 21, 0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .bento-card:hover {
-  border-color: var(--border-hover);
-  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  border-color: var(--border-medium);
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
 }
 
-/* Metallic Chrome Heading Gradient */
-.text-metallic {
-  background: linear-gradient(180deg, #FFFFFF 15%, #E2E8F0 50%, #94A3B8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.bento-card-static {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* Subtle Titanium Heading Gradient */
-.text-titanium {
-  background: linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 50%, #94A3B8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Laboratory Oscilloscope Grid Background */
-.grid-scope-overlay {
-  background-size: 24px 24px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-}
-
-/* Professional Scope Mode Selector */
-.scope-mode-btn {
-  background: rgba(18, 21, 28, 0.85);
-  color: #94A3B8;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  transition: all 0.2s ease;
-}
-
-.scope-mode-btn:hover {
-  background: rgba(28, 33, 44, 0.9);
-  color: #F8FAFC;
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-.scope-mode-btn.active {
-  background: #141820;
-  color: #F8FAFC;
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
-}
-
-/* Authentic HD44780 Industrial LCD Display */
-.lcd-screen {
-  background: #08120E;
-  color: #34D399;
-  text-shadow: 0 0 6px rgba(52, 211, 153, 0.5);
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(52, 211, 153, 0.2);
-}
-
-/* Precision Tech Badges */
+/* Clean Tech Badges */
 .tech-badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.6rem;
+  padding: 0.2rem 0.55rem;
   border-radius: 0.375rem;
-  background: rgba(18, 21, 28, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  color: #CBD5E1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
   transition: all 0.15s ease;
 }
 
 .tech-badge:hover {
   color: #FFFFFF;
-  background: rgba(28, 33, 44, 0.9);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-medium);
+}
+
+/* Category Filter Pills */
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-medium);
+}
+
+.filter-btn.active {
+  color: #FFFFFF;
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+}
+
+/* Architecture Inspector Tabs */
+.arch-tab-btn {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.arch-tab-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.arch-tab-btn.active {
+  color: #FFFFFF;
+  background: var(--bg-surface);
+  border-color: var(--border-medium);
+  border-left: 3px solid var(--accent-blue);
+}
+
+/* Architecture Block Diagrams */
+.diagram-node {
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.5rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.diagram-node:hover {
+  border-color: var(--border-medium);
+}
+
+/* Modal Animations & Overlay */
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Pulse indicator */
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--accent-emerald);
+  display: inline-block;
+  box-shadow: 0 0 8px var(--accent-emerald);
+}
+
+/* Quick Contact Chips */
+.contact-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.6rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.contact-chip:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-medium);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* Primary and Secondary Action Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: 0.625rem;
+  background: #FFFFFF;
+  color: #07090D;
+  font-weight: 600;
+  font-size: 0.825rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:hover {
+  background: #E2E8F0;
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  border-radius: 0.625rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.825rem;
+  text-decoration: none;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--border-medium);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* Subtle Gradient Glow in Hero */
+.ambient-glow {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Toast Notifications */
+#toast {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
 }
 
 /* Print Optimization for Resume */
@@ -140,13 +321,13 @@ body {
     top: 0;
     width: 100%;
     height: auto;
-    background: #ffffff !important;
+    background: #FFFFFF !important;
     color: #000000 !important;
     padding: 0;
     margin: 0;
   }
   #resume-modal .bento-card {
-    background: #ffffff !important;
+    background: #FFFFFF !important;
     color: #000000 !important;
     border: none !important;
     box-shadow: none !important;
@@ -155,18 +336,21 @@ body {
   #printable-resume {
     color: #000000 !important;
   }
-  #printable-resume h1, #printable-resume h3, #printable-resume h4, #printable-resume strong {
+  #printable-resume h1, 
+  #printable-resume h3, 
+  #printable-resume h4, 
+  #printable-resume strong,
+  #printable-resume span {
     color: #000000 !important;
   }
-  #printable-resume .bg-obsidian-950, #printable-resume .bg-obsidian-900 {
-    background: #f8fafc !important;
-    border-color: #cbd5e1 !important;
+  #printable-resume .bg-primary, 
+  #printable-resume .bg-card,
+  #printable-resume div {
+    background: #FFFFFF !important;
+    border-color: #E2E8F0 !important;
     color: #000000 !important;
   }
-  #printable-resume .text-slate-300, #printable-resume .text-slate-400 {
-    color: #334155 !important;
-  }
-  button, header, footer {
+  button, header, footer, .btn-primary, .btn-secondary, #toast {
     display: none !important;
   }
 }
