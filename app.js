@@ -121,7 +121,7 @@ function initProjectFilters() {
  * -----------------------------------------------------------*/
 const projectDetails = {
   chaakra: {
-    title: 'Chaakra: Real-Time IoT GPS Bus Tracking Platform',
+    title: 'Chaakra IoT-Based GPS Bus Tracking System',
     duration: '10/2025  -  05/2026',
     category: 'Embedded IoT &bull; Microcontroller Firmware',
     tags: ['ESP32-WROOM-32', 'u-blox Neo-6M GPS', 'React Native', 'Firebase Realtime DB', 'Leaflet Maps', 'UART2'],
@@ -149,7 +149,7 @@ const projectDetails = {
   },
 
   fpga: {
-    title: 'Basys 3 FPGA Candy Vending Machine Controller',
+    title: 'FPGA Candy Vending Machine (Basys 3)',
     duration: '02/2025  -  03/2025',
     category: 'Digital VLSI Design &bull; Verilog HDL',
     tags: ['Verilog HDL', 'Xilinx Basys 3 (Artix-7)', 'FSM Controller', 'Switch Debounce', 'BCD Converter', '7-Segment Multiplexer'],

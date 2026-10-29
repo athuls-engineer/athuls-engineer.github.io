@@ -1,8 +1,8 @@
 # Athul S | Personal Engineering Portfolio
 
-The open-source repository for the personal engineering portfolio website of **Athul S**, showcasing embedded systems firmware, IoT telematics, digital hardware (FPGA), RF communications, and software engineering deliverables.
+The open-source repository for the personal engineering portfolio website of **Athul S**, showcasing embedded systems firmware, IoT telematics, digital hardware (FPGA), RF communications, data analytics, and software engineering deliverables.
 
-🌐 **Live Website**: [https://athuls-engineer.github.io](https://athuls-engineer.github.io)
+**Live Website**: [https://athuls-engineer.github.io](https://athuls-engineer.github.io)
 
 ---
 
@@ -17,14 +17,28 @@ The open-source repository for the personal engineering portfolio website of **A
 
 ## Featured Engineering Projects
 
-- **[Chaakra: Real-Time IoT GPS Bus Tracking Platform](https://github.com/athuls-engineer/chakraa-smart-bus-tracking-system)** - ESP32 microcontroller telematics with u-blox GPS over UART2, Firebase Realtime Database, and React Native maps with sub-5s refresh latency.
+- **[Chaakra: IoT-Based GPS Bus Tracking System](https://github.com/athuls-engineer/chakraa-smart-bus-tracking-system)** - ESP32 microcontroller telematics with u-blox GPS over UART, NMEA parsing, Firebase Realtime Database, and React Native maps with sub-5s refresh latency.
+- **Microcontroller Temperature Data Logger** - Continuous thermal acquisition system using an LM35 sensor, bare-metal ATmega328P with periodic interrupt sampling, and a 16x2 LCD display.
+- **Compact Automotive Antenna Design and Simulation** - High-frequency 5.8 GHz vehicle-to-vehicle RF simulation in Ansys HFSS evaluating return loss, gain, and radiation patterns.
+- **FPGA Candy Vending Machine (Basys 3)** - Multi-module Verilog HDL digital architecture with FSM state machine control, button debouncing, BCD conversion, and 7-segment display logic on Xilinx Artix-7.
 - **[EdgeVision: Low-Light Surveillance Gateway](https://github.com/athuls-engineer/edgevision-iot)** - Edge AI surveillance system utilizing OpenCV CLAHE contrast equalization for low-light environments and Telegram Bot photo alerts.
 - **[Tesla FSD Fleet Telemetry Tracker](https://athuls-engineer.github.io/fsd/)** - Live interactive analytics tracker modeling cumulative Tesla Full Self-Driving mileage milestones across 2M+ vehicles.
 - **[AegisGuard: Rootless Local Android DNS Sinkhole](https://github.com/athuls-engineer/aegisguard-android)** - High-performance local Android packet filter utilizing Android's VpnService API and custom RFC 1035 UDP parser.
 - **[SAMM: Desktop Mod Manager](https://github.com/athuls-engineer/samm)** - Cross-platform desktop systems application engineered in Rust and React via Tauri v2 with multithreaded Rayon indexing.
-- **Basys 3 FPGA Candy Vending Machine** - Multi-module Verilog HDL digital architecture with Mealy/Moore FSMs, mechanical switch debouncing, and multiplexed 7-segment display logic on Xilinx Artix-7.
-- **5.8 GHz Automotive V2V Microstrip Patch Antenna** - High-frequency RF simulation on FR4 in Ansys HFSS with return loss S11 = -18.4 dB and >85% radiation efficiency.
-- **Industrial Multi-Channel Energy & Sensor Data Logger** - Continuous bare-metal acquisition system using STM32 / ATmega328P with Timer CTC interrupts, ADC sampling, and RS-485 Modbus RTU telemetry.
+
+---
+
+## Certifications & Professional Development
+
+- **Google Advanced Data Analytics Professional Certificate** (Google Career Certificates, Coursera, 2026)
+- **NEBOSH International General Certificate (IGC)** (Result Awaited)
+- **Machine Learning Training** (Amrita Vishwa Vidyapeetham, 2024)
+
+---
+
+## Leadership & Community Involvement
+
+- **Old Age Home Program** | Overall Coordinator (Student Social Responsibility Initiative, Nov 2024)
 
 ---
 
