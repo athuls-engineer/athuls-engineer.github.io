@@ -357,7 +357,7 @@ function openProjectModal(projectId) {
   content.innerHTML = `
     <div class="border-b border-slate-200 dark:border-white/[0.08] pb-4">
       <div class="flex items-center justify-between gap-2 mb-2">
-        <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-500/20 font-semibold">${data.category}</span>
+        <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-semibold">${data.category}</span>
         <span class="text-xs font-mono text-slate-500 dark:text-slate-400">${data.duration}</span>
       </div>
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-1">
@@ -383,13 +383,13 @@ function openProjectModal(projectId) {
     <div>
       <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Technical Highlights & Implementation</h4>
       <ul class="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
-        ${data.highlights.map(h => `<li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">&bull;</span><span>${h}</span></li>`).join('')}
+        ${data.highlights.map(h => `<li class="flex items-start gap-2"><span class="text-zinc-400 dark:text-zinc-500 font-bold mt-0.5">&bull;</span><span>${h}</span></li>`).join('')}
       </ul>
     </div>
 
     ${data.pinouts ? `
     <div>
-      <h4 class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+      <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-white uppercase tracking-wider mb-2 flex items-center gap-1.5">
         <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
         <span>Hardware Pinout & Physical Signal Mapping</span>
       </h4>
@@ -565,7 +565,7 @@ async function handleContactSubmit(event) {
 
     if (response.ok && result.success) {
       if (statusDiv) {
-        statusDiv.className = 'text-xs font-mono text-center p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400 block';
+        statusDiv.className = 'text-xs font-mono text-center p-3.5 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 text-zinc-900 dark:text-white block';
         statusDiv.innerHTML = 'Message delivered successfully! I will get back to you shortly.';
       }
       showToast('Message sent to Athul S!');
@@ -578,7 +578,7 @@ async function handleContactSubmit(event) {
     const formattedBody = `Sender: ${name} (${email})\n\nMessage:\n${body}`;
     const mailtoLink = `mailto:athuls2580@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formattedBody)}`;
     if (statusDiv) {
-      statusDiv.className = 'text-xs font-mono text-center p-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 text-amber-600 dark:text-amber-300 block';
+      statusDiv.className = 'text-xs font-mono text-center p-3 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 text-zinc-900 dark:text-white block';
       statusDiv.innerHTML = `Email service unavailable. <a href="${mailtoLink}" class="underline font-bold text-slate-900 dark:text-white hover:underline">Click here to send via your email client</a>.`;
     }
     showToast('Opening email client...');
@@ -612,11 +612,11 @@ function initScrollSpy() {
     navLinks.forEach(link => {
       const href = link.getAttribute('href');
       if (href === `#${currentId}`) {
-        link.classList.add('text-blue-600', 'dark:text-white', 'bg-blue-50', 'dark:bg-white/[0.08]', 'font-semibold');
-        link.classList.remove('text-slate-600', 'dark:text-slate-300');
+        link.classList.add('text-zinc-950', 'dark:text-white', 'bg-zinc-200', 'dark:bg-white/[0.12]', 'font-semibold');
+        link.classList.remove('text-zinc-600', 'dark:text-zinc-400');
       } else {
-        link.classList.remove('text-blue-600', 'dark:text-white', 'bg-blue-50', 'dark:bg-white/[0.08]', 'font-semibold');
-        link.classList.add('text-slate-600', 'dark:text-slate-300');
+        link.classList.remove('text-zinc-950', 'dark:text-white', 'bg-zinc-200', 'dark:bg-white/[0.12]', 'font-semibold');
+        link.classList.add('text-zinc-600', 'dark:text-zinc-400');
       }
     });
   });
