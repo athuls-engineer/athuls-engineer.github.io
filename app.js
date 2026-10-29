@@ -1,20 +1,16 @@
 /**
- * Athul S — Portfolio Logic, Architecture Inspector & Dual-Theme System
- * Fast, accessible, production-grade, zero-bloat.
+ * Athul S  -  Portfolio Logic, Modal Handlers & Dual-Theme System
+ * Zero bloat, production-ready, accessible.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Theme System
   initThemeSystem();
 
-  // Initialize Lucide Icons
   if (window.lucide) {
     lucide.createIcons();
   }
 
-  // Navigation, Inspector & Filters
   initMobileDrawer();
-  initArchitectureInspector();
   initProjectFilters();
   initKeyboardAccessibility();
   initScrollSpy();
@@ -23,6 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
 /* -------------------------------------------------------------
  * 1. Dual-Theme System (Light & Dark Mode)
  * -----------------------------------------------------------*/
+window.toggleTheme = function() {
+  const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+  const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  applyTheme(nextTheme);
+  showToast(`Switched to ${nextTheme === 'dark' ? 'Dark' : 'Light'} Mode`);
+};
+
 function initThemeSystem() {
   const savedTheme = localStorage.getItem('theme');
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -30,18 +33,14 @@ function initThemeSystem() {
 
   applyTheme(initialTheme);
 
-  // Bind theme toggle buttons
   const toggleButtons = document.querySelectorAll('.theme-toggle-btn');
   toggleButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      applyTheme(nextTheme);
-      showToast(`Switched to ${nextTheme === 'dark' ? 'Dark' : 'Light'} Mode`);
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.toggleTheme();
     });
   });
 
-  // Listen for OS theme changes
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     if (!localStorage.getItem('theme')) {
       applyTheme(e.matches ? 'dark' : 'light');
@@ -52,27 +51,23 @@ function initThemeSystem() {
 function applyTheme(theme) {
   if (theme === 'dark') {
     document.documentElement.classList.add('dark');
+    document.documentElement.setAttribute('data-theme', 'dark');
   } else {
     document.documentElement.classList.remove('dark');
+    document.documentElement.setAttribute('data-theme', 'light');
   }
 
   localStorage.setItem('theme', theme);
-  updateThemeIcons(theme);
+  updateThemeTooltips(theme);
 }
 
-function updateThemeIcons(theme) {
-  const icons = document.querySelectorAll('.theme-icon');
-  icons.forEach(icon => {
-    if (theme === 'dark') {
-      icon.setAttribute('data-lucide', 'sun');
-    } else {
-      icon.setAttribute('data-lucide', 'moon');
+function updateThemeTooltips(theme) {
+  const toggleButtons = document.querySelectorAll('.theme-toggle-btn');
+  toggleButtons.forEach(btn => {
+    if (btn.classList.contains('has-tooltip')) {
+      btn.setAttribute('data-tooltip', theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode');
     }
   });
-
-  if (window.lucide) {
-    lucide.createIcons();
-  }
 }
 
 /* -------------------------------------------------------------
@@ -96,190 +91,7 @@ function initMobileDrawer() {
 }
 
 /* -------------------------------------------------------------
- * 3. Architecture & Hardware Signal Flow Inspector
- * -----------------------------------------------------------*/
-const architectureData = {
-  chaakra: {
-    title: 'Chaakra: Real-Time IoT GPS Bus Telematics',
-    subtitle: 'ESP32 + u-blox Neo-6M GPS → Firebase Realtime DB → React Native',
-    specs: [
-      { label: 'Microcontroller', value: 'ESP32-WROOM-32 (Dual Core 240MHz)' },
-      { label: 'GPS Sensor Interface', value: 'u-blox Neo-6M via Hardware UART2 (9600 Baud)' },
-      { label: 'Telemetry Sync Cadence', value: '< 5 Seconds WebSocket Push' },
-      { label: 'Cloud Protocol', value: 'HTTPS / Firebase REST & Dynamic Listeners' },
-      { label: 'Mobile App Engine', value: 'React Native + Leaflet Mapping' }
-    ],
-    flow: [
-      { step: '01. Ingestion', desc: 'Neo-6M GPS acquires NMEA $GPGGA/$GPRMC sentences' },
-      { step: '02. Parsing & Filter', desc: 'ESP32 firmware parses coordinates, speed & heading' },
-      { step: '03. Cloud Dispatch', desc: 'Secure JSON payload posted to Firebase Realtime DB' },
-      { step: '04. Mobile Sync', desc: 'React Native client renders live bus location & ETA' }
-    ],
-    codeSnippet: `// ESP32 UART2 GPS Ingestion Loop
-HardwareSerial gpsSerial(2); // GPIO16(RX), GPIO17(TX)
-TinyGPSPlus gps;
-
-void syncTelemetryTask(void *pvParameters) {
-  while (true) {
-    while (gpsSerial.available() > 0) {
-      if (gps.encode(gpsSerial.read()) && gps.location.isValid()) {
-        pushToFirebase(gps.location.lat(), gps.location.lng(), gps.speed.kmph());
-      }
-    }
-    vTaskDelay(pdMS_TO_TICKS(4000)); // 4-second refresh cycle
-  }
-}`
-  },
-
-  fpga: {
-    title: 'Basys 3 FPGA Vending Machine Controller',
-    subtitle: '6-Module Verilog RTL Architecture on Xilinx Artix-7 (XC7A35T)',
-    specs: [
-      { label: 'Target FPGA Board', value: 'Digilent Basys 3 (Xilinx Artix-7)' },
-      { label: 'Master Clock Input', value: '100 MHz Oscillator (Pin W5)' },
-      { label: 'Internal Clock Prescaler', value: '100 MHz → 1 kHz Display Refresh' },
-      { label: 'State Machine Model', value: 'Moore/Mealy FSM (IDLE, ACCUM, DISPENSE, REFUND)' },
-      { label: 'I/O Peripherals', value: '3 Buttons (Debounced), 4 Anodes, 7 Cathodes' }
-    ],
-    flow: [
-      { step: '01. Debounce Unit', desc: 'Clean mechanical push button jitter (20ms shift reg)' },
-      { step: '02. FSM Controller', desc: 'Transitions credit balance across ₹5 / ₹10 increments' },
-      { step: '03. BCD Conversion', desc: 'Converts binary balance to 2-digit binary coded decimal' },
-      { step: '04. 7-Seg Multiplexer', desc: 'Cycles display anodes at 1 kHz for persistence of vision' }
-    ],
-    codeSnippet: `// Verilog FSM State Transition Core
-always @(posedge clk or posedge rst) begin
-  if (rst) state <= S_IDLE;
-  else case (state)
-    S_IDLE:   if (coin_5 || coin_10) state <= S_ACCUM;
-    S_ACCUM:  if (balance >= ITEM_PRICE) state <= S_DISPENSE;
-    S_DISPENSE: begin
-      dispense_out <= 1'b1;
-      state <= (balance > ITEM_PRICE) ? S_REFUND : S_IDLE;
-    end
-    S_REFUND:   state <= S_IDLE;
-  endcase
-end`
-  },
-
-  antenna: {
-    title: '5.8 GHz Automotive V2V Patch Antenna',
-    subtitle: 'Microstrip Electromagnetics Simulation in Ansys HFSS',
-    specs: [
-      { label: 'Operational Frequency', value: '5.80 GHz (DSRC Automotive Band)' },
-      { label: 'Form Factor Dimensions', value: '25.0 mm × 25.0 mm Microstrip' },
-      { label: 'Substrate Material', value: 'Rogers RT/duroid 5880 (εr = 2.2, h = 1.575mm)' },
-      { label: 'Return Loss (S11)', value: '-18.4 dB @ 5.80 GHz Center Resonance' },
-      { label: 'Simulated Efficiency', value: '> 85% Radiation Efficiency (VSWR < 1.3:1)' }
-    ],
-    flow: [
-      { step: '01. Substrate Selection', desc: 'Low loss tangent (tan δ = 0.0009) for 5.8GHz RF' },
-      { step: '02. Analytical Sizing', desc: 'Calculated patch width & length with fringing field offset' },
-      { step: '03. Feed Impedance', desc: '50-Ohm inset microstrip feed line for impedance match' },
-      { step: '04. HFSS 3D Solver', desc: 'Finite Element Method simulation of S11, Gain & VSWR' }
-    ],
-    codeSnippet: `// Key Physical RF Parameters (5.8 GHz Resonance)
-Target Frequency:    f0 = 5.80 GHz
-Substrate Permittivity:  eps_r = 2.20
-Effective Permittivity: eps_eff = 2.11
-Patch Width (W):     25.0 mm
-Patch Length (L):    25.0 mm
-Substrate Height (h): 1.575 mm
-Measured Return Loss: S11 = -18.4 dB (Target < -10 dB met)
-VSWR:                1.28:1`
-  },
-
-  logger: {
-    title: 'ATmega328 Ambient Temperature DAQ',
-    subtitle: 'Bare-Metal Embedded C Acquisition with HD44780 16×2 LCD',
-    specs: [
-      { label: 'Microcontroller', value: 'Microchip ATmega328P (16MHz External Crystal)' },
-      { label: 'Transducer Sensor', value: 'Texas Instruments LM35 (10 mV / °C)' },
-      { label: 'Sampling Timing Engine', value: 'Timer1 CTC Mode (10-Second Interrupt Trigger)' },
-      { label: 'ADC Accuracy', value: '10-Bit Successive Approximation (±0.5°C)' },
-      { label: 'Display Bus Interface', value: 'HD44780 LCD in 4-bit Nibble Mode' }
-    ],
-    flow: [
-      { step: '01. Periodic Timer1', desc: '16-bit Timer1 fires ISR(TIMER1_COMPA_vect) every 10s' },
-      { step: '02. ADC Conversion', desc: 'ADC0 reads analog mV, averaging 8 consecutive samples' },
-      { step: '03. Scale Conversion', desc: 'Converts ADC integer to calibrated Celsius floating point' },
-      { step: '04. LCD Strobe', desc: 'Sends formatted character array to HD44780 over 4-bit bus' }
-    ],
-    codeSnippet: `// Bare-Metal Timer1 CTC Sampling Interrupt (10-second cadence)
-ISR(TIMER1_COMPA_vect) {
-  uint16_t raw_adc = adc_read_averaged(0, 8);
-  float temp_celsius = (raw_adc * 5.0 / 1024.0) * 100.0;
-  
-  char lcd_buffer[16];
-  snprintf(lcd_buffer, sizeof(lcd_buffer), "TEMP: %.1f C", temp_celsius);
-  lcd_set_cursor(0, 0);
-  lcd_print_string(lcd_buffer);
-}`
-  }
-};
-
-function initArchitectureInspector() {
-  const tabButtons = document.querySelectorAll('.arch-tab-btn');
-  tabButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const view = btn.getAttribute('data-view');
-      setArchitectureView(view);
-    });
-  });
-
-  setArchitectureView('chaakra');
-}
-
-function setArchitectureView(key) {
-  const data = architectureData[key];
-  if (!data) return;
-
-  // Update tabs
-  document.querySelectorAll('.arch-tab-btn').forEach(btn => {
-    if (btn.getAttribute('data-view') === key) {
-      btn.classList.add('active');
-    } else {
-      btn.classList.remove('active');
-    }
-  });
-
-  // Update title & subtitle
-  const titleEl = document.getElementById('arch-title');
-  const subEl = document.getElementById('arch-subtitle');
-  if (titleEl) titleEl.textContent = data.title;
-  if (subEl) subEl.textContent = data.subtitle;
-
-  // Update specs grid
-  const specsContainer = document.getElementById('arch-specs-list');
-  if (specsContainer) {
-    specsContainer.innerHTML = data.specs.map(s => `
-      <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-100 dark:bg-base-950/80 border border-slate-200 dark:border-white/[0.05] text-xs font-mono">
-        <span class="text-slate-500 dark:text-slate-400">${s.label}</span>
-        <span class="text-slate-900 dark:text-white font-medium">${s.value}</span>
-      </div>
-    `).join('');
-  }
-
-  // Update architecture flow steps
-  const flowContainer = document.getElementById('arch-flow-steps');
-  if (flowContainer) {
-    flowContainer.innerHTML = data.flow.map(f => `
-      <div class="diagram-node">
-        <div class="text-[11px] font-bold text-blue-600 dark:text-blue-400 mb-1">${f.step}</div>
-        <div class="text-xs text-slate-700 dark:text-slate-300 leading-snug">${f.desc}</div>
-      </div>
-    `).join('');
-  }
-
-  // Update code preview
-  const codeEl = document.getElementById('arch-code-snippet');
-  if (codeEl) {
-    codeEl.textContent = data.codeSnippet;
-  }
-}
-
-/* -------------------------------------------------------------
- * 4. Project Filter System
+ * 3. Project Filter System
  * -----------------------------------------------------------*/
 function initProjectFilters() {
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -305,29 +117,29 @@ function initProjectFilters() {
 }
 
 /* -------------------------------------------------------------
- * 5. Project Detail Modal Data & Handler
+ * 4. Project Detail Modal Data & Handler
  * -----------------------------------------------------------*/
 const projectDetails = {
   chaakra: {
-    title: 'Chaakra: Real-Time IoT GPS Bus Tracking & Booking',
-    duration: '10/2025 – 05/2026',
-    category: 'Embedded IoT • Mobile Architecture • Telemetry',
-    tags: ['ESP32', 'u-blox Neo-6M GPS', 'React Native', 'Firebase Realtime DB', 'Leaflet Maps', 'UART2'],
+    title: 'Chaakra: Real-Time IoT GPS Bus Tracking Platform',
+    duration: '10/2025  -  05/2026',
+    category: 'Embedded IoT &bull; Microcontroller Firmware',
+    tags: ['ESP32-WROOM-32', 'u-blox Neo-6M GPS', 'React Native', 'Firebase Realtime DB', 'Leaflet Maps', 'UART2'],
     repoUrl: 'https://github.com/athuls-engineer/chakraa-smart-bus-tracking-system',
-    description: 'An end-to-end smart transit solution connecting hardware microcontroller telematics with high-concurrency cloud synchronization and interactive cross-platform mapping.',
+    description: 'An end-to-end connected vehicle tracking and seat booking solution connecting physical microcontroller hardware to real-time cloud databases and cross-platform mobile mapping.',
     highlights: [
-      'Engineered onboard microcontroller telemetry nodes using ESP32 paired with u-blox GPS modules over hardware UART2.',
-      'Achieved live tracking refresh intervals under 5 seconds across multiple concurrent buses.',
+      'Engineered onboard microcontroller firmware using ESP32 paired with u-blox GPS modules over hardware UART2.',
+      'Achieved live tracking refresh intervals under 5 seconds across multiple concurrent vehicles.',
       'Integrated Leaflet maps for live route geometry, dynamic ETA estimation, and seat booking on React Native.',
-      'Optimized backend state synchronization with dynamic Firebase listeners to reduce network data overhead.'
+      'Optimized backend state synchronization with dynamic Firebase listeners to reduce cellular network payload.'
     ],
-    architecture: `[ESP32 + GPS Module on Bus]
-          │ (Wi-Fi / Cellular Data Packet via UART2)
-          ▼
+    architecture: `[ESP32 + u-blox GPS Module on Bus]
+          | (NMEA Sentence Ingestion via UART2 @ 9600 Baud)
+          v
   [Firebase Realtime Database]
-          │ (Dynamic WebSocket Listeners <5s)
-          ▼
-  [React Native Mobile App (Leaflet Maps + ETA Router)]`,
+          | (Dynamic WebSocket Listeners <5s)
+          v
+  [React Native Mobile App (Leaflet Maps + Live Route Routing)]`,
     pinouts: [
       { signal: 'ESP32 UART2 Rx (GPIO 16)', pin: 'Neo-6M GPS Module Tx' },
       { signal: 'ESP32 UART2 Tx (GPIO 17)', pin: 'Neo-6M GPS Module Rx' },
@@ -337,48 +149,48 @@ const projectDetails = {
   },
 
   fpga: {
-    title: 'FPGA Candy Vending Machine Controller (Basys 3)',
-    duration: '02/2025 – 03/2025',
-    category: 'Digital VLSI Design • Verilog HDL',
+    title: 'Basys 3 FPGA Candy Vending Machine Controller',
+    duration: '02/2025  -  03/2025',
+    category: 'Digital VLSI Design &bull; Verilog HDL',
     tags: ['Verilog HDL', 'Xilinx Basys 3 (Artix-7)', 'FSM Controller', 'Switch Debounce', 'BCD Converter', '7-Segment Multiplexer'],
-    description: 'A modular, high-reliability digital hardware state machine engineered in Verilog HDL to orchestrate asynchronous coin inputs, credit accumulation, product validation, and multi-digit 7-segment display output.',
+    description: 'A modular digital hardware state machine engineered in Verilog HDL to orchestrate asynchronous coin inputs, credit accumulation, product validation, and multiplexed 7-segment display output.',
     highlights: [
       'Constructed 6 modular Verilog HDL blocks: FSM controller, switch debounce filter, BCD converter, clock divider, and 7-segment display driver.',
-      'Simulated and verified vending logic with 3 coin inputs (₹5, ₹10) and 4 item outputs, achieving real-time response <1s.',
-      'Implemented full XDC pin constraint mapping targeting the Xilinx Artix-7 XC7A35T FPGA chip.'
+      'Simulated and verified vending logic with 3 coin inputs (INR 5, INR 10) and 4 item outputs, achieving real-time response <1s.',
+      'Mapped complete physical pin constraints (XDC) targeting the Xilinx Artix-7 XC7A35T FPGA chip.'
     ],
-    architecture: `[Coin Push Buttons] ──> [Debounce Filter Module (20ms)]
-                                      │
-                                      ▼
-                             [FSM Control Core] <──> [Clock Prescaler (100MHz -> 1kHz)]
-                                      │
-                ┌─────────────────────┴─────────────────────┐
-                ▼                                           ▼
+    architecture: `[Coin Push Buttons] --> [Debounce Filter Module (20ms shift reg)]
+                                      |
+                                      v
+                             [FSM Control Core] <--> [Clock Prescaler (100MHz -> 1kHz)]
+                                      |
+                +---------------------+---------------------+
+                v                                           v
       [Item Dispense Drivers]                    [BCD Converter & 7-Segment Mux]`,
     pinouts: [
       { signal: '7-Segment Cathodes (CA..CG)', pin: 'Basys 3 Pins W7, W6, U8, V5, U5, V8, U7' },
       { signal: 'Display Anodes (AN0..AN3)', pin: 'Basys 3 Pins W4, V4, U4, U2' },
-      { signal: 'Coin Input Buttons', pin: 'BTNC (Reset), BTNU (₹5 Coin), BTND (₹10 Coin)' },
+      { signal: 'Coin Input Buttons', pin: 'BTNC (Reset), BTNU (INR 5 Coin), BTND (INR 10 Coin)' },
       { signal: '100 MHz Master Oscillator', pin: 'Basys 3 Pin W5 (Prescaled to 1 kHz display refresh)' }
     ]
   },
 
   antenna: {
-    title: '5.8 GHz Compact Automotive Antenna for V2V Systems',
-    duration: '11/2024 – 01/2025',
-    category: 'RF Engineering • High-Frequency Electromagnetics',
+    title: '5.8 GHz Automotive V2V Microstrip Patch Antenna',
+    duration: '11/2024  -  01/2025',
+    category: 'RF Engineering &bull; High-Frequency Electromagnetics',
     tags: ['Ansys HFSS', '5.8 GHz DSRC Band', 'Microstrip Patch', 'Return Loss (S11)', 'Radiation Efficiency', 'V2V Telematics'],
-    description: 'An ultra-compact 2.5 × 2.5 cm microstrip patch antenna designed for next-generation Vehicle-to-Vehicle (V2V) cooperative collision avoidance and DSRC band communications.',
+    description: 'An ultra-compact 2.5 × 2.5 cm microstrip patch antenna designed for next-generation Vehicle-to-Vehicle (V2V) dedicated short-range communications (DSRC).',
     highlights: [
-      'Designed a 2.5 × 2.5 cm antenna prototype operating at 5.8 GHz for dedicated short-range communications (DSRC).',
-      'Achieved >85% radiation efficiency and <10 ms latency in dense vehicular simulation environments.',
+      'Designed a 2.5 × 2.5 cm antenna prototype operating at 5.8 GHz for dedicated short-range vehicular communication.',
+      'Achieved >85% radiation efficiency and <10 ms simulated latency in vehicular propagation environments.',
       'Simulated antenna performance parameters including return loss (S11 = -18.4 dB), gain, and radiation pattern using Ansys HFSS.'
     ],
-    architecture: `[Vehicle Transceiver] ── (50Ω Microstrip Feed) ──> [2.5 x 2.5 cm Patch @ 5.8 GHz]
-                                                              │
-                                              (>85% Efficiency, <10ms Latency)
-                                                              ▼
-                                                [Peer Vehicle V2V Node]`,
+    architecture: `[Vehicle Transceiver] -- (50Ω Microstrip Inset Feed) --> [2.5 x 2.5 cm Patch @ 5.8 GHz]
+                                                                      |
+                                                      (>85% Efficiency, S11 = -18.4 dB)
+                                                                      v
+                                                        [Peer Vehicle V2V Node]`,
     pinouts: [
       { signal: 'Dielectric Substrate', pin: 'Rogers RT/duroid 5880 (εr = 2.2)' },
       { signal: 'Dielectric Thickness (h)', pin: '1.575 mm' },
@@ -389,19 +201,19 @@ const projectDetails = {
 
   logger: {
     title: 'Microcontroller Precision Temperature Data Logger',
-    duration: '12/2024 – 12/2024',
-    category: 'Embedded Systems • Bare-Metal Firmware',
+    duration: '12/2024  -  12/2024',
+    category: 'Embedded Systems &bull; Bare-Metal Firmware',
     tags: ['ATmega328 AVR', 'LM35 Sensor', 'Embedded C', 'HD44780 LCD', 'Timer1 CTC', 'ADC Prescaling'],
     description: 'A standalone embedded data acquisition unit engineered for continuous, high-accuracy ambient temperature recording, signal conditioning, and local LCD display.',
     highlights: [
-      'Logged temperature every 10 seconds with ±0.5°C accuracy over 24-hour cycles using LM35 + ATmega328.',
+      'Logged temperature every 10 seconds with ±0.5°C accuracy over continuous 24-hour validation cycles using LM35 + ATmega328.',
       'Achieved 100% data integrity with continuous LCD telemetry updates over a 4-bit HD44780 parallel bus.',
-      'Developed bare-metal embedded C firmware utilizing Timer1 CTC mode interrupts for power-efficient periodic ADC conversions.'
+      'Developed bare-metal embedded C firmware utilizing Timer1 CTC mode interrupts for periodic ADC conversions.'
     ],
-    architecture: `[LM35 Temp Transducer] ── (Analog mV Signal) ──> [ATmega328 ADC0 (10-Bit)]
-                                                              │
+    architecture: `[LM35 Temp Transducer] -- (Analog mV Signal) --> [ATmega328 ADC0 (10-Bit)]
+                                                              |
                                                  (Timer1 CTC Interrupts every 10s)
-                                                              ▼
+                                                              v
                                                    [HD44780 16x2 LCD Display]`,
     pinouts: [
       { signal: 'LM35 Analog Vout', pin: 'ATmega328 ADC0 (Pin 23 / PC0)' },
@@ -413,36 +225,29 @@ const projectDetails = {
   },
 
   edgevision: {
-    title: 'VisionSentinel: Edge AI Surveillance & Low-Light CLAHE',
-    duration: '04/2025 – 08/2026',
-    category: 'Edge AI • Computer Vision • Security Telemetry',
+    title: 'EdgeVision: Edge AI Surveillance & Low-Light Enhancement',
+    duration: '04/2025  -  08/2026',
+    category: 'Edge AI &bull; Computer Vision &bull; Security',
     tags: ['Python 3.10+', 'OpenCV', 'CLAHE Algorithm', 'FastAPI', 'HOG + Linear SVM', 'Telegram Bot API'],
     repoUrl: 'https://github.com/athuls-engineer/edgevision-iot',
-    description: 'A production-grade Edge AI surveillance gateway converting standard webcams and ESP32-CAM nodes into intelligent security monitors with real-time low-light contrast equalization and instant smartphone photo alerts.',
+    description: 'An Edge AI surveillance monitor designed for low-light environments with adaptive contrast limited histogram equalization (CLAHE) on luminance channels, real-time pedestrian detection, and Telegram alert dispatch.',
     highlights: [
-      'Engineered real-time person detection pipeline using OpenCV HOG + Linear SVM and Haar cascades.',
-      'Integrated Adaptive CLAHE (Contrast Limited Adaptive Histogram Equalization) on Luminance channel for robust detection in dim lighting (<15 lux).',
-      'Automated high-res JPEG evidence capture to local storage with configurable dwell-time heuristics.',
+      'Engineered real-time person detection pipeline using OpenCV HOG + Linear SVM and Haar cascade verification.',
+      'Integrated Adaptive CLAHE on Luminance channel for clear detection in dim lighting (<15 lux).',
+      'Automated JPEG evidence capture to local storage with configurable dwell-time heuristics.',
       'Implemented real-time Telegram Bot API dispatcher delivering intrusion photo alerts straight to smartphones within 500ms.'
     ],
-    architecture: `[ Physical Camera / ESP32-CAM ]
-                     │
-                     ▼
-       [ OpenCV Video Ingestion Loop ]
-                     │
-                     ▼
-  [ Low-Light CLAHE Histogram Equalization ]
-                     │
-                     ▼
-  [ Vision Inference (HOG Pedestrian + Haar Cascades) ]
-                     │
-        ┌────────────┴────────────┐
-        ▼                         ▼
-[ MJPEG Live Stream ]    [ Security Trigger Engine ]
-(Web UI /video_feed)              │
-                    ┌─────────────┼─────────────┐
-                    ▼             ▼             ▼
-             [ Save Evidence ] [ Alert Tone ] [ Telegram Bot (<500ms) ]`,
+    architecture: `[ Camera Source / ESP32-CAM ]
+                 |
+                 v
+    [ Low-Light CLAHE Equalization ]
+                 |
+                 v
+    [ HOG Pedestrian + Haar Face SVM ]
+                 |
+    +------------+------------+
+    v                         v
+[ MJPEG Live Stream ]    [ Security Engine -> Telegram Bot (<500ms) ]`,
     pinouts: [
       { signal: 'Video Input Source', pin: 'UVC Webcam / RTSP IP Stream / ESP32-CAM' },
       { signal: 'Low-Light Equalizer', pin: 'Adaptive CLAHE (clipLimit=2.0, tileGrid=8x8)' },
@@ -454,28 +259,88 @@ const projectDetails = {
   fsd: {
     title: 'Tesla FSD Fleet Telemetry & Safety Benchmark',
     duration: '2026',
-    category: 'Full-Stack Web • Telemetry Analytics',
-    tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Canvas Graphics', 'OpenGraph'],
+    category: 'Web Application &bull; Real-Time Telemetry',
+    tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Canvas Graphics', 'PWA'],
     repoUrl: 'https://github.com/athuls-engineer/tesla-fsd-tracker',
     liveUrl: 'fsd/',
-    description: 'A live interactive dashboard tracking cumulative Tesla Full Self-Driving (Supervised) fleet miles across 2M+ vehicles in 12 countries, highlighting milestone progression and 7.4x safety benchmarks.',
+    description: 'An interactive web dashboard tracking cumulative Tesla Full Self-Driving (Supervised) fleet miles across 2M+ vehicles in 12 countries, highlighting milestone progression and 7.4x safety benchmarks.',
     highlights: [
       'Engineered client-side real-time telemetry model calculating fleet mileage accumulation.',
       'Built interactive 3D perception visualizer and statistical milestone growth curves.',
       'Deployed as an accessible, standalone PWA sub-app on GitHub Pages at /fsd.'
     ],
-    architecture: `[Fleet Milestone Baseline] ──> [Real-Time Poisson & Linear Model]
-                                          │
-                                          ▼
+    architecture: `[Fleet Milestone Baseline] --> [Real-Time Poisson & Linear Model]
+                                          |
+                                          v
                                [React + Tailwind UI View]
-                                          │
-                     ┌────────────────────┴────────────────────┐
-                     ▼                                         ▼
+                                          |
+                     +--------------------+--------------------+
+                     v                                         v
            [Live Odometer Counter]               [Canvas Perception Visualizer]`,
     pinouts: [
       { signal: 'Deployment Subpath', pin: 'athuls-engineer.github.io/fsd/' },
       { signal: 'State Management', pin: 'React 18 Hooks + LocalStorage Cache' },
       { signal: 'Rendering Engine', pin: 'HTML5 Canvas + SVG Graphs' }
+    ]
+  },
+  aegisguard: {
+    title: 'AegisGuard: Rootless Local Android DNS Sinkhole',
+    duration: 'Open Source',
+    category: 'Android Engineering &bull; Systems Security',
+    tags: ['Java', 'Android SDK', 'VpnService API', 'DNS RFC 1035', 'Blocklist Parser', 'Multi-Threading'],
+    repoUrl: 'https://github.com/athuls-engineer/aegisguard-android',
+    description: 'High-performance Android network privacy tool leveraging Android\'s local VpnService to capture and inspect DNS requests on UDP port 53. Completely local on-device operation with zero remote server forwarding and zero battery overhead.',
+    highlights: [
+      'Implemented custom RFC 1035 packet parser in pure Java to inspect DNS header flags and domain labels.',
+      'Employs optimized in-memory Trie/HashSet matching against 100,000+ domain telemetry rules in <2ms.',
+      'Zero-root requirement; encapsulates local TUN interface socket to cleanly drop tracking endpoints.',
+      'Runs as an uninterrupted foreground service with adaptive wake-lock management.'
+    ],
+    architecture: `[Android Applications] --> [UDP Port 53 DNS Queries]
+                                      |
+                                      v
+                           [Android TUN Interface]
+                                      |
+                                      v
+                          [AegisGuard VpnService]
+                                      |
+                     +----------------+----------------+
+                     | (Blocklist Match)               | (Clean Request)
+                     v                                 v
+          [Local 0.0.0.0 Sinkhole]          [Forward to Upstream DNS (1.1.1.1)]`,
+    pinouts: [
+      { signal: 'Kernel Interface', pin: 'Android VpnService Builder (TUN fd)' },
+      { signal: 'Query Parser', pin: 'RFC 1035 UDP Header Byte Inspector' },
+      { signal: 'Memory Footprint', pin: '< 18 MB Resident RAM via Compressed Trie' },
+      { signal: 'Lookup Latency', pin: '< 1.8 ms Average In-Memory Decision Time' }
+    ]
+  },
+  samm: {
+    title: 'SAMM: High-Performance Desktop Mod Manager',
+    duration: 'Open Source',
+    category: 'Desktop Systems &bull; Rust Systems Architecture',
+    tags: ['Rust', 'Tauri v2', 'React', 'TypeScript', 'Virtual File System', 'SHA-256'],
+    repoUrl: 'https://github.com/athuls-engineer/samm',
+    description: 'Cross-platform desktop application architected in Rust and React via Tauri v2 for managing high-volume game modification directories, featuring automated cyclic conflict resolution, SHA-256 hash validation, and virtual directory symlink deployment.',
+    highlights: [
+      'Engineered multithreaded file scanner in Rust utilizing rayon for instantaneous indexing across thousands of files.',
+      'Implemented NTFS junction and Unix symlink virtualization to prevent physical file duplication.',
+      'Built dependency tree graph validator to detect and resolve ordering conflicts before launch.',
+      'Clean reactive UI with real-time IPC bridges and sub-30ms startup latency.'
+    ],
+    architecture: `[React + TypeScript UI] <== (Tauri v2 IPC Bridge) ==> [Rust Core Engine]
+                                                                  |
+                                              +-------------------+-------------------+
+                                              v                                       v
+                                   [Rayon File Indexer]                    [Virtual FS Linker]
+                                              |                                       |
+                                              v                                       v
+                                    [SHA-256 Checksums]                    [NTFS / Unix Symlinks]`,
+    pinouts: [
+      { signal: 'Core Backend', pin: 'Rust 2021 Edition + Tauri v2 Runtime' },
+      { signal: 'Concurrency Engine', pin: 'Rayon Work-Stealing Parallel Iterators' },
+      { signal: 'Virtual FS', pin: 'NTFS Junctions & Symlinks (Zero Copy)' },
+      { signal: 'Hashing Speed', pin: '> 850 MB/s Hardware-Accelerated SHA-256' }
     ]
   }
 };
@@ -492,7 +357,7 @@ function openProjectModal(projectId) {
   content.innerHTML = `
     <div class="border-b border-slate-200 dark:border-white/[0.08] pb-4">
       <div class="flex items-center justify-between gap-2 mb-2">
-        <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-semibold">${data.category}</span>
+        <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-500/20 font-semibold">${data.category}</span>
         <span class="text-xs font-mono text-slate-500 dark:text-slate-400">${data.duration}</span>
       </div>
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-1">
@@ -549,7 +414,7 @@ function openProjectModal(projectId) {
     <div class="pt-2 border-t border-slate-200 dark:border-white/[0.08]">
       <h4 class="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Technologies & Tooling</h4>
       <div class="flex flex-wrap gap-2">
-        ${data.tags.map(tag => `<span class="tech-badge">${tag}</span>`).join('')}
+        ${data.tags.map(tag => `<span class="tech-pill">${tag}</span>`).join('')}
       </div>
     </div>
   `;
@@ -571,7 +436,7 @@ function closeProjectModal() {
 }
 
 /* -------------------------------------------------------------
- * 6. Resume Modal
+ * 5. Resume Modal
  * -----------------------------------------------------------*/
 function openResumeModal() {
   const modal = document.getElementById('resume-modal');
@@ -593,7 +458,7 @@ function closeResumeModal() {
 }
 
 /* -------------------------------------------------------------
- * 7. Modal Dismiss Listeners & Keyboard Accessibility
+ * 6. Modal Dismiss Listeners & Keyboard Accessibility
  * -----------------------------------------------------------*/
 function initKeyboardAccessibility() {
   window.addEventListener('keydown', (e) => {
@@ -612,7 +477,7 @@ function initKeyboardAccessibility() {
 }
 
 /* -------------------------------------------------------------
- * 8. Clipboard Copy Helper
+ * 7. Clipboard Copy Helper
  * -----------------------------------------------------------*/
 function copyToClipboard(text, message = 'Copied to clipboard!') {
   if (navigator.clipboard && window.isSecureContext) {
@@ -661,7 +526,7 @@ function showToast(message) {
 }
 
 /* -------------------------------------------------------------
- * 9. Contact Form Handler (Web3Forms + Mailto Fallback)
+ * 8. Contact Form Handler (Web3Forms + Mailto Fallback)
  * -----------------------------------------------------------*/
 async function handleContactSubmit(event) {
   event.preventDefault();
@@ -700,7 +565,7 @@ async function handleContactSubmit(event) {
 
     if (response.ok && result.success) {
       if (statusDiv) {
-        statusDiv.className = 'text-xs font-mono text-center p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 block';
+        statusDiv.className = 'text-xs font-mono text-center p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400 block';
         statusDiv.innerHTML = 'Message delivered successfully! I will get back to you shortly.';
       }
       showToast('Message sent to Athul S!');
@@ -713,7 +578,7 @@ async function handleContactSubmit(event) {
     const formattedBody = `Sender: ${name} (${email})\n\nMessage:\n${body}`;
     const mailtoLink = `mailto:athuls2580@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formattedBody)}`;
     if (statusDiv) {
-      statusDiv.className = 'text-xs font-mono text-center p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-300 block';
+      statusDiv.className = 'text-xs font-mono text-center p-3 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 text-amber-600 dark:text-amber-300 block';
       statusDiv.innerHTML = `Email service unavailable. <a href="${mailtoLink}" class="underline font-bold text-slate-900 dark:text-white hover:underline">Click here to send via your email client</a>.`;
     }
     showToast('Opening email client...');
@@ -726,7 +591,7 @@ async function handleContactSubmit(event) {
 }
 
 /* -------------------------------------------------------------
- * 10. ScrollSpy for Navigation Active Indicator
+ * 9. ScrollSpy for Navigation Active Indicator
  * -----------------------------------------------------------*/
 function initScrollSpy() {
   const sections = document.querySelectorAll('section[id]');
@@ -748,10 +613,10 @@ function initScrollSpy() {
       const href = link.getAttribute('href');
       if (href === `#${currentId}`) {
         link.classList.add('text-blue-600', 'dark:text-white', 'bg-blue-50', 'dark:bg-white/[0.08]', 'font-semibold');
-        link.classList.remove('text-slate-500', 'dark:text-slate-400');
+        link.classList.remove('text-slate-600', 'dark:text-slate-300');
       } else {
         link.classList.remove('text-blue-600', 'dark:text-white', 'bg-blue-50', 'dark:bg-white/[0.08]', 'font-semibold');
-        link.classList.add('text-slate-500', 'dark:text-slate-400');
+        link.classList.add('text-slate-600', 'dark:text-slate-300');
       }
     });
   });

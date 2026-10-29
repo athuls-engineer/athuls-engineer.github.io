@@ -1,39 +1,42 @@
-# Athul S — Personal Engineering Portfolio
+# Athul S | Personal Engineering Portfolio
 
-The open-source repository for my personal engineering portfolio website showcasing embedded systems firmware, IoT telematics, digital hardware (FPGA), and RF projects.
+The open-source repository for the personal engineering portfolio website of **Athul S**, showcasing embedded systems firmware, IoT telematics, digital hardware (FPGA), RF communications, and software engineering deliverables.
 
 🌐 **Live Website**: [https://athuls-engineer.github.io](https://athuls-engineer.github.io)
 
 ---
 
-## 🛠️ Architecture & Tech Stack
+## Technical Stack & Architecture
 
-* **Frontend**: Semantic HTML5, Vanilla JavaScript (ES6+), Modern Modular CSS
-* **Design System**: Tailored dark theme inspired by precision laboratory and industrial instrumentation
-* **Icons**: [Lucide Icons](https://lucide.dev/)
-* **Zero Build Steps**: Pure client-side delivery hosted directly on GitHub Pages with zero framework overhead.
-
----
-
-## ⚡ Featured Engineering Projects
-
-* **[Chaakra: Real-Time IoT GPS Bus Tracking](https://github.com/athuls-engineer/chakraa-smart-bus-tracking-system)** — Microcontroller GPS telematics using ESP32, Firebase Realtime DB, and React Native with sub-5s refresh intervals.
-* **Basys 3 FPGA Candy Vending Machine** — 6-module Verilog HDL digital architecture featuring an FSM control core, mechanical debouncing, and multiplexed 7-segment display logic on Xilinx Artix-7.
-* **5.8 GHz Automotive V2V Patch Antenna** — Ansys HFSS simulation of a 2.5 × 2.5 cm microstrip patch operating at 5.8 GHz with >85% radiation efficiency and -18.4 dB return loss.
-* **Microcontroller Temperature Data Logger** — Continuous thermal acquisition system using an LM35 sensor, bare-metal ATmega328P with Timer1 CTC interrupts, and a 4-bit HD44780 LCD bus.
-* **[VisionSentinel: Edge AI Surveillance](https://github.com/athuls-engineer/edgevision-iot)** — Low-light contrast-equalized surveillance gateway with OpenCV CLAHE and Telegram Bot API alerts.
-* **[Tesla FSD Fleet Telemetry Tracker](https://athuls-engineer.github.io/fsd/)** — Interactive real-time analytics tracker for Tesla Full Self-Driving mileage milestones.
+- **Frontend Core**: Semantic HTML5, Vanilla JavaScript (ES6+), Modern Responsive CSS
+- **Design System**: Tailored dual-theme system (Light & Dark) with high-contrast accessibility tokens
+- **Vector Assets & Icons**: Lucide Icons & handcrafted SVG brand marks (GitHub, LinkedIn, Google)
+- **Zero Build Step**: Pure client-side delivery deployed directly on GitHub Pages with zero framework bloat and sub-second load times.
 
 ---
 
-## 📬 Contact & Links
+## Featured Engineering Projects
 
-* **Email**: [athuls2580@gmail.com](mailto:athuls2580@gmail.com)
-* **LinkedIn**: [linkedin.com/in/athul-s-engineer](https://linkedin.com/in/athul-s-engineer)
-* **GitHub**: [github.com/athuls-engineer](https://github.com/athuls-engineer)
+- **[Chaakra: Real-Time IoT GPS Bus Tracking Platform](https://github.com/athuls-engineer/chakraa-smart-bus-tracking-system)** - ESP32 microcontroller telematics with u-blox GPS over UART2, Firebase Realtime Database, and React Native maps with sub-5s refresh latency.
+- **[EdgeVision: Low-Light Surveillance Gateway](https://github.com/athuls-engineer/edgevision-iot)** - Edge AI surveillance system utilizing OpenCV CLAHE contrast equalization for low-light environments and Telegram Bot photo alerts.
+- **[Tesla FSD Fleet Telemetry Tracker](https://athuls-engineer.github.io/fsd/)** - Live interactive analytics tracker modeling cumulative Tesla Full Self-Driving mileage milestones across 2M+ vehicles.
+- **[AegisGuard: Rootless Local Android DNS Sinkhole](https://github.com/athuls-engineer/aegisguard-android)** - High-performance local Android packet filter utilizing Android's VpnService API and custom RFC 1035 UDP parser.
+- **[SAMM: Desktop Mod Manager](https://github.com/athuls-engineer/samm)** - Cross-platform desktop systems application engineered in Rust and React via Tauri v2 with multithreaded Rayon indexing.
+- **Basys 3 FPGA Candy Vending Machine** - Multi-module Verilog HDL digital architecture with Mealy/Moore FSMs, mechanical switch debouncing, and multiplexed 7-segment display logic on Xilinx Artix-7.
+- **5.8 GHz Automotive V2V Microstrip Patch Antenna** - High-frequency RF simulation on FR4 in Ansys HFSS with return loss S11 = -18.4 dB and >85% radiation efficiency.
+- **Industrial Multi-Channel Energy & Sensor Data Logger** - Continuous bare-metal acquisition system using STM32 / ATmega328P with Timer CTC interrupts, ADC sampling, and RS-485 Modbus RTU telemetry.
 
 ---
 
-## 📄 License
+## Contact & Links
+
+- **Email**: [athuls2580@gmail.com](mailto:athuls2580@gmail.com)
+- **LinkedIn**: [linkedin.com/in/athul-s-engineer](https://linkedin.com/in/athul-s-engineer)
+- **GitHub**: [github.com/athuls-engineer](https://github.com/athuls-engineer)
+- **Location**: Trivandrum, Kerala, India
+
+---
+
+## License
 
 This repository is licensed under the [MIT License](LICENSE).
