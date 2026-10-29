@@ -1,13 +1,18 @@
 /**
- * Athul S — Portfolio Logic & Architecture Showcase
- * Fast, lightweight, zero bloat, production-ready.
+ * Athul S — Portfolio Logic, Architecture Inspector & Dual-Theme System
+ * Fast, accessible, production-grade, zero-bloat.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize Theme System
+  initThemeSystem();
+
+  // Initialize Lucide Icons
   if (window.lucide) {
     lucide.createIcons();
   }
 
+  // Navigation, Inspector & Filters
   initMobileDrawer();
   initArchitectureInspector();
   initProjectFilters();
@@ -16,7 +21,62 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* -------------------------------------------------------------
- * 1. Mobile Drawer Navigation
+ * 1. Dual-Theme System (Light & Dark Mode)
+ * -----------------------------------------------------------*/
+function initThemeSystem() {
+  const savedTheme = localStorage.getItem('theme');
+  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+
+  applyTheme(initialTheme);
+
+  // Bind theme toggle buttons
+  const toggleButtons = document.querySelectorAll('.theme-toggle-btn');
+  toggleButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme);
+      showToast(`Switched to ${nextTheme === 'dark' ? 'Dark' : 'Light'} Mode`);
+    });
+  });
+
+  // Listen for OS theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+}
+
+function applyTheme(theme) {
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+
+  localStorage.setItem('theme', theme);
+  updateThemeIcons(theme);
+}
+
+function updateThemeIcons(theme) {
+  const icons = document.querySelectorAll('.theme-icon');
+  icons.forEach(icon => {
+    if (theme === 'dark') {
+      icon.setAttribute('data-lucide', 'sun');
+    } else {
+      icon.setAttribute('data-lucide', 'moon');
+    }
+  });
+
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+}
+
+/* -------------------------------------------------------------
+ * 2. Mobile Drawer Navigation
  * -----------------------------------------------------------*/
 function initMobileDrawer() {
   const toggleBtn = document.getElementById('mobile-toggle-btn');
@@ -36,7 +96,7 @@ function initMobileDrawer() {
 }
 
 /* -------------------------------------------------------------
- * 2. Architecture & Hardware Signal Flow Inspector
+ * 3. Architecture & Hardware Signal Flow Inspector
  * -----------------------------------------------------------*/
 const architectureData = {
   chaakra: {
@@ -158,8 +218,6 @@ ISR(TIMER1_COMPA_vect) {
   }
 };
 
-let activeArchitectureKey = 'chaakra';
-
 function initArchitectureInspector() {
   const tabButtons = document.querySelectorAll('.arch-tab-btn');
   tabButtons.forEach(btn => {
@@ -175,8 +233,6 @@ function initArchitectureInspector() {
 function setArchitectureView(key) {
   const data = architectureData[key];
   if (!data) return;
-
-  activeArchitectureKey = key;
 
   // Update tabs
   document.querySelectorAll('.arch-tab-btn').forEach(btn => {
@@ -197,9 +253,9 @@ function setArchitectureView(key) {
   const specsContainer = document.getElementById('arch-specs-list');
   if (specsContainer) {
     specsContainer.innerHTML = data.specs.map(s => `
-      <div class="flex items-center justify-between p-2.5 rounded-lg bg-base-950/80 border border-white/[0.05] text-xs font-mono">
-        <span class="text-slate-400">${s.label}</span>
-        <span class="text-white font-medium">${s.value}</span>
+      <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-100 dark:bg-base-950/80 border border-slate-200 dark:border-white/[0.05] text-xs font-mono">
+        <span class="text-slate-500 dark:text-slate-400">${s.label}</span>
+        <span class="text-slate-900 dark:text-white font-medium">${s.value}</span>
       </div>
     `).join('');
   }
@@ -209,8 +265,8 @@ function setArchitectureView(key) {
   if (flowContainer) {
     flowContainer.innerHTML = data.flow.map(f => `
       <div class="diagram-node">
-        <div class="text-[11px] font-bold text-signal-blue mb-1">${f.step}</div>
-        <div class="text-xs text-slate-300 leading-snug">${f.desc}</div>
+        <div class="text-[11px] font-bold text-blue-600 dark:text-blue-400 mb-1">${f.step}</div>
+        <div class="text-xs text-slate-700 dark:text-slate-300 leading-snug">${f.desc}</div>
       </div>
     `).join('');
   }
@@ -223,7 +279,7 @@ function setArchitectureView(key) {
 }
 
 /* -------------------------------------------------------------
- * 3. Project Filter System
+ * 4. Project Filter System
  * -----------------------------------------------------------*/
 function initProjectFilters() {
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -249,13 +305,13 @@ function initProjectFilters() {
 }
 
 /* -------------------------------------------------------------
- * 4. Project Modal Data & Handler
+ * 5. Project Detail Modal Data & Handler
  * -----------------------------------------------------------*/
 const projectDetails = {
   chaakra: {
     title: 'Chaakra: Real-Time IoT GPS Bus Tracking & Booking',
     duration: '10/2025 – 05/2026',
-    category: 'Embedded IoT &bull; Mobile Architecture &bull; Telemetry',
+    category: 'Embedded IoT • Mobile Architecture • Telemetry',
     tags: ['ESP32', 'u-blox Neo-6M GPS', 'React Native', 'Firebase Realtime DB', 'Leaflet Maps', 'UART2'],
     repoUrl: 'https://github.com/athuls-engineer/chakraa-smart-bus-tracking-system',
     description: 'An end-to-end smart transit solution connecting hardware microcontroller telematics with high-concurrency cloud synchronization and interactive cross-platform mapping.',
@@ -283,7 +339,7 @@ const projectDetails = {
   fpga: {
     title: 'FPGA Candy Vending Machine Controller (Basys 3)',
     duration: '02/2025 – 03/2025',
-    category: 'Digital VLSI Design &bull; Verilog HDL',
+    category: 'Digital VLSI Design • Verilog HDL',
     tags: ['Verilog HDL', 'Xilinx Basys 3 (Artix-7)', 'FSM Controller', 'Switch Debounce', 'BCD Converter', '7-Segment Multiplexer'],
     description: 'A modular, high-reliability digital hardware state machine engineered in Verilog HDL to orchestrate asynchronous coin inputs, credit accumulation, product validation, and multi-digit 7-segment display output.',
     highlights: [
@@ -310,7 +366,7 @@ const projectDetails = {
   antenna: {
     title: '5.8 GHz Compact Automotive Antenna for V2V Systems',
     duration: '11/2024 – 01/2025',
-    category: 'RF Engineering &bull; High-Frequency Electromagnetics',
+    category: 'RF Engineering • High-Frequency Electromagnetics',
     tags: ['Ansys HFSS', '5.8 GHz DSRC Band', 'Microstrip Patch', 'Return Loss (S11)', 'Radiation Efficiency', 'V2V Telematics'],
     description: 'An ultra-compact 2.5 × 2.5 cm microstrip patch antenna designed for next-generation Vehicle-to-Vehicle (V2V) cooperative collision avoidance and DSRC band communications.',
     highlights: [
@@ -334,7 +390,7 @@ const projectDetails = {
   logger: {
     title: 'Microcontroller Precision Temperature Data Logger',
     duration: '12/2024 – 12/2024',
-    category: 'Embedded Systems &bull; Bare-Metal Firmware',
+    category: 'Embedded Systems • Bare-Metal Firmware',
     tags: ['ATmega328 AVR', 'LM35 Sensor', 'Embedded C', 'HD44780 LCD', 'Timer1 CTC', 'ADC Prescaling'],
     description: 'A standalone embedded data acquisition unit engineered for continuous, high-accuracy ambient temperature recording, signal conditioning, and local LCD display.',
     highlights: [
@@ -359,7 +415,7 @@ const projectDetails = {
   edgevision: {
     title: 'VisionSentinel: Edge AI Surveillance & Low-Light CLAHE',
     duration: '04/2025 – 08/2026',
-    category: 'Edge AI &bull; Computer Vision &bull; Security Telemetry',
+    category: 'Edge AI • Computer Vision • Security Telemetry',
     tags: ['Python 3.10+', 'OpenCV', 'CLAHE Algorithm', 'FastAPI', 'HOG + Linear SVM', 'Telegram Bot API'],
     repoUrl: 'https://github.com/athuls-engineer/edgevision-iot',
     description: 'A production-grade Edge AI surveillance gateway converting standard webcams and ESP32-CAM nodes into intelligent security monitors with real-time low-light contrast equalization and instant smartphone photo alerts.',
@@ -398,7 +454,7 @@ const projectDetails = {
   fsd: {
     title: 'Tesla FSD Fleet Telemetry & Safety Benchmark',
     duration: '2026',
-    category: 'Full-Stack Web &bull; Telemetry Analytics',
+    category: 'Full-Stack Web • Telemetry Analytics',
     tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Canvas Graphics', 'OpenGraph'],
     repoUrl: 'https://github.com/athuls-engineer/tesla-fsd-tracker',
     liveUrl: 'fsd/',
@@ -431,51 +487,53 @@ function openProjectModal(projectId) {
 
   if (!modal || !content || !data) return;
 
+  const githubSvg = `<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>`;
+
   content.innerHTML = `
-    <div class="border-b border-white/[0.08] pb-4">
+    <div class="border-b border-slate-200 dark:border-white/[0.08] pb-4">
       <div class="flex items-center justify-between gap-2 mb-2">
-        <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-white/[0.06] text-white border border-white/[0.1] font-semibold">${data.category}</span>
-        <span class="text-xs font-mono text-slate-400">${data.duration}</span>
+        <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-semibold">${data.category}</span>
+        <span class="text-xs font-mono text-slate-500 dark:text-slate-400">${data.duration}</span>
       </div>
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-1">
-        <h3 class="text-xl sm:text-2xl font-heading font-bold text-white">${data.title}</h3>
+        <h3 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">${data.title}</h3>
         <div class="flex items-center gap-2 shrink-0">
           ${data.liveUrl ? `
-            <a href="${data.liveUrl}" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-black bg-white hover:bg-slate-200 font-semibold transition-all flex items-center gap-1.5 shadow">
+            <a href="${data.liveUrl}" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:opacity-90 font-semibold transition-all flex items-center gap-1.5 shadow">
               <span>Live App</span>
               <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
             </a>
           ` : ''}
           ${data.repoUrl ? `
-            <a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-200 bg-base-800 hover:bg-white hover:text-black border border-white/[0.1] transition-all flex items-center gap-1.5">
-              <i data-lucide="github" class="w-3.5 h-3.5"></i>
+            <a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-base-800 hover:bg-slate-200 dark:hover:bg-white dark:hover:text-black border border-slate-200 dark:border-white/[0.1] transition-all flex items-center gap-1.5">
+              ${githubSvg}
               <span>GitHub</span>
             </a>
           ` : ''}
         </div>
       </div>
-      <p class="text-xs sm:text-sm text-slate-300 mt-2 font-light leading-relaxed">${data.description}</p>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-normal leading-relaxed">${data.description}</p>
     </div>
 
     <div>
-      <h4 class="text-xs font-mono font-bold text-white uppercase tracking-wider mb-2">Technical Highlights & Implementation</h4>
-      <ul class="space-y-2 text-xs sm:text-sm text-slate-300">
-        ${data.highlights.map(h => `<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">&bull;</span><span>${h}</span></li>`).join('')}
+      <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Technical Highlights & Implementation</h4>
+      <ul class="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+        ${data.highlights.map(h => `<li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">&bull;</span><span>${h}</span></li>`).join('')}
       </ul>
     </div>
 
     ${data.pinouts ? `
     <div>
-      <h4 class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+      <h4 class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
         <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
         <span>Hardware Pinout & Physical Signal Mapping</span>
       </h4>
-      <div class="p-3.5 rounded-xl bg-base-950 border border-white/[0.08] text-xs font-mono">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300">
+      <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-700 dark:text-slate-300">
           ${data.pinouts.map(p => `
-            <div class="flex items-center justify-between p-2 rounded bg-base-900 border border-white/[0.04]">
-              <span class="text-slate-400 font-medium">${p.signal}</span>
-              <span class="text-white font-bold">${p.pin}</span>
+            <div class="flex items-center justify-between p-2 rounded bg-white dark:bg-base-900 border border-slate-200 dark:border-white/[0.04]">
+              <span class="text-slate-500 dark:text-slate-400 font-medium">${p.signal}</span>
+              <span class="text-slate-900 dark:text-white font-bold">${p.pin}</span>
             </div>
           `).join('')}
         </div>
@@ -484,12 +542,12 @@ function openProjectModal(projectId) {
     ` : ''}
 
     <div>
-      <h4 class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider mb-2">System Architecture Flow</h4>
-      <pre class="p-3.5 rounded-xl bg-base-950 border border-white/[0.08] text-xs font-mono text-slate-300 overflow-x-auto leading-relaxed">${data.architecture}</pre>
+      <h4 class="text-xs font-mono font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">System Architecture Flow</h4>
+      <pre class="p-3.5 rounded-xl bg-slate-900 text-slate-200 dark:bg-base-950 dark:text-slate-300 border border-slate-800 dark:border-white/[0.08] text-xs font-mono overflow-x-auto leading-relaxed">${data.architecture}</pre>
     </div>
 
-    <div class="pt-2 border-t border-white/[0.08]">
-      <h4 class="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-2">Technologies & Tooling</h4>
+    <div class="pt-2 border-t border-slate-200 dark:border-white/[0.08]">
+      <h4 class="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Technologies & Tooling</h4>
       <div class="flex flex-wrap gap-2">
         ${data.tags.map(tag => `<span class="tech-badge">${tag}</span>`).join('')}
       </div>
@@ -513,7 +571,7 @@ function closeProjectModal() {
 }
 
 /* -------------------------------------------------------------
- * 5. Resume Modal
+ * 6. Resume Modal
  * -----------------------------------------------------------*/
 function openResumeModal() {
   const modal = document.getElementById('resume-modal');
@@ -535,7 +593,7 @@ function closeResumeModal() {
 }
 
 /* -------------------------------------------------------------
- * 6. Modal Dismiss Listeners & Keyboard Accessibility
+ * 7. Modal Dismiss Listeners & Keyboard Accessibility
  * -----------------------------------------------------------*/
 function initKeyboardAccessibility() {
   window.addEventListener('keydown', (e) => {
@@ -554,7 +612,7 @@ function initKeyboardAccessibility() {
 }
 
 /* -------------------------------------------------------------
- * 7. Clipboard Copy Helper
+ * 8. Clipboard Copy Helper
  * -----------------------------------------------------------*/
 function copyToClipboard(text, message = 'Copied to clipboard!') {
   if (navigator.clipboard && window.isSecureContext) {
@@ -603,7 +661,7 @@ function showToast(message) {
 }
 
 /* -------------------------------------------------------------
- * 8. Contact Form Handler (Web3Forms + Mailto Fallback)
+ * 9. Contact Form Handler (Web3Forms + Mailto Fallback)
  * -----------------------------------------------------------*/
 async function handleContactSubmit(event) {
   event.preventDefault();
@@ -642,7 +700,7 @@ async function handleContactSubmit(event) {
 
     if (response.ok && result.success) {
       if (statusDiv) {
-        statusDiv.className = 'text-xs font-mono text-center p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 block';
+        statusDiv.className = 'text-xs font-mono text-center p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 block';
         statusDiv.innerHTML = 'Message delivered successfully! I will get back to you shortly.';
       }
       showToast('Message sent to Athul S!');
@@ -655,8 +713,8 @@ async function handleContactSubmit(event) {
     const formattedBody = `Sender: ${name} (${email})\n\nMessage:\n${body}`;
     const mailtoLink = `mailto:athuls2580@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formattedBody)}`;
     if (statusDiv) {
-      statusDiv.className = 'text-xs font-mono text-center p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 block';
-      statusDiv.innerHTML = `Email dispatch service unavailable. <a href="${mailtoLink}" class="underline font-bold text-white hover:text-amber-200">Click here to send via your email client</a>.`;
+      statusDiv.className = 'text-xs font-mono text-center p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-300 block';
+      statusDiv.innerHTML = `Email service unavailable. <a href="${mailtoLink}" class="underline font-bold text-slate-900 dark:text-white hover:underline">Click here to send via your email client</a>.`;
     }
     showToast('Opening email client...');
     window.location.href = mailtoLink;
@@ -668,7 +726,7 @@ async function handleContactSubmit(event) {
 }
 
 /* -------------------------------------------------------------
- * 9. ScrollSpy for Navigation Active Indicator
+ * 10. ScrollSpy for Navigation Active Indicator
  * -----------------------------------------------------------*/
 function initScrollSpy() {
   const sections = document.querySelectorAll('section[id]');
@@ -689,11 +747,11 @@ function initScrollSpy() {
     navLinks.forEach(link => {
       const href = link.getAttribute('href');
       if (href === `#${currentId}`) {
-        link.classList.add('text-white', 'bg-white/[0.08]');
-        link.classList.remove('text-slate-400');
+        link.classList.add('text-blue-600', 'dark:text-white', 'bg-blue-50', 'dark:bg-white/[0.08]', 'font-semibold');
+        link.classList.remove('text-slate-500', 'dark:text-slate-400');
       } else {
-        link.classList.remove('text-white', 'bg-white/[0.08]');
-        link.classList.add('text-slate-400');
+        link.classList.remove('text-blue-600', 'dark:text-white', 'bg-blue-50', 'dark:bg-white/[0.08]', 'font-semibold');
+        link.classList.add('text-slate-500', 'dark:text-slate-400');
       }
     });
   });

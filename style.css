@@ -1,67 +1,138 @@
 /* ==========================================================================
-   Athul S — Engineering Portfolio Stylesheet
-   Modern, Precision Dark Theme (Slate & Deep Carbon)
-   Zero bloat, high readability, responsive, accessible
+   Athul S — Modern Engineering Portfolio Stylesheet
+   Dual-Theme System: Precision Light & Slate Dark Mode
+   Fast, accessible, zero-bloat, production-ready
    ========================================================================== */
 
+/* -------------------------------------------------------------
+ * 1. CSS Custom Properties (Light Mode Default)
+ * -----------------------------------------------------------*/
 :root {
-  --bg-primary: #07090D;
-  --bg-secondary: #0D1117;
-  --bg-card: #121721;
-  --bg-card-hover: #171E2B;
-  --bg-surface: #1B2332;
-  
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-medium: rgba(255, 255, 255, 0.14);
-  --border-highlight: rgba(255, 255, 255, 0.25);
-  
-  --accent-blue: #3B82F6;
-  --accent-blue-glow: rgba(59, 130, 246, 0.15);
-  --accent-emerald: #10B981;
-  --accent-emerald-glow: rgba(16, 185, 129, 0.15);
-  --accent-amber: #F59E0B;
-  
-  --text-primary: #F8FAFC;
-  --text-secondary: #CBD5E1;
-  --text-muted: #8492A6;
-  --text-faint: #4B5565;
+  --bg-page: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F1F5F9;
+  --bg-subtle: #F1F5F9;
+  --bg-inset: #F8FAFC;
+  --bg-elevated: #FFFFFF;
+
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-medium: rgba(15, 23, 42, 0.15);
+  --border-highlight: rgba(15, 23, 42, 0.25);
+
+  --text-heading: #0F172A;
+  --text-body: #334155;
+  --text-muted: #64748B;
+  --text-faint: #94A3B8;
+
+  --accent-blue: #2563EB;
+  --accent-blue-bg: rgba(37, 99, 235, 0.08);
+  --accent-emerald: #059669;
+  --accent-emerald-bg: rgba(5, 150, 105, 0.08);
+  --accent-purple: #7C3AED;
+  --accent-purple-bg: rgba(124, 58, 237, 0.08);
+  --accent-amber: #D97706;
+  --accent-amber-bg: rgba(217, 119, 6, 0.08);
+
+  --card-shadow: 0 2px 12px -2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+  --card-shadow-hover: 0 12px 30px -4px rgba(15, 23, 42, 0.12), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
+  --dock-bg: rgba(255, 255, 255, 0.92);
+  --dock-border: rgba(15, 23, 42, 0.12);
+  --dock-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.15), 0 4px 10px -2px rgba(15, 23, 42, 0.08);
+  --header-bg: rgba(248, 250, 252, 0.88);
+  --modal-backdrop: rgba(15, 23, 42, 0.55);
+  --grid-dot-color: rgba(15, 23, 42, 0.05);
+
+  --code-bg: #0F172A;
+  --code-text: #E2E8F0;
+
+  --btn-primary-bg: #0F172A;
+  --btn-primary-text: #FFFFFF;
+  --btn-primary-hover: #1E293B;
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* Base Setup */
+/* -------------------------------------------------------------
+ * 2. Dark Mode Overrides
+ * -----------------------------------------------------------*/
+html.dark {
+  --bg-page: #07090E;
+  --bg-card: #0F141F;
+  --bg-card-hover: #151C2C;
+  --bg-subtle: #141B2A;
+  --bg-inset: #090D15;
+  --bg-elevated: #182032;
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --border-highlight: rgba(255, 255, 255, 0.28);
+
+  --text-heading: #F8FAFC;
+  --text-body: #CBD5E1;
+  --text-muted: #8492A6;
+  --text-faint: #475569;
+
+  --accent-blue: #3B82F6;
+  --accent-blue-bg: rgba(59, 130, 246, 0.12);
+  --accent-emerald: #10B981;
+  --accent-emerald-bg: rgba(16, 185, 129, 0.12);
+  --accent-purple: #A855F7;
+  --accent-purple-bg: rgba(168, 85, 247, 0.12);
+  --accent-amber: #F59E0B;
+  --accent-amber-bg: rgba(245, 158, 11, 0.12);
+
+  --card-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --card-shadow-hover: 0 14px 36px -4px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --dock-bg: rgba(15, 20, 31, 0.92);
+  --dock-border: rgba(255, 255, 255, 0.12);
+  --dock-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(59, 130, 246, 0.15);
+  --header-bg: rgba(7, 9, 14, 0.88);
+  --modal-backdrop: rgba(0, 0, 0, 0.85);
+  --grid-dot-color: rgba(255, 255, 255, 0.04);
+
+  --code-bg: #090D15;
+  --code-text: #CBD5E1;
+
+  --btn-primary-bg: #FFFFFF;
+  --btn-primary-text: #07090E;
+  --btn-primary-hover: #E2E8F0;
+}
+
+/* -------------------------------------------------------------
+ * 3. Base Styles & Reset
+ * -----------------------------------------------------------*/
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--bg-primary);
-  color: var(--text-secondary);
+  background-color: var(--bg-page);
+  color: var(--text-body);
   font-family: var(--font-sans);
   font-size: 15px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: 
-    radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(13, 17, 23, 0.8), rgba(7, 9, 13, 1));
-  background-size: 32px 32px, 100% 100%;
+    radial-gradient(var(--grid-dot-color) 1px, transparent 1px);
+  background-size: 28px 28px;
   background-attachment: fixed;
   overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 ::selection {
-  background-color: rgba(59, 130, 246, 0.3);
-  color: #FFFFFF;
+  background-color: var(--accent-blue-bg);
+  color: var(--accent-blue);
 }
 
 /* Custom Sleek Scrollbar */
@@ -70,32 +141,35 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: var(--bg-page);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1F2937;
+  background: var(--border-medium);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #374151;
+  background: var(--border-highlight);
 }
 
 /* Typography Helpers */
 .font-heading { font-family: var(--font-heading); }
 .font-mono { font-family: var(--font-mono); }
 
-/* Bento Card Design System */
+/* -------------------------------------------------------------
+ * 4. Bento Card System
+ * -----------------------------------------------------------*/
 .bento-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 1rem;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: var(--card-shadow);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .bento-card:hover {
+  background: var(--bg-card);
   border-color: var(--border-medium);
-  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: var(--card-shadow-hover);
   transform: translateY(-2px);
 }
 
@@ -103,69 +177,76 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 1rem;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
-/* Clean Tech Badges */
+/* -------------------------------------------------------------
+ * 5. Badges & Tags
+ * -----------------------------------------------------------*/
 .tech-badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.2rem 0.55rem;
+  gap: 0.35rem;
+  padding: 0.22rem 0.55rem;
   border-radius: 0.375rem;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--bg-subtle);
   border: 1px solid var(--border-subtle);
   font-family: var(--font-mono);
   font-size: 0.725rem;
-  color: var(--text-secondary);
+  color: var(--text-body);
   white-space: nowrap;
   transition: all 0.15s ease;
 }
 
 .tech-badge:hover {
-  color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-heading);
   border-color: var(--border-medium);
 }
 
-/* Category Filter Pills */
+/* -------------------------------------------------------------
+ * 6. Category Filter Buttons
+ * -----------------------------------------------------------*/
 .filter-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 0.9rem;
   border-radius: 0.5rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: var(--card-shadow);
 }
 
 .filter-btn:hover {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-heading);
   border-color: var(--border-medium);
 }
 
 .filter-btn.active {
-  color: #FFFFFF;
-  background: rgba(59, 130, 246, 0.15);
-  border-color: rgba(59, 130, 246, 0.4);
-  box-shadow: 0 0 12px rgba(59, 130, 246, 0.2);
+  color: var(--accent-blue);
+  background: var(--accent-blue-bg);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 12px var(--accent-blue-bg);
 }
 
-/* Architecture Inspector Tabs */
+/* -------------------------------------------------------------
+ * 7. Architecture Inspector Tabs
+ * -----------------------------------------------------------*/
 .arch-tab-btn {
-  padding: 0.5rem 0.75rem;
+  padding: 0.55rem 0.75rem;
   border-radius: 0.5rem;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--bg-subtle);
   border: 1px solid var(--border-subtle);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -173,22 +254,23 @@ body {
 }
 
 .arch-tab-btn:hover {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-heading);
+  border-color: var(--border-medium);
 }
 
 .arch-tab-btn.active {
-  color: #FFFFFF;
-  background: var(--bg-surface);
+  color: var(--text-heading);
+  background: var(--bg-card);
   border-color: var(--border-medium);
   border-left: 3px solid var(--accent-blue);
+  font-weight: 600;
 }
 
 /* Architecture Block Diagrams */
 .diagram-node {
-  padding: 0.65rem 0.85rem;
+  padding: 0.7rem 0.85rem;
   border-radius: 0.5rem;
-  background: var(--bg-primary);
+  background: var(--bg-inset);
   border: 1px solid var(--border-subtle);
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -199,9 +281,199 @@ body {
   border-color: var(--border-medium);
 }
 
-/* Modal Animations & Overlay */
+/* -------------------------------------------------------------
+ * 8. Buttons & Contact Chips
+ * -----------------------------------------------------------*/
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.625rem;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  font-weight: 600;
+  font-size: 0.825rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:hover {
+  background: var(--btn-primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.625rem;
+  background: var(--bg-card);
+  color: var(--text-heading);
+  font-weight: 500;
+  font-size: 0.825rem;
+  text-decoration: none;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--card-shadow);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-medium);
+  transform: translateY(-1px);
+}
+
+.contact-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.625rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-body);
+  font-family: var(--font-mono);
+  font-size: 0.775rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  box-shadow: var(--card-shadow);
+}
+
+.contact-chip:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-medium);
+  color: var(--text-heading);
+  transform: translateY(-1px);
+}
+
+/* -------------------------------------------------------------
+ * 9. Finished Floating Action Dock
+ * -----------------------------------------------------------*/
+.floating-dock-container {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 45;
+  padding: 0 1rem;
+  max-width: 100%;
+}
+
+.floating-dock {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.65rem;
+  border-radius: 9999px;
+  background: var(--dock-bg);
+  border: 1px solid var(--dock-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--dock-shadow);
+  transition: all 0.25s ease;
+}
+
+.dock-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  position: relative;
+}
+
+.dock-btn:hover {
+  color: var(--text-heading);
+  background: var(--bg-subtle);
+  transform: translateY(-1px);
+}
+
+.dock-btn.active {
+  color: var(--accent-blue);
+  background: var(--accent-blue-bg);
+}
+
+/* Dock Divider */
+.dock-divider {
+  width: 1px;
+  height: 1.25rem;
+  background: var(--border-medium);
+  margin: 0 0.15rem;
+}
+
+/* Dock Action Pill */
+.dock-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-heading);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dock-pill-btn:hover {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: transparent;
+}
+
+/* Micro-tooltips */
+.has-tooltip {
+  position: relative;
+}
+
+.has-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 0.25rem 0.55rem;
+  border-radius: 0.375rem;
+  background: var(--code-bg);
+  color: var(--code-text);
+  font-family: var(--font-mono);
+  font-size: 0.675rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.has-tooltip:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* -------------------------------------------------------------
+ * 10. Modals & Overlay
+ * -----------------------------------------------------------*/
 .modal-overlay {
-  background: rgba(0, 0, 0, 0.85);
+  background: var(--modal-backdrop);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -216,88 +488,15 @@ body {
   box-shadow: 0 0 8px var(--accent-emerald);
 }
 
-/* Quick Contact Chips */
-.contact-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 0.85rem;
-  border-radius: 0.6rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.775rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-
-.contact-chip:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--border-medium);
-  color: #FFFFFF;
-  transform: translateY(-1px);
-}
-
-/* Primary and Secondary Action Buttons */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.55rem 1.15rem;
-  border-radius: 0.625rem;
-  background: #FFFFFF;
-  color: #07090D;
-  font-weight: 600;
-  font-size: 0.825rem;
-  text-decoration: none;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.btn-primary:hover {
-  background: #E2E8F0;
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.55rem 1.15rem;
-  border-radius: 0.625rem;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-primary);
-  font-weight: 500;
-  font-size: 0.825rem;
-  text-decoration: none;
-  border: 1px solid var(--border-subtle);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--border-medium);
-  color: #FFFFFF;
-  transform: translateY(-1px);
-}
-
 /* Subtle Gradient Glow in Hero */
 .ambient-glow {
   position: absolute;
-  top: -100px;
+  top: -120px;
   left: 50%;
   transform: translateX(-50%);
-  width: 600px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.07) 0%, transparent 70%);
+  width: 650px;
+  height: 380px;
+  background: radial-gradient(circle, var(--accent-blue-bg) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -307,7 +506,9 @@ body {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
 }
 
-/* Print Optimization for Resume */
+/* -------------------------------------------------------------
+ * 11. Print Optimization for Resume
+ * -----------------------------------------------------------*/
 @media print {
   body * {
     visibility: hidden;
@@ -326,7 +527,7 @@ body {
     padding: 0;
     margin: 0;
   }
-  #resume-modal .bento-card {
+  #resume-modal .bento-card-static {
     background: #FFFFFF !important;
     color: #000000 !important;
     border: none !important;
@@ -343,14 +544,12 @@ body {
   #printable-resume span {
     color: #000000 !important;
   }
-  #printable-resume .bg-primary, 
-  #printable-resume .bg-card,
   #printable-resume div {
     background: #FFFFFF !important;
     border-color: #E2E8F0 !important;
     color: #000000 !important;
   }
-  button, header, footer, .btn-primary, .btn-secondary, #toast {
+  button, header, footer, .btn-primary, .btn-secondary, #toast, .floating-dock-container {
     display: none !important;
   }
 }

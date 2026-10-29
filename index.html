@@ -7,6 +7,21 @@
   <meta name="author" content="Athul S" />
   <title>Athul S — Electronics, Embedded Systems & IoT Engineer</title>
 
+  <!-- Anti-FOUC Theme Initialization Script -->
+  <script>
+    (function() {
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230B0F17'/><rect x='1' y='1' width='30' height='30' rx='7' fill='none' stroke='rgba(255,255,255,0.15)' stroke-width='1.5'/><text x='16' y='21' font-family='monospace' font-size='13' font-weight='bold' fill='%233B82F6' text-anchor='middle'>AS</text></svg>" type="image/svg+xml" />
 
@@ -45,18 +60,12 @@
           },
           colors: {
             base: {
-              950: '#07090D',
+              950: '#07090E',
               900: '#0D1117',
-              850: '#121721',
-              800: '#171E2B',
+              850: '#111622',
+              800: '#151C2C',
               700: '#222B3D',
               600: '#323F59',
-            },
-            signal: {
-              blue: '#3B82F6',
-              emerald: '#10B981',
-              amber: '#F59E0B',
-              slate: '#94A3B8'
             }
           }
         }
@@ -66,64 +75,69 @@
 
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-base-950 text-slate-200 font-sans antialiased selection:bg-blue-500/30 selection:text-white min-h-screen relative pb-28">
+<body class="min-h-screen relative pb-32">
 
   <!-- Subtle Studio Ambient Glow -->
   <div class="ambient-glow"></div>
 
   <!-- Toast Notification Container -->
   <div id="toast" class="fixed top-6 right-6 z-50 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
-    <div class="px-4 py-2.5 rounded-xl border border-white/10 shadow-2xl flex items-center gap-2.5 text-xs font-mono bg-base-900/95 text-white backdrop-blur-xl">
-      <i data-lucide="check-circle" class="w-4 h-4 text-signal-emerald"></i>
+    <div class="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 shadow-2xl flex items-center gap-2.5 text-xs font-mono bg-white/95 dark:bg-base-900/95 text-slate-900 dark:text-white backdrop-blur-xl">
+      <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i>
       <span id="toast-message">Copied to clipboard!</span>
     </div>
   </div>
 
-  <!-- Minimalist Navigation Bar -->
-  <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-base-950/80 border-b border-white/[0.06] transition-all duration-300">
+  <!-- Header Navigation -->
+  <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/80 dark:bg-base-950/80 border-b border-slate-200/80 dark:border-white/[0.06] transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
       
       <!-- Brand Logo / Identity -->
       <a href="#overview" class="flex items-center gap-3 group">
-        <div class="w-9 h-9 rounded-lg bg-white/[0.06] border border-white/[0.1] flex items-center justify-center font-mono font-bold text-sm text-signal-blue group-hover:border-signal-blue/40 transition-all">
+        <div class="w-9 h-9 rounded-lg bg-blue-50 dark:bg-white/[0.06] border border-blue-200 dark:border-white/[0.1] flex items-center justify-center font-mono font-bold text-sm text-blue-600 dark:text-blue-400 group-hover:border-blue-500 transition-all shadow-sm">
           AS
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-heading font-bold text-base tracking-tight text-white group-hover:text-slate-200 transition-colors">
+            <span class="font-heading font-bold text-base tracking-tight text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-slate-200 transition-colors">
               Athul S
             </span>
-            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-medium">
               <span class="pulse-dot mr-1.5"></span> Open for Roles
             </span>
           </div>
-          <span class="block text-[11px] font-mono text-slate-400">Electronics, Embedded & IoT Engineer</span>
+          <span class="block text-[11px] font-mono text-slate-500 dark:text-slate-400">Electronics, Embedded &amp; IoT Engineer</span>
         </div>
       </a>
 
       <!-- Desktop Navigation Links -->
-      <nav class="hidden md:flex items-center gap-1 bg-base-900/90 p-1.5 rounded-xl border border-white/[0.06]">
-        <a href="#overview" class="nav-link px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.04] transition-all">Overview</a>
-        <a href="#projects" class="nav-link px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.04] transition-all">Projects</a>
-        <a href="#skills" class="nav-link px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.04] transition-all">Skills</a>
-        <a href="#experience" class="nav-link px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.04] transition-all">Experience</a>
-        <a href="#credentials" class="nav-link px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-white/[0.04] transition-all">Education</a>
+      <nav class="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-base-900/90 p-1.5 rounded-xl border border-slate-200 dark:border-white/[0.06]">
+        <a href="#overview" class="nav-link px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">Overview</a>
+        <a href="#projects" class="nav-link px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">Projects</a>
+        <a href="#skills" class="nav-link px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">Skills</a>
+        <a href="#experience" class="nav-link px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">Experience</a>
+        <a href="#credentials" class="nav-link px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">Education</a>
       </nav>
 
       <!-- Action Area -->
-      <div class="flex items-center gap-3">
-        <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono text-slate-300 bg-base-900 hover:bg-base-850 border border-white/[0.08] hover:border-white/20 transition-all duration-200" title="Download Official Resume PDF">
-          <i data-lucide="download" class="w-3.5 h-3.5 text-slate-400"></i>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Theme Toggle Button in Header -->
+        <button class="theme-toggle-btn p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-base-900 border border-slate-200 dark:border-white/[0.08] transition-all" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+          <i data-lucide="moon" class="theme-icon w-4 h-4"></i>
+        </button>
+
+        <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-base-900 hover:bg-slate-200 dark:hover:bg-base-800 border border-slate-200 dark:border-white/[0.08] transition-all" title="Download Official Resume PDF">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-slate-500 dark:text-slate-400"></i>
           <span>Resume (.pdf)</span>
         </a>
 
-        <a href="#contact" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium text-black bg-white hover:bg-slate-200 transition-all duration-200 font-sans shadow-sm">
+        <a href="#contact" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium text-white dark:text-black bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 transition-all shadow-sm">
           <span>Contact</span>
           <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
         </a>
 
         <!-- Mobile Menu Toggle Button -->
-        <button id="mobile-toggle-btn" class="md:hidden p-2 rounded-lg bg-base-900 border border-white/[0.1] text-slate-300 hover:text-white" aria-label="Toggle Navigation">
+        <button id="mobile-toggle-btn" class="md:hidden p-2 rounded-lg bg-slate-100 dark:bg-base-900 border border-slate-200 dark:border-white/[0.1] text-slate-700 dark:text-slate-300" aria-label="Toggle Navigation">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
       </div>
@@ -131,17 +145,17 @@
     </div>
 
     <!-- Mobile Dropdown Navigation -->
-    <div id="mobile-drawer" class="hidden md:hidden border-t border-white/[0.06] bg-base-950/95 backdrop-blur-2xl px-6 py-4 space-y-3">
-      <a href="#overview" class="mobile-link block py-1.5 text-sm text-slate-300 hover:text-white">Overview</a>
-      <a href="#projects" class="mobile-link block py-1.5 text-sm text-slate-300 hover:text-white">Projects & Hardware</a>
-      <a href="#skills" class="mobile-link block py-1.5 text-sm text-slate-300 hover:text-white">Technical Skills</a>
-      <a href="#experience" class="mobile-link block py-1.5 text-sm text-slate-300 hover:text-white">Industrial Experience</a>
-      <a href="#credentials" class="mobile-link block py-1.5 text-sm text-slate-300 hover:text-white">Education & Certifications</a>
+    <div id="mobile-drawer" class="hidden md:hidden border-t border-slate-200 dark:border-white/[0.06] bg-white/95 dark:bg-base-950/95 backdrop-blur-2xl px-6 py-4 space-y-3">
+      <a href="#overview" class="mobile-link block py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white">Overview</a>
+      <a href="#projects" class="mobile-link block py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white">Projects &amp; Hardware</a>
+      <a href="#skills" class="mobile-link block py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white">Technical Skills</a>
+      <a href="#experience" class="mobile-link block py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white">Industrial Experience</a>
+      <a href="#credentials" class="mobile-link block py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white">Education &amp; Credentials</a>
       <div class="pt-2 flex gap-2">
-        <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="flex-1 py-2 rounded-lg text-xs font-mono bg-base-900 border border-white/[0.1] text-white flex items-center justify-center gap-1.5">
+        <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="flex-1 py-2 rounded-lg text-xs font-mono bg-slate-100 dark:bg-base-900 border border-slate-200 dark:border-white/[0.1] text-slate-900 dark:text-white flex items-center justify-center gap-1.5">
           <i data-lucide="download" class="w-3.5 h-3.5 text-slate-400"></i> Resume (.pdf)
         </a>
-        <a href="#contact" class="flex-1 py-2 rounded-lg text-xs font-medium bg-white text-black text-center flex items-center justify-center gap-1">
+        <a href="#contact" class="flex-1 py-2 rounded-lg text-xs font-medium bg-slate-900 text-white dark:bg-white dark:text-black text-center flex items-center justify-center gap-1">
           Contact <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
         </a>
       </div>
@@ -156,34 +170,34 @@
       <div class="lg:col-span-7 space-y-6">
         
         <!-- Status Indicator Pill -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-slate-300">
-          <span class="w-1.5 h-1.5 rounded-full bg-signal-blue"></span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-white/[0.03] border border-blue-200 dark:border-white/[0.08] text-xs font-mono text-blue-700 dark:text-slate-300">
+          <span class="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-signal-blue"></span>
           <span>Amrita Vishwa Vidyapeetham &bull; B.Tech ECE (2022–2026)</span>
         </div>
 
         <!-- Headline & Summary -->
         <div class="space-y-3">
-          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold tracking-tight text-white leading-[1.15]">
-            Engineering reliable systems in <span class="text-white underline decoration-signal-blue decoration-2 underline-offset-4">Embedded Firmware</span>, <span class="text-white underline decoration-signal-emerald decoration-2 underline-offset-4">Connected IoT</span> &amp; Edge AI.
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
+            Engineering reliable systems in <span class="underline decoration-blue-500 decoration-2 underline-offset-4">Embedded Firmware</span>, <span class="underline decoration-emerald-500 decoration-2 underline-offset-4">Connected IoT</span> &amp; Edge AI.
           </h1>
-          <p class="text-slate-300 text-sm sm:text-base font-normal leading-relaxed max-w-2xl pt-2">
-            I'm <strong class="text-white font-semibold">Athul S</strong>, an Electronics &amp; Communication Engineering graduate with hands-on expertise building real-time micro-controller telematics (<strong class="text-white">ESP32, AVR</strong>), digital hardware logic in <strong class="text-white">Verilog HDL</strong>, RF microstrip simulations (<strong class="text-white">Ansys HFSS</strong>), and computer vision pipelines (<strong class="text-white">OpenCV</strong>).
+          <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base font-normal leading-relaxed max-w-2xl pt-2">
+            I'm <strong class="text-slate-900 dark:text-white font-semibold">Athul S</strong>, an Electronics &amp; Communication Engineering graduate with hands-on expertise building real-time micro-controller telematics (<strong class="text-slate-900 dark:text-white">ESP32, AVR</strong>), digital hardware logic in <strong class="text-slate-900 dark:text-white">Verilog HDL</strong>, RF microstrip simulations (<strong class="text-slate-900 dark:text-white">Ansys HFSS</strong>), and computer vision pipelines (<strong class="text-slate-900 dark:text-white">OpenCV</strong>).
           </p>
         </div>
 
         <!-- Quantitative Metric Cards -->
         <div class="grid grid-cols-3 gap-3 pt-1 max-w-xl">
-          <div class="bento-card-static p-4 rounded-xl border border-white/[0.08]">
-            <div class="text-2xl sm:text-3xl font-heading font-bold text-white">7.08</div>
-            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider mt-0.5">B.Tech CGPA</div>
+          <div class="bento-card-static p-4 rounded-xl border border-slate-200 dark:border-white/[0.08]">
+            <div class="text-2xl sm:text-3xl font-heading font-bold text-slate-900 dark:text-white">7.08</div>
+            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-0.5">B.Tech CGPA</div>
           </div>
-          <div class="bento-card-static p-4 rounded-xl border border-white/[0.08]">
-            <div class="text-2xl sm:text-3xl font-heading font-bold text-white">6+</div>
-            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider mt-0.5">Hardware &amp; Software Projects</div>
+          <div class="bento-card-static p-4 rounded-xl border border-slate-200 dark:border-white/[0.08]">
+            <div class="text-2xl sm:text-3xl font-heading font-bold text-slate-900 dark:text-white">6+</div>
+            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-0.5">Hardware &amp; Software Projects</div>
           </div>
-          <div class="bento-card-static p-4 rounded-xl border border-white/[0.08]">
-            <div class="text-2xl sm:text-3xl font-heading font-bold text-white">2</div>
-            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider mt-0.5">Industry Internships</div>
+          <div class="bento-card-static p-4 rounded-xl border border-slate-200 dark:border-white/[0.08]">
+            <div class="text-2xl sm:text-3xl font-heading font-bold text-slate-900 dark:text-white">2</div>
+            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-0.5">Industry Internships</div>
           </div>
         </div>
 
@@ -195,40 +209,42 @@
           </a>
 
           <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="btn-secondary">
-            <i data-lucide="download" class="w-4 h-4 text-slate-400"></i>
+            <i data-lucide="download" class="w-4 h-4 text-slate-500 dark:text-slate-400"></i>
             <span>Download Resume (.pdf)</span>
           </a>
 
           <button onclick="openResumeModal()" class="btn-secondary">
-            <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
+            <i data-lucide="file-text" class="w-4 h-4 text-slate-500 dark:text-slate-400"></i>
             <span>Preview CV</span>
           </button>
         </div>
 
-        <!-- Quick Direct Contact Chips -->
+        <!-- Quick Direct Contact Chips (with authentic brand SVGs) -->
         <div class="flex flex-wrap items-center gap-2 pt-2">
           <button onclick="copyToClipboard('athuls2580@gmail.com', 'Email copied to clipboard!')" class="contact-chip" title="Click to copy email">
-            <i data-lucide="mail" class="w-3.5 h-3.5 text-signal-blue"></i>
+            <i data-lucide="mail" class="w-3.5 h-3.5 text-blue-500"></i>
             <span>athuls2580@gmail.com</span>
-            <i data-lucide="copy" class="w-3 h-3 text-slate-500"></i>
+            <i data-lucide="copy" class="w-3 h-3 text-slate-400"></i>
           </button>
 
           <button onclick="copyToClipboard('+919207626755', 'Phone number copied to clipboard!')" class="contact-chip" title="Click to copy phone number">
-            <i data-lucide="phone" class="w-3.5 h-3.5 text-signal-emerald"></i>
+            <i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-500"></i>
             <span>+91 9207626755</span>
-            <i data-lucide="copy" class="w-3 h-3 text-slate-500"></i>
+            <i data-lucide="copy" class="w-3 h-3 text-slate-400"></i>
           </button>
 
-          <a href="https://github.com/athuls-engineer" target="_blank" rel="noopener noreferrer" class="contact-chip">
-            <i data-lucide="github" class="w-3.5 h-3.5 text-white"></i>
+          <a href="https://github.com/athuls-engineer" target="_blank" rel="noopener noreferrer" class="contact-chip" title="View GitHub Profile">
+            <!-- Authentic GitHub Octocat Logo SVG -->
+            <svg class="w-3.5 h-3.5 fill-current text-slate-800 dark:text-white" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
             <span>athuls-engineer</span>
-            <i data-lucide="external-link" class="w-3 h-3 text-slate-500"></i>
+            <i data-lucide="external-link" class="w-3 h-3 text-slate-400"></i>
           </a>
 
-          <a href="https://linkedin.com/in/athul-s-engineer" target="_blank" rel="noopener noreferrer" class="contact-chip">
-            <i data-lucide="linkedin" class="w-3.5 h-3.5 text-[#0A66C2]"></i>
+          <a href="https://linkedin.com/in/athul-s-engineer" target="_blank" rel="noopener noreferrer" class="contact-chip" title="View LinkedIn Profile">
+            <!-- Authentic LinkedIn Logo SVG -->
+            <svg class="w-3.5 h-3.5 fill-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 0 0-1.6 1.6 1.6 1.6 0 0 0 1.6 1.6 1.6 1.6 0 0 0 1.6-1.6 1.6 1.6 0 0 0-1.6-1.6Z"/></svg>
             <span>athul-s-engineer</span>
-            <i data-lucide="external-link" class="w-3 h-3 text-slate-500"></i>
+            <i data-lucide="external-link" class="w-3 h-3 text-slate-400"></i>
           </a>
 
           <div class="contact-chip cursor-default hover:transform-none">
@@ -241,15 +257,15 @@
 
       <!-- Hero Right: Authentic Architecture & Signal Flow Inspector -->
       <div class="lg:col-span-5 w-full">
-        <div class="bento-card-static rounded-2xl p-5 sm:p-6 border border-white/[0.1] shadow-2xl space-y-4">
+        <div class="bento-card-static rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-white/[0.1] shadow-2xl space-y-4">
           
           <!-- Inspector Header -->
-          <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.08] pb-3">
             <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-signal-blue"></span>
-              <span class="font-mono text-xs font-semibold text-white tracking-wider">SYSTEM ARCHITECTURE INSPECTOR</span>
+              <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+              <span class="font-mono text-xs font-semibold text-slate-900 dark:text-white tracking-wider">SYSTEM ARCHITECTURE INSPECTOR</span>
             </div>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.05] text-slate-300 border border-white/[0.1]">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-white/[0.05] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/[0.1]">
               Verified Implementation
             </span>
           </div>
@@ -265,13 +281,13 @@
           <!-- Active Architecture Details -->
           <div class="space-y-3 pt-1">
             <div>
-              <h3 id="arch-title" class="font-heading font-bold text-white text-base">Chaakra: Real-Time IoT GPS Bus Telematics</h3>
-              <p id="arch-subtitle" class="text-xs font-mono text-slate-400 mt-0.5">ESP32 + u-blox Neo-6M GPS &rarr; Firebase Realtime DB &rarr; React Native</p>
+              <h3 id="arch-title" class="font-heading font-bold text-slate-900 dark:text-white text-base">Chaakra: Real-Time IoT GPS Bus Telematics</h3>
+              <p id="arch-subtitle" class="text-xs font-mono text-slate-500 dark:text-slate-400 mt-0.5">ESP32 + u-blox Neo-6M GPS &rarr; Firebase Realtime DB &rarr; React Native</p>
             </div>
 
             <!-- Signal Flow Steps -->
             <div class="space-y-2">
-              <label class="block text-[10px] font-mono uppercase text-slate-400 tracking-wider">Signal &amp; Telemetry Pipeline</label>
+              <label class="block text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 tracking-wider">Signal &amp; Telemetry Pipeline</label>
               <div id="arch-flow-steps" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <!-- Injected via JavaScript -->
               </div>
@@ -279,7 +295,7 @@
 
             <!-- Hardware Specifications -->
             <div class="space-y-1.5 pt-1">
-              <label class="block text-[10px] font-mono uppercase text-slate-400 tracking-wider">Physical Hardware &amp; Interface Specs</label>
+              <label class="block text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 tracking-wider">Physical Hardware &amp; Interface Specs</label>
               <div id="arch-specs-list" class="space-y-1.5">
                 <!-- Injected via JavaScript -->
               </div>
@@ -287,11 +303,11 @@
 
             <!-- Code Preview Box -->
             <div class="space-y-1.5 pt-1">
-              <div class="flex items-center justify-between text-[10px] font-mono text-slate-400">
+              <div class="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
                 <span class="uppercase tracking-wider">Firmware / Logic Implementation</span>
-                <span class="text-slate-400">Core Loop</span>
+                <span>Core Loop</span>
               </div>
-              <pre class="p-3 rounded-lg bg-base-950 border border-white/[0.06] text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed"><code id="arch-code-snippet"></code></pre>
+              <pre class="p-3 rounded-lg bg-slate-900 text-slate-200 dark:bg-base-950 dark:text-slate-300 border border-slate-800 dark:border-white/[0.06] text-[11px] font-mono overflow-x-auto leading-relaxed"><code id="arch-code-snippet"></code></pre>
             </div>
 
           </div>
@@ -303,18 +319,18 @@
   </section>
 
   <!-- Featured Engineering Projects Section -->
-  <section id="projects" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-white/[0.06]">
+  <section id="projects" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-slate-200 dark:border-white/[0.06]">
     
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
       <div>
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-white/[0.04] text-slate-300 border border-white/[0.08]">
-          <i data-lucide="cpu" class="w-3.5 h-3.5 text-signal-blue"></i> Engineering Case Studies
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-blue-50 dark:bg-white/[0.04] text-blue-700 dark:text-slate-300 border border-blue-200 dark:border-white/[0.08]">
+          <i data-lucide="cpu" class="w-3.5 h-3.5 text-blue-500"></i> Engineering Case Studies
         </span>
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight mt-2">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight mt-2">
           Featured Projects &amp; Hardware
         </h2>
       </div>
-      <p class="text-slate-400 text-xs sm:text-sm max-w-md">
+      <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-md">
         Verified hardware builds, bare-metal micro-controller implementations, and full-stack telematics platforms.
       </p>
     </div>
@@ -335,37 +351,37 @@
       <div class="project-card bento-card p-6 flex flex-col justify-between group" data-category="embedded">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-medium">
               Embedded IoT
             </span>
-            <span class="text-xs font-mono text-slate-400">10/2025 – 05/2026</span>
+            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">10/2025 – 05/2026</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-white group-hover:text-blue-400 transition-colors mb-2">
+          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
             Chaakra: Real-Time IoT GPS Bus Tracking &amp; Booking
           </h3>
 
-          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
-            End-to-end telematics system capturing live GPS feeds from onboard ESP32 modules over UART, syncing with Firebase Realtime Database with refresh latency <strong class="text-white">&lt;5 seconds</strong>, rendered on cross-platform React Native + Leaflet maps.
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
+            End-to-end telematics system capturing live GPS feeds from onboard ESP32 modules over UART, syncing with Firebase Realtime Database with refresh latency <strong class="text-slate-900 dark:text-white">&lt;5 seconds</strong>, rendered on cross-platform React Native + Leaflet maps.
           </p>
 
-          <div class="space-y-1.5 p-3 rounded-lg bg-base-950 border border-white/[0.05] text-xs font-mono mb-4 text-slate-300">
+          <div class="space-y-1.5 p-3 rounded-lg bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.05] text-xs font-mono mb-4 text-slate-700 dark:text-slate-300">
             <div class="flex justify-between">
-              <span class="text-slate-400">Refresh Latency:</span>
-              <span class="text-emerald-400 font-bold">&lt; 5 seconds</span>
+              <span class="text-slate-500 dark:text-slate-400">Refresh Latency:</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold">&lt; 5 seconds</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Hardware Interface:</span>
-              <span class="text-white">ESP32 UART2 + u-blox Neo-6M</span>
+              <span class="text-slate-500 dark:text-slate-400">Hardware Interface:</span>
+              <span class="text-slate-900 dark:text-white">ESP32 UART2 + u-blox Neo-6M</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Mobile Mapping:</span>
-              <span class="text-white">React Native + Leaflet Maps</span>
+              <span class="text-slate-500 dark:text-slate-400">Mobile Mapping:</span>
+              <span class="text-slate-900 dark:text-white">React Native + Leaflet Maps</span>
             </div>
           </div>
         </div>
 
-        <div class="pt-4 border-t border-white/[0.06] space-y-3">
+        <div class="pt-4 border-t border-slate-200 dark:border-white/[0.06] space-y-3">
           <div class="flex flex-wrap gap-1.5">
             <span class="tech-badge">ESP32</span>
             <span class="tech-badge">Neo-6M GPS</span>
@@ -374,11 +390,11 @@
           </div>
 
           <div class="flex items-center justify-between gap-2 pt-1">
-            <a href="https://github.com/athuls-engineer/chakraa-smart-bus-tracking-system" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg text-xs font-mono text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.1] border border-white/[0.08] transition-all flex items-center gap-1.5">
-              <i data-lucide="github" class="w-3.5 h-3.5"></i>
+            <a href="https://github.com/athuls-engineer/chakraa-smart-bus-tracking-system" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-white/[0.04] hover:bg-slate-200 dark:hover:bg-white/[0.1] border border-slate-200 dark:border-white/[0.08] transition-all flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
               <span>Source</span>
             </a>
-            <button onclick="openProjectModal('chaakra')" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-white bg-base-800 hover:bg-white hover:text-black border border-white/[0.1] transition-all flex items-center gap-1.5">
+            <button onclick="openProjectModal('chaakra')" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-800 dark:text-white bg-slate-100 dark:bg-base-800 hover:bg-slate-200 dark:hover:bg-white dark:hover:text-black border border-slate-200 dark:border-white/[0.1] transition-all flex items-center gap-1.5">
               <span>Technical Specs</span>
               <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             </button>
@@ -390,37 +406,37 @@
       <div class="project-card bento-card p-6 flex flex-col justify-between group" data-category="hardware">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-medium">
               Digital VLSI &amp; FPGA
             </span>
-            <span class="text-xs font-mono text-slate-400">02/2025 – 03/2025</span>
+            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">02/2025 – 03/2025</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-white group-hover:text-emerald-400 transition-colors mb-2">
+          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors mb-2">
             FPGA Candy Vending Machine Controller (Basys 3)
           </h3>
 
-          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
-            Engineered 6 modular Verilog HDL blocks including FSM control core, 20ms mechanical switch debounce filter, BCD decoder, clock prescaler, and multiplexed 7-segment display driver on Xilinx Artix-7 Basys 3 board with response time <strong class="text-white">&lt;1s</strong>.
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
+            Engineered 6 modular Verilog HDL blocks including FSM control core, 20ms mechanical switch debounce filter, BCD decoder, clock prescaler, and multiplexed 7-segment display driver on Xilinx Artix-7 Basys 3 board with response time <strong class="text-slate-900 dark:text-white">&lt;1s</strong>.
           </p>
 
-          <div class="space-y-1.5 p-3 rounded-lg bg-base-950 border border-white/[0.05] text-xs font-mono mb-4 text-slate-300">
+          <div class="space-y-1.5 p-3 rounded-lg bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.05] text-xs font-mono mb-4 text-slate-700 dark:text-slate-300">
             <div class="flex justify-between">
-              <span class="text-slate-400">Target FPGA:</span>
-              <span class="text-white">Artix-7 XC7A35T (Basys 3)</span>
+              <span class="text-slate-500 dark:text-slate-400">Target FPGA:</span>
+              <span class="text-slate-900 dark:text-white">Artix-7 XC7A35T (Basys 3)</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">HDL Modules:</span>
-              <span class="text-white">6 Modular RTL Blocks</span>
+              <span class="text-slate-500 dark:text-slate-400">HDL Modules:</span>
+              <span class="text-slate-900 dark:text-white">6 Modular RTL Blocks</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">FSM State Timing:</span>
-              <span class="text-emerald-400 font-bold">&lt; 1s Response</span>
+              <span class="text-slate-500 dark:text-slate-400">FSM State Timing:</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold">&lt; 1s Response</span>
             </div>
           </div>
         </div>
 
-        <div class="pt-4 border-t border-white/[0.06] space-y-3">
+        <div class="pt-4 border-t border-slate-200 dark:border-white/[0.06] space-y-3">
           <div class="flex flex-wrap gap-1.5">
             <span class="tech-badge">Verilog HDL</span>
             <span class="tech-badge">Xilinx Vivado</span>
@@ -429,8 +445,8 @@
           </div>
 
           <div class="flex items-center justify-between gap-2 pt-1">
-            <span class="text-xs font-mono text-slate-500">Academic Project</span>
-            <button onclick="openProjectModal('fpga')" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-white bg-base-800 hover:bg-white hover:text-black border border-white/[0.1] transition-all flex items-center gap-1.5">
+            <span class="text-xs font-mono text-slate-400">Academic Project</span>
+            <button onclick="openProjectModal('fpga')" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-800 dark:text-white bg-slate-100 dark:bg-base-800 hover:bg-slate-200 dark:hover:bg-white dark:hover:text-black border border-slate-200 dark:border-white/[0.1] transition-all flex items-center gap-1.5">
               <span>Technical Specs</span>
               <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             </button>
@@ -442,37 +458,37 @@
       <div class="project-card bento-card p-6 flex flex-col justify-between group" data-category="rf">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20">
+            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 font-medium">
               RF &amp; Electromagnetics
             </span>
-            <span class="text-xs font-mono text-slate-400">11/2024 – 01/2025</span>
+            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">11/2024 – 01/2025</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-white group-hover:text-purple-400 transition-colors mb-2">
+          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors mb-2">
             5.8 GHz Automotive V2V Microstrip Patch Antenna
           </h3>
 
-          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
-            Designed an ultra-compact <strong class="text-white">2.5 &times; 2.5 cm</strong> microstrip patch antenna operating at 5.8 GHz for Vehicle-to-Vehicle (V2V) telematics. Simulated in <strong class="text-white">Ansys HFSS</strong> with <strong class="text-emerald-400 font-semibold">&gt;85% radiation efficiency</strong> and -18.4 dB return loss.
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
+            Designed an ultra-compact <strong class="text-slate-900 dark:text-white">2.5 &times; 2.5 cm</strong> microstrip patch antenna operating at 5.8 GHz for Vehicle-to-Vehicle (V2V) telematics. Simulated in <strong class="text-slate-900 dark:text-white">Ansys HFSS</strong> with <strong class="text-emerald-600 dark:text-emerald-400 font-semibold">&gt;85% radiation efficiency</strong> and -18.4 dB return loss.
           </p>
 
-          <div class="space-y-1.5 p-3 rounded-lg bg-base-950 border border-white/[0.05] text-xs font-mono mb-4 text-slate-300">
+          <div class="space-y-1.5 p-3 rounded-lg bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.05] text-xs font-mono mb-4 text-slate-700 dark:text-slate-300">
             <div class="flex justify-between">
-              <span class="text-slate-400">Operating Band:</span>
-              <span class="text-white">5.80 GHz DSRC V2V</span>
+              <span class="text-slate-500 dark:text-slate-400">Operating Band:</span>
+              <span class="text-slate-900 dark:text-white">5.80 GHz DSRC V2V</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Return Loss (S11):</span>
-              <span class="text-emerald-400 font-bold">-18.4 dB Notch</span>
+              <span class="text-slate-500 dark:text-slate-400">Return Loss (S11):</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold">-18.4 dB Notch</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Substrate:</span>
-              <span class="text-white">Rogers RT/duroid 5880</span>
+              <span class="text-slate-500 dark:text-slate-400">Substrate:</span>
+              <span class="text-slate-900 dark:text-white">Rogers RT/duroid 5880</span>
             </div>
           </div>
         </div>
 
-        <div class="pt-4 border-t border-white/[0.06] space-y-3">
+        <div class="pt-4 border-t border-slate-200 dark:border-white/[0.06] space-y-3">
           <div class="flex flex-wrap gap-1.5">
             <span class="tech-badge">Ansys HFSS</span>
             <span class="tech-badge">5.8 GHz DSRC</span>
@@ -481,8 +497,8 @@
           </div>
 
           <div class="flex items-center justify-between gap-2 pt-1">
-            <span class="text-xs font-mono text-slate-500">RF Simulation</span>
-            <button onclick="openProjectModal('antenna')" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-white bg-base-800 hover:bg-white hover:text-black border border-white/[0.1] transition-all flex items-center gap-1.5">
+            <span class="text-xs font-mono text-slate-400">RF Simulation</span>
+            <button onclick="openProjectModal('antenna')" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-800 dark:text-white bg-slate-100 dark:bg-base-800 hover:bg-slate-200 dark:hover:bg-white dark:hover:text-black border border-slate-200 dark:border-white/[0.1] transition-all flex items-center gap-1.5">
               <span>Technical Specs</span>
               <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             </button>
@@ -494,37 +510,37 @@
       <div class="project-card bento-card p-6 flex flex-col justify-between group" data-category="embedded">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-medium">
               Embedded Systems
             </span>
-            <span class="text-xs font-mono text-slate-400">12/2024 – 12/2024</span>
+            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">12/2024 – 12/2024</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-white group-hover:text-blue-400 transition-colors mb-2">
+          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
             Microcontroller Temperature Data Logger
           </h3>
 
-          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
-            Continuous thermal acquisition system utilizing <strong class="text-white">LM35 transducer + bare-metal ATmega328P</strong>. Configured Timer1 CTC interrupts for periodic 10-second sampling with <strong class="text-white">&plusmn;0.5&deg;C accuracy</strong> over 24-hour continuous validation cycles on 16&times;2 LCD.
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
+            Continuous thermal acquisition system utilizing <strong class="text-slate-900 dark:text-white">LM35 transducer + bare-metal ATmega328P</strong>. Configured Timer1 CTC interrupts for periodic 10-second sampling with <strong class="text-slate-900 dark:text-white">&plusmn;0.5&deg;C accuracy</strong> over 24-hour continuous validation cycles on 16&times;2 LCD.
           </p>
 
-          <div class="space-y-1.5 p-3 rounded-lg bg-base-950 border border-white/[0.05] text-xs font-mono mb-4 text-slate-300">
+          <div class="space-y-1.5 p-3 rounded-lg bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.05] text-xs font-mono mb-4 text-slate-700 dark:text-slate-300">
             <div class="flex justify-between">
-              <span class="text-slate-400">Sampling Cadence:</span>
-              <span class="text-white">Timer1 CTC (10-Second Rate)</span>
+              <span class="text-slate-500 dark:text-slate-400">Sampling Cadence:</span>
+              <span class="text-slate-900 dark:text-white">Timer1 CTC (10-Second Rate)</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Conversion Accuracy:</span>
-              <span class="text-emerald-400 font-bold">&plusmn;0.5&deg;C Precision</span>
+              <span class="text-slate-500 dark:text-slate-400">Conversion Accuracy:</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold">&plusmn;0.5&deg;C Precision</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Display Bus:</span>
-              <span class="text-white">HD44780 4-bit Parallel Bus</span>
+              <span class="text-slate-500 dark:text-slate-400">Display Bus:</span>
+              <span class="text-slate-900 dark:text-white">HD44780 4-bit Parallel Bus</span>
             </div>
           </div>
         </div>
 
-        <div class="pt-4 border-t border-white/[0.06] space-y-3">
+        <div class="pt-4 border-t border-slate-200 dark:border-white/[0.06] space-y-3">
           <div class="flex flex-wrap gap-1.5">
             <span class="tech-badge">ATmega328P</span>
             <span class="tech-badge">LM35 Sensor</span>
@@ -533,8 +549,8 @@
           </div>
 
           <div class="flex items-center justify-between gap-2 pt-1">
-            <span class="text-xs font-mono text-slate-500">Hardware DAQ</span>
-            <button onclick="openProjectModal('logger')" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-white bg-base-800 hover:bg-white hover:text-black border border-white/[0.1] transition-all flex items-center gap-1.5">
+            <span class="text-xs font-mono text-slate-400">Hardware DAQ</span>
+            <button onclick="openProjectModal('logger')" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-800 dark:text-white bg-slate-100 dark:bg-base-800 hover:bg-slate-200 dark:hover:bg-white dark:hover:text-black border border-slate-200 dark:border-white/[0.1] transition-all flex items-center gap-1.5">
               <span>Technical Specs</span>
               <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             </button>
@@ -546,37 +562,37 @@
       <div class="project-card bento-card p-6 flex flex-col justify-between group" data-category="software">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-medium">
               Edge AI &amp; Vision
             </span>
-            <span class="text-xs font-mono text-slate-400">04/2025 – 08/2026</span>
+            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">04/2025 – 08/2026</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-white group-hover:text-emerald-400 transition-colors mb-2">
+          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors mb-2">
             VisionSentinel: Edge AI Surveillance &amp; CLAHE
           </h3>
 
-          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
             Edge AI surveillance gateway with low-light Contrast Limited Adaptive Histogram Equalization (CLAHE) on luminance channels, real-time HOG pedestrian detection + Haar face verification, and sub-500ms Telegram Bot photo alerts.
           </p>
 
-          <div class="space-y-1.5 p-3 rounded-lg bg-base-950 border border-white/[0.05] text-xs font-mono mb-4 text-slate-300">
+          <div class="space-y-1.5 p-3 rounded-lg bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.05] text-xs font-mono mb-4 text-slate-700 dark:text-slate-300">
             <div class="flex justify-between">
-              <span class="text-slate-400">Inference Engine:</span>
-              <span class="text-white">OpenCV HOG + Linear SVM</span>
+              <span class="text-slate-500 dark:text-slate-400">Inference Engine:</span>
+              <span class="text-slate-900 dark:text-white">OpenCV HOG + Linear SVM</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Low-Light Equalizer:</span>
-              <span class="text-white">Adaptive CLAHE (&lt;15 lux)</span>
+              <span class="text-slate-500 dark:text-slate-400">Low-Light Equalizer:</span>
+              <span class="text-slate-900 dark:text-white">Adaptive CLAHE (&lt;15 lux)</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Alert Dispatch:</span>
-              <span class="text-emerald-400 font-bold">&lt; 500ms Telegram Bot</span>
+              <span class="text-slate-500 dark:text-slate-400">Alert Dispatch:</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold">&lt; 500ms Telegram Bot</span>
             </div>
           </div>
         </div>
 
-        <div class="pt-4 border-t border-white/[0.06] space-y-3">
+        <div class="pt-4 border-t border-slate-200 dark:border-white/[0.06] space-y-3">
           <div class="flex flex-wrap gap-1.5">
             <span class="tech-badge">Python</span>
             <span class="tech-badge">OpenCV CLAHE</span>
@@ -585,11 +601,11 @@
           </div>
 
           <div class="flex items-center justify-between gap-2 pt-1">
-            <a href="https://github.com/athuls-engineer/edgevision-iot" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg text-xs font-mono text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.1] border border-white/[0.08] transition-all flex items-center gap-1.5">
-              <i data-lucide="github" class="w-3.5 h-3.5"></i>
+            <a href="https://github.com/athuls-engineer/edgevision-iot" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-white/[0.04] hover:bg-slate-200 dark:hover:bg-white/[0.1] border border-slate-200 dark:border-white/[0.08] transition-all flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
               <span>Source</span>
             </a>
-            <button onclick="openProjectModal('edgevision')" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-white bg-base-800 hover:bg-white hover:text-black border border-white/[0.1] transition-all flex items-center gap-1.5">
+            <button onclick="openProjectModal('edgevision')" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-800 dark:text-white bg-slate-100 dark:bg-base-800 hover:bg-slate-200 dark:hover:bg-white dark:hover:text-black border border-slate-200 dark:border-white/[0.1] transition-all flex items-center gap-1.5">
               <span>Technical Specs</span>
               <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             </button>
@@ -601,37 +617,37 @@
       <div class="project-card bento-card p-6 flex flex-col justify-between group" data-category="software">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-medium">
               Live Web Telemetry
             </span>
-            <span class="text-xs font-mono text-slate-400">2026</span>
+            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">2026</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-white group-hover:text-blue-400 transition-colors mb-2">
+          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
             Tesla FSD Fleet Telemetry &amp; Safety Dashboard
           </h3>
 
-          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
             Live interactive telemetry application tracking cumulative Tesla Full Self-Driving (Supervised) fleet mileage across 2M+ vehicles in 12 countries. Highlights milestone growth models and safety comparison metrics.
           </p>
 
-          <div class="space-y-1.5 p-3 rounded-lg bg-base-950 border border-white/[0.05] text-xs font-mono mb-4 text-slate-300">
+          <div class="space-y-1.5 p-3 rounded-lg bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.05] text-xs font-mono mb-4 text-slate-700 dark:text-slate-300">
             <div class="flex justify-between">
-              <span class="text-slate-400">Deployment Path:</span>
-              <span class="text-white font-bold">/fsd/</span>
+              <span class="text-slate-500 dark:text-slate-400">Deployment Path:</span>
+              <span class="text-slate-900 dark:text-white font-bold">/fsd/</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Frontend Stack:</span>
-              <span class="text-white">React, Vite, Tailwind CSS</span>
+              <span class="text-slate-500 dark:text-slate-400">Frontend Stack:</span>
+              <span class="text-slate-900 dark:text-white">React, Vite, Tailwind CSS</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Visualization:</span>
-              <span class="text-emerald-400 font-bold">3D Canvas Perception</span>
+              <span class="text-slate-500 dark:text-slate-400">Visualization:</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold">3D Canvas Perception</span>
             </div>
           </div>
         </div>
 
-        <div class="pt-4 border-t border-white/[0.06] space-y-3">
+        <div class="pt-4 border-t border-slate-200 dark:border-white/[0.06] space-y-3">
           <div class="flex flex-wrap gap-1.5">
             <span class="tech-badge">React</span>
             <span class="tech-badge">TypeScript</span>
@@ -640,12 +656,12 @@
           </div>
 
           <div class="flex items-center justify-between gap-2 pt-1">
-            <a href="fsd/" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-black bg-white hover:bg-slate-200 font-semibold transition-all flex items-center gap-1.5 shadow">
+            <a href="fsd/" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-white dark:text-slate-900 bg-slate-900 dark:bg-white hover:opacity-90 font-semibold transition-all flex items-center gap-1.5 shadow">
               <span>Launch App</span>
               <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
             </a>
-            <a href="https://github.com/athuls-engineer/tesla-fsd-tracker" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg text-xs font-mono text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.1] border border-white/[0.08] transition-all flex items-center gap-1.5">
-              <i data-lucide="github" class="w-3.5 h-3.5"></i>
+            <a href="https://github.com/athuls-engineer/tesla-fsd-tracker" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-white/[0.04] hover:bg-slate-200 dark:hover:bg-white/[0.1] border border-slate-200 dark:border-white/[0.08] transition-all flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
               <span>Source</span>
             </a>
           </div>
@@ -656,37 +672,37 @@
       <div class="project-card bento-card p-6 flex flex-col justify-between group" data-category="software">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-medium">
               Android Security
             </span>
-            <span class="text-xs font-mono text-slate-400">Open Source</span>
+            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Open Source</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-white group-hover:text-emerald-400 transition-colors mb-2">
+          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors mb-2">
             AegisGuard: Rootless Android DNS Sinkhole
           </h3>
 
-          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
-            Android local DNS sinkhole and ad blocker built using Android's native <code class="text-white font-mono">VpnService</code> API. Operates 100% locally on-device without root privileges or external proxy redirection.
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
+            Android local DNS sinkhole and ad blocker built using Android's native <code class="font-mono text-slate-900 dark:text-white font-semibold">VpnService</code> API. Operates 100% locally on-device without root privileges or external proxy redirection.
           </p>
 
-          <div class="space-y-1.5 p-3 rounded-lg bg-base-950 border border-white/[0.05] text-xs font-mono mb-4 text-slate-300">
+          <div class="space-y-1.5 p-3 rounded-lg bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.05] text-xs font-mono mb-4 text-slate-700 dark:text-slate-300">
             <div class="flex justify-between">
-              <span class="text-slate-400">Architecture:</span>
-              <span class="text-white">Local VpnService Loop</span>
+              <span class="text-slate-500 dark:text-slate-400">Architecture:</span>
+              <span class="text-slate-900 dark:text-white">Local VpnService Loop</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Root Requirement:</span>
-              <span class="text-emerald-400 font-bold">Zero Root Required</span>
+              <span class="text-slate-500 dark:text-slate-400">Root Requirement:</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold">Zero Root Required</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Performance:</span>
-              <span class="text-white">Negligible Battery Overhead</span>
+              <span class="text-slate-500 dark:text-slate-400">Performance:</span>
+              <span class="text-slate-900 dark:text-white">Negligible Battery Overhead</span>
             </div>
           </div>
         </div>
 
-        <div class="pt-4 border-t border-white/[0.06] space-y-3">
+        <div class="pt-4 border-t border-slate-200 dark:border-white/[0.06] space-y-3">
           <div class="flex flex-wrap gap-1.5">
             <span class="tech-badge">Java</span>
             <span class="tech-badge">Android SDK</span>
@@ -695,8 +711,8 @@
           </div>
 
           <div class="flex items-center justify-between gap-2 pt-1">
-            <a href="https://github.com/athuls-engineer/aegisguard-android" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.1] border border-white/[0.08] transition-all flex items-center gap-1.5">
-              <i data-lucide="github" class="w-3.5 h-3.5"></i>
+            <a href="https://github.com/athuls-engineer/aegisguard-android" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-white/[0.04] hover:bg-slate-200 dark:hover:bg-white/[0.1] border border-slate-200 dark:border-white/[0.08] transition-all flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
               <span>GitHub Repository</span>
             </a>
           </div>
@@ -707,37 +723,37 @@
       <div class="project-card bento-card p-6 flex flex-col justify-between group" data-category="software">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20">
+            <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 font-medium">
               Desktop Systems
             </span>
-            <span class="text-xs font-mono text-slate-400">Open Source</span>
+            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Open Source</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-white group-hover:text-purple-400 transition-colors mb-2">
+          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors mb-2">
             SAMM: Desktop Mod Manager (Tauri v2 + Rust)
           </h3>
 
-          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
+          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
             Cross-platform desktop mod manager for GTA: San Andreas engineered using Tauri v2, Rust, and React. Features conflict detection, profile management, and virtual directory symlinking.
           </p>
 
-          <div class="space-y-1.5 p-3 rounded-lg bg-base-950 border border-white/[0.05] text-xs font-mono mb-4 text-slate-300">
+          <div class="space-y-1.5 p-3 rounded-lg bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.05] text-xs font-mono mb-4 text-slate-700 dark:text-slate-300">
             <div class="flex justify-between">
-              <span class="text-slate-400">Core Engine:</span>
-              <span class="text-white">Tauri v2 (Rust Backend)</span>
+              <span class="text-slate-500 dark:text-slate-400">Core Engine:</span>
+              <span class="text-slate-900 dark:text-white">Tauri v2 (Rust Backend)</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">UI Layer:</span>
-              <span class="text-white">React + Modern CSS</span>
+              <span class="text-slate-500 dark:text-slate-400">UI Layer:</span>
+              <span class="text-slate-900 dark:text-white">React + Modern CSS</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Safety:</span>
-              <span class="text-emerald-400 font-bold">Virtual Symlink Isolation</span>
+              <span class="text-slate-500 dark:text-slate-400">Safety:</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold">Virtual Symlink Isolation</span>
             </div>
           </div>
         </div>
 
-        <div class="pt-4 border-t border-white/[0.06] space-y-3">
+        <div class="pt-4 border-t border-slate-200 dark:border-white/[0.06] space-y-3">
           <div class="flex flex-wrap gap-1.5">
             <span class="tech-badge">Rust</span>
             <span class="tech-badge">Tauri v2</span>
@@ -746,8 +762,8 @@
           </div>
 
           <div class="flex items-center justify-between gap-2 pt-1">
-            <a href="https://github.com/athuls-engineer/samm" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.1] border border-white/[0.08] transition-all flex items-center gap-1.5">
-              <i data-lucide="github" class="w-3.5 h-3.5"></i>
+            <a href="https://github.com/athuls-engineer/samm" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-white/[0.04] hover:bg-slate-200 dark:hover:bg-white/[0.1] border border-slate-200 dark:border-white/[0.08] transition-all flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
               <span>GitHub Repository</span>
             </a>
           </div>
@@ -759,17 +775,17 @@
   </section>
 
   <!-- Technical Skills & Competencies -->
-  <section id="skills" class="py-16 md:py-24 border-t border-white/[0.06] bg-base-900/30 relative z-10">
+  <section id="skills" class="py-16 md:py-24 border-t border-slate-200 dark:border-white/[0.06] bg-slate-50/60 dark:bg-base-900/30 relative z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-14 space-y-2">
-        <span class="px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-white/[0.04] text-slate-300 border border-white/[0.08]">
+        <span class="px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-blue-50 dark:bg-white/[0.04] text-blue-700 dark:text-slate-300 border border-blue-200 dark:border-white/[0.08]">
           Competencies
         </span>
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight">
           Technical Skills Matrix
         </h2>
-        <p class="text-slate-400 text-xs sm:text-sm">
+        <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm">
           Practical domain competencies spanning embedded microcontrollers, digital hardware synthesis, EDA simulation suites, and software stacks.
         </p>
       </div>
@@ -779,13 +795,13 @@
         <!-- Category 1: Microcontrollers & Hardware -->
         <div class="bento-card p-6 rounded-xl flex flex-col justify-between">
           <div>
-            <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-signal-blue mb-4">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 mb-4">
               <i data-lucide="cpu" class="w-5 h-5"></i>
             </div>
-            <h3 class="font-heading font-bold text-lg text-white mb-1.5">Microcontrollers &amp; Hardware</h3>
-            <p class="text-xs text-slate-400 mb-4 leading-relaxed font-light">Hardware architectures, sensor interfaces, and physical bus routing.</p>
+            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-1.5">Microcontrollers &amp; Hardware</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed font-normal">Hardware architectures, sensor interfaces, and physical bus routing.</p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/[0.06]">
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
             <span class="tech-badge">ESP32 / ESP8266</span>
             <span class="tech-badge">AVR ATmega328P</span>
             <span class="tech-badge">8085 Microprocessor</span>
@@ -798,13 +814,13 @@
         <!-- Category 2: Firmware & Programming -->
         <div class="bento-card p-6 rounded-xl flex flex-col justify-between">
           <div>
-            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-signal-emerald mb-4">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-4">
               <i data-lucide="code-2" class="w-5 h-5"></i>
             </div>
-            <h3 class="font-heading font-bold text-lg text-white mb-1.5">Firmware &amp; Software</h3>
-            <p class="text-xs text-slate-400 mb-4 leading-relaxed font-light">Low-level embedded logic, HDL state machines, and application engineering.</p>
+            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-1.5">Firmware &amp; Software</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed font-normal">Low-level embedded logic, HDL state machines, and application engineering.</p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/[0.06]">
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
             <span class="tech-badge">Embedded C / C++</span>
             <span class="tech-badge">Verilog HDL</span>
             <span class="tech-badge">Assembly Language</span>
@@ -817,13 +833,13 @@
         <!-- Category 3: EDA & Simulation Tools -->
         <div class="bento-card p-6 rounded-xl flex flex-col justify-between">
           <div>
-            <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-4">
               <i data-lucide="radio" class="w-5 h-5"></i>
             </div>
-            <h3 class="font-heading font-bold text-lg text-white mb-1.5">EDA &amp; Simulation Suites</h3>
-            <p class="text-xs text-slate-400 mb-4 leading-relaxed font-light">3D electromagnetic simulation, RTL synthesis, and numerical modeling.</p>
+            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-1.5">EDA &amp; Simulation Suites</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed font-normal">3D electromagnetic simulation, RTL synthesis, and numerical modeling.</p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/[0.06]">
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
             <span class="tech-badge">Ansys HFSS</span>
             <span class="tech-badge">Xilinx Vivado</span>
             <span class="tech-badge">Keil &micro;Vision</span>
@@ -836,13 +852,13 @@
         <!-- Category 4: Protocols & Systems -->
         <div class="bento-card p-6 rounded-xl flex flex-col justify-between">
           <div>
-            <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-600 dark:text-amber-400 mb-4">
               <i data-lucide="network" class="w-5 h-5"></i>
             </div>
-            <h3 class="font-heading font-bold text-lg text-white mb-1.5">Protocols &amp; Systems</h3>
-            <p class="text-xs text-slate-400 mb-4 leading-relaxed font-light">Industrial communication, grid telemetry standards, and computer vision.</p>
+            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-1.5">Protocols &amp; Systems</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed font-normal">Industrial communication, grid telemetry standards, and computer vision.</p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-white/[0.06]">
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
             <span class="tech-badge">Modbus RTU/TCP</span>
             <span class="tech-badge">IEC 60870</span>
             <span class="tech-badge">TCP/IP &amp; MQTT</span>
@@ -858,18 +874,18 @@
   </section>
 
   <!-- Industrial Experience Section -->
-  <section id="experience" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-white/[0.06]">
+  <section id="experience" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-slate-200 dark:border-white/[0.06]">
     
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
       <div>
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-white/[0.04] text-slate-300 border border-white/[0.08]">
-          <i data-lucide="briefcase" class="w-3.5 h-3.5 text-signal-blue"></i> Professional Experience
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-blue-50 dark:bg-white/[0.04] text-blue-700 dark:text-slate-300 border border-blue-200 dark:border-white/[0.08]">
+          <i data-lucide="briefcase" class="w-3.5 h-3.5 text-blue-500"></i> Professional Experience
         </span>
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight mt-2">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight mt-2">
           Industrial Internships &amp; Training
         </h2>
       </div>
-      <p class="text-slate-400 text-xs sm:text-sm max-w-md">
+      <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-md">
         Hands-on commercial engineering experience covering industrial IoT development and high-voltage grid telemetry.
       </p>
     </div>
@@ -879,37 +895,44 @@
       <!-- Experience 1: NeST Technologies -->
       <div class="bento-card p-7 sm:p-8 rounded-2xl flex flex-col justify-between group">
         <div>
-          <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="font-mono text-xs px-2.5 py-0.5 rounded bg-white/[0.06] text-white border border-white/[0.08]">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="font-mono text-xs px-2.5 py-0.5 rounded bg-blue-50 dark:bg-white/[0.06] text-blue-700 dark:text-white border border-blue-200 dark:border-white/[0.08] font-medium">
               04/2025 – 04/2025
             </span>
-            <span class="text-xs text-slate-400 font-mono flex items-center gap-1">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-mono flex items-center gap-1">
               <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i> Kochi, Kerala
             </span>
           </div>
 
-          <h3 class="text-2xl font-heading font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">
-            IoT &amp; Computer Vision Intern
-          </h3>
-          <div class="text-sm font-semibold text-slate-300 mb-4">NeST Technologies</div>
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold shrink-0">
+              <i data-lucide="microchip" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                IoT &amp; Computer Vision Intern
+              </h3>
+              <div class="text-sm font-semibold text-slate-700 dark:text-slate-300">NeST Technologies</div>
+            </div>
+          </div>
 
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-300 font-normal">
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal mt-4">
             <li class="flex items-start gap-2.5">
-              <span class="text-signal-blue font-bold mt-1">&bull;</span>
-              <span>Completed an intensive 5-day, 30-hour practical training program on <strong class="text-white font-medium">Arduino &amp; ESP8266-based IoT development</strong>.</span>
+              <span class="text-blue-500 font-bold mt-1">&bull;</span>
+              <span>Completed an intensive 5-day, 30-hour practical training program on <strong class="text-slate-900 dark:text-white font-medium">Arduino &amp; ESP8266-based IoT development</strong>.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-signal-blue font-bold mt-1">&bull;</span>
-              <span>Built 2 hardware mini-projects involving temperature and motion sensing, achieving <strong class="text-white font-medium">100% wireless data transmission</strong> via Wi-Fi.</span>
+              <span class="text-blue-500 font-bold mt-1">&bull;</span>
+              <span>Built 2 hardware mini-projects involving temperature and motion sensing, achieving <strong class="text-slate-900 dark:text-white font-medium">100% wireless data transmission</strong> via Wi-Fi.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-signal-blue font-bold mt-1">&bull;</span>
-              <span>Implemented <strong class="text-white font-medium">Histogram Equalization using OpenCV in Python</strong> to enhance contrast and edge visibility in low-light camera captures.</span>
+              <span class="text-blue-500 font-bold mt-1">&bull;</span>
+              <span>Implemented <strong class="text-slate-900 dark:text-white font-medium">Histogram Equalization using OpenCV in Python</strong> to enhance contrast and edge visibility in low-light camera captures.</span>
             </li>
           </ul>
         </div>
 
-        <div class="flex flex-wrap gap-1.5 pt-6 mt-6 border-t border-white/[0.06]">
+        <div class="flex flex-wrap gap-1.5 pt-6 mt-6 border-t border-slate-200 dark:border-white/[0.06]">
           <span class="tech-badge">ESP8266 Wi-Fi</span>
           <span class="tech-badge">OpenCV Python</span>
           <span class="tech-badge">Wireless DAQ</span>
@@ -920,37 +943,44 @@
       <!-- Experience 2: KSEB -->
       <div class="bento-card p-7 sm:p-8 rounded-2xl flex flex-col justify-between group">
         <div>
-          <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="font-mono text-xs px-2.5 py-0.5 rounded bg-white/[0.06] text-white border border-white/[0.08]">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="font-mono text-xs px-2.5 py-0.5 rounded bg-emerald-50 dark:bg-white/[0.06] text-emerald-700 dark:text-white border border-emerald-200 dark:border-white/[0.08] font-medium">
               01/2025 – 01/2025
             </span>
-            <span class="text-xs text-slate-400 font-mono flex items-center gap-1">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-mono flex items-center gap-1">
               <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i> Trivandrum, Kerala
             </span>
           </div>
 
-          <h3 class="text-2xl font-heading font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">
-            SCADA &amp; Power Grid Intern
-          </h3>
-          <div class="text-sm font-semibold text-slate-300 mb-4">KSEB (Kerala State Electricity Board)</div>
+          <div class="flex items-start gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold shrink-0">
+              <i data-lucide="zap" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                SCADA &amp; Power Grid Intern
+              </h3>
+              <div class="text-sm font-semibold text-slate-700 dark:text-slate-300">KSEB (Kerala State Electricity Board)</div>
+            </div>
+          </div>
 
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-300 font-normal">
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal mt-4">
             <li class="flex items-start gap-2.5">
-              <span class="text-signal-emerald font-bold mt-1">&bull;</span>
-              <span>Observed and analyzed real-time telemetry monitoring workflows across <strong class="text-white font-medium">3 major transmission grid substations</strong> using SCADA.</span>
+              <span class="text-emerald-500 font-bold mt-1">&bull;</span>
+              <span>Observed and analyzed real-time telemetry monitoring workflows across <strong class="text-slate-900 dark:text-white font-medium">3 major transmission grid substations</strong> using SCADA.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-signal-emerald font-bold mt-1">&bull;</span>
-              <span>Gained hands-on exposure to <strong class="text-white font-medium">5+ industrial communication protocols</strong>, including <strong class="text-white font-medium">Modbus, TCP/IP, and IEC 60870</strong>, for real-time grid data transmission.</span>
+              <span class="text-emerald-500 font-bold mt-1">&bull;</span>
+              <span>Gained hands-on exposure to <strong class="text-slate-900 dark:text-white font-medium">5+ industrial communication protocols</strong>, including <strong class="text-slate-900 dark:text-white font-medium">Modbus, TCP/IP, and IEC 60870</strong>, for real-time grid data transmission.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-signal-emerald font-bold mt-1">&bull;</span>
+              <span class="text-emerald-500 font-bold mt-1">&bull;</span>
               <span>Analyzed power grid communication workflows to understand supervisory control, fail-over telemetry, and substation protection schemes.</span>
             </li>
           </ul>
         </div>
 
-        <div class="flex flex-wrap gap-1.5 pt-6 mt-6 border-t border-white/[0.06]">
+        <div class="flex flex-wrap gap-1.5 pt-6 mt-6 border-t border-slate-200 dark:border-white/[0.06]">
           <span class="tech-badge">SCADA Systems</span>
           <span class="tech-badge">Modbus RTU/TCP</span>
           <span class="tech-badge">IEC 60870 Protocol</span>
@@ -963,14 +993,14 @@
   </section>
 
   <!-- Education & Certifications Section -->
-  <section id="credentials" class="py-16 md:py-24 border-t border-white/[0.06] bg-base-900/30 relative z-10">
+  <section id="credentials" class="py-16 md:py-24 border-t border-slate-200 dark:border-white/[0.06] bg-slate-50/60 dark:bg-base-900/30 relative z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-14 space-y-2">
-        <span class="px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-white/[0.04] text-slate-300 border border-white/[0.08]">
+        <span class="px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-blue-50 dark:bg-white/[0.04] text-blue-700 dark:text-slate-300 border border-blue-200 dark:border-white/[0.08]">
           Academic &amp; Professional
         </span>
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white tracking-tight">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight">
           Education &amp; Credentials
         </h2>
       </div>
@@ -980,32 +1010,40 @@
         <!-- B.Tech Degree Card (6 Cols) -->
         <div class="lg:col-span-6 bento-card p-7 sm:p-8 rounded-2xl flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between gap-2 mb-3">
-              <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-white/[0.06] text-white border border-white/[0.08]">
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-blue-50 dark:bg-white/[0.06] text-blue-700 dark:text-white border border-blue-200 dark:border-white/[0.08]">
                 2022 – 2026
               </span>
-              <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold border border-emerald-500/20">
+              <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/20">
                 CGPA: 7.08
               </span>
             </div>
 
-            <h3 class="text-2xl font-heading font-bold text-white mb-1">
-              BTech — Electronics and Communication Engineering
-            </h3>
-            <div class="text-sm font-semibold text-slate-300 mb-3">Amrita Vishwa Vidyapeetham &bull; Kollam, Kerala</div>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal mb-4">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0 font-bold">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">
+                  BTech — Electronics and Communication Engineering
+                </h3>
+                <div class="text-sm font-semibold text-slate-700 dark:text-slate-300">Amrita Vishwa Vidyapeetham &bull; Kollam, Kerala</div>
+              </div>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal mb-4">
               Comprehensive undergraduate engineering curriculum covering Embedded Systems, Microcontrollers, Digital Communication, Image Processing, VLSI Systems, and Computer Networks.
             </p>
           </div>
 
-          <div class="space-y-2 pt-4 border-t border-white/[0.06] text-xs text-slate-400">
+          <div class="space-y-2 pt-4 border-t border-slate-200 dark:border-white/[0.06] text-xs text-slate-500 dark:text-slate-400">
             <div class="flex justify-between">
               <span>Higher Secondary (12th STD) &bull; Jyothis Central School</span>
-              <span class="font-mono text-slate-300">2020 – 2022</span>
+              <span class="font-mono text-slate-700 dark:text-slate-300">2020 – 2022</span>
             </div>
             <div class="flex justify-between">
               <span>Secondary (10th STD) &bull; Blue Mount Public School</span>
-              <span class="font-mono text-slate-300">2018 – 2020</span>
+              <span class="font-mono text-slate-700 dark:text-slate-300">2018 – 2020</span>
             </div>
           </div>
         </div>
@@ -1015,30 +1053,45 @@
           
           <!-- Google Certificate -->
           <div class="bento-card p-6 rounded-2xl">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 font-semibold">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-semibold">
                 Professional Certificate &bull; 2026
               </span>
-              <span class="text-xs text-slate-400 font-mono">Google &amp; Coursera</span>
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-mono">Google &amp; Coursera</span>
             </div>
-            <h4 class="text-lg font-heading font-bold text-white">Google Advanced Data Analytics</h4>
-            <p class="text-xs text-slate-300 font-normal mt-1.5 leading-relaxed">
-              Completed an intensive 8-course track covering Python data analysis, statistical modeling, machine learning algorithms, and predictive visual analytics.
-            </p>
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-lg bg-blue-50 dark:bg-white/[0.06] border border-blue-200 dark:border-white/[0.1] flex items-center justify-center shrink-0">
+                <!-- Google G Logo SVG -->
+                <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+              </div>
+              <div>
+                <h4 class="text-base sm:text-lg font-heading font-bold text-slate-900 dark:text-white">Google Advanced Data Analytics</h4>
+                <p class="text-xs text-slate-600 dark:text-slate-300 font-normal mt-1 leading-relaxed">
+                  Completed an intensive 8-course track covering Python data analysis, statistical modeling, machine learning algorithms, and predictive visual analytics.
+                </p>
+              </div>
+            </div>
           </div>
 
           <!-- Machine Learning Amrita -->
           <div class="bento-card p-6 rounded-2xl">
-            <div class="flex items-center justify-between mb-2">
-              <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold">
                 Specialized Training &bull; 2024
               </span>
-              <span class="text-xs text-slate-400 font-mono">Amrita Vishwa Vidyapeetham</span>
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-mono">Amrita Vishwa Vidyapeetham</span>
             </div>
-            <h4 class="text-lg font-heading font-bold text-white">Machine Learning &amp; Data Exploration</h4>
-            <p class="text-xs text-slate-300 font-normal mt-1.5 leading-relaxed">
-              Hands-on practical training covering introductory ML models, data pre-processing, linear regression, and dimensionality reduction (PCA).
-            </p>
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h4 class="text-base sm:text-lg font-heading font-bold text-slate-900 dark:text-white">Machine Learning &amp; Data Exploration</h4>
+                <p class="text-xs text-slate-600 dark:text-slate-300 font-normal mt-1 leading-relaxed">
+                  Hands-on practical training covering introductory ML models, data pre-processing, linear regression, and dimensionality reduction (PCA).
+                </p>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -1046,23 +1099,23 @@
         <!-- Social Responsibility Card (12 Cols) -->
         <div class="lg:col-span-12 bento-card p-7 sm:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6">
           <div class="space-y-2 max-w-3xl">
-            <div class="inline-flex items-center gap-2 text-xs font-mono text-slate-300">
-              <i data-lucide="heart-handshake" class="w-4 h-4 text-signal-emerald"></i>
+            <div class="inline-flex items-center gap-2 text-xs font-mono text-emerald-700 dark:text-slate-300">
+              <i data-lucide="heart-handshake" class="w-4 h-4 text-emerald-500"></i>
               <span>Student Social Responsibility (SSR) &bull; 11/2024</span>
             </div>
-            <h3 class="text-xl sm:text-2xl font-heading font-bold text-white">
+            <h3 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">
               Old Age Home Program — Overall Coordinator
             </h3>
-            <p class="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
-              Coordinated and managed community engagement programs for <strong class="text-white">20+ elderly residents</strong>, leading volunteer groups to foster interaction, emotional well-being, and structured activities.
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal leading-relaxed">
+              Coordinated and managed community engagement programs for <strong class="text-slate-900 dark:text-white">20+ elderly residents</strong>, leading volunteer groups to foster interaction, emotional well-being, and structured activities.
             </p>
           </div>
 
-          <div class="flex items-center gap-4 bg-base-950 p-4 rounded-xl border border-white/[0.08] shrink-0">
-            <div class="w-12 h-12 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold font-heading text-xl">
+          <div class="flex items-center gap-4 bg-slate-50 dark:bg-base-950 p-4 rounded-xl border border-slate-200 dark:border-white/[0.08] shrink-0">
+            <div class="w-12 h-12 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold font-heading text-xl">
               20+
             </div>
-            <div class="text-xs font-mono text-slate-300">
+            <div class="text-xs font-mono text-slate-700 dark:text-slate-300">
               Elderly Participants &bull;<br>Volunteer Leadership
             </div>
           </div>
@@ -1073,69 +1126,83 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-white/[0.06]">
+  <!-- Contact Section (Featuring Verified Branded SVG Logos) -->
+  <section id="contact" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-slate-200 dark:border-white/[0.06]">
     <div class="bento-card rounded-2xl p-8 sm:p-12 shadow-2xl">
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
         
         <div class="lg:col-span-5 space-y-6">
           <div>
-            <span class="text-xs font-mono uppercase tracking-wider text-signal-blue">Get in Touch</span>
-            <h2 class="text-3xl font-heading font-bold text-white mt-1">Let's discuss engineering opportunities.</h2>
-            <p class="text-slate-400 text-xs sm:text-sm mt-3 font-normal leading-relaxed">
+            <span class="text-xs font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400 font-semibold">Get in Touch</span>
+            <h2 class="text-3xl font-heading font-bold text-slate-900 dark:text-white mt-1">Let's discuss engineering opportunities.</h2>
+            <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-3 font-normal leading-relaxed">
               I am open to full-time roles, hardware/firmware engineering positions, IoT systems development, and technical collaborations.
             </p>
           </div>
 
           <div class="space-y-3">
-            <div class="flex items-center justify-between p-4 rounded-xl bg-base-950 border border-white/[0.06]">
-              <div class="flex items-center gap-3">
-                <i data-lucide="mail" class="w-5 h-5 text-signal-blue"></i>
+            
+            <!-- Contact Card 1: Direct Email -->
+            <div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.06]">
+              <div class="flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+                  <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
                 <div>
-                  <div class="text-[10px] font-mono text-slate-400">DIRECT EMAIL</div>
-                  <a href="mailto:athuls2580@gmail.com" class="text-xs sm:text-sm font-semibold text-white hover:text-signal-blue transition-colors">athuls2580@gmail.com</a>
+                  <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400">DIRECT EMAIL</div>
+                  <a href="mailto:athuls2580@gmail.com" class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">athuls2580@gmail.com</a>
                 </div>
               </div>
-              <button onclick="copyToClipboard('athuls2580@gmail.com', 'Email copied!')" class="p-2 rounded-lg bg-base-900 text-slate-400 hover:text-white border border-white/[0.08]" title="Copy Email">
+              <button onclick="copyToClipboard('athuls2580@gmail.com', 'Email copied!')" class="p-2.5 rounded-lg bg-white dark:bg-base-900 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-white/[0.08] transition-all shadow-sm" title="Copy Email">
                 <i data-lucide="copy" class="w-4 h-4"></i>
               </button>
             </div>
 
-            <div class="flex items-center justify-between p-4 rounded-xl bg-base-950 border border-white/[0.06]">
-              <div class="flex items-center gap-3">
-                <i data-lucide="phone" class="w-5 h-5 text-signal-emerald"></i>
+            <!-- Contact Card 2: Phone / WhatsApp -->
+            <div class="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.06]">
+              <div class="flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
+                  <i data-lucide="phone" class="w-5 h-5"></i>
+                </div>
                 <div>
-                  <div class="text-[10px] font-mono text-slate-400">PHONE / WHATSAPP</div>
-                  <a href="tel:+919207626755" class="text-xs sm:text-sm font-semibold text-white hover:text-signal-emerald transition-colors">+91 9207626755</a>
+                  <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400">PHONE / WHATSAPP</div>
+                  <a href="tel:+919207626755" class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">+91 9207626755</a>
                 </div>
               </div>
-              <button onclick="copyToClipboard('+919207626755', 'Phone number copied!')" class="p-2 rounded-lg bg-base-900 text-slate-400 hover:text-white border border-white/[0.08]" title="Copy Phone">
+              <button onclick="copyToClipboard('+919207626755', 'Phone number copied!')" class="p-2.5 rounded-lg bg-white dark:bg-base-900 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-white/[0.08] transition-all shadow-sm" title="Copy Phone">
                 <i data-lucide="copy" class="w-4 h-4"></i>
               </button>
             </div>
 
-            <a href="https://github.com/athuls-engineer" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-xl bg-base-950 border border-white/[0.06] hover:border-white/20 transition-all group">
-              <div class="flex items-center gap-3">
-                <i data-lucide="github" class="w-5 h-5 text-white"></i>
+            <!-- Contact Card 3: GitHub (with verified authentic Octocat SVG logo) -->
+            <a href="https://github.com/athuls-engineer" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.06] hover:border-slate-300 dark:hover:border-white/20 transition-all group">
+              <div class="flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-slate-900 dark:bg-white/[0.08] border border-slate-800 dark:border-white/[0.1] flex items-center justify-center text-white shrink-0">
+                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+                </div>
                 <div>
-                  <div class="text-[10px] font-mono text-slate-400">GITHUB PROFILE &amp; REPOSITORIES</div>
-                  <div class="text-xs sm:text-sm font-semibold text-white group-hover:text-blue-400">github.com/athuls-engineer</div>
+                  <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400">GITHUB PROFILE &amp; REPOSITORIES</div>
+                  <div class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">github.com/athuls-engineer</div>
                 </div>
               </div>
-              <i data-lucide="external-link" class="w-4 h-4 text-slate-500 group-hover:text-white"></i>
+              <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"></i>
             </a>
 
-            <a href="https://linkedin.com/in/athul-s-engineer" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-xl bg-base-950 border border-white/[0.06] hover:border-white/20 transition-all group">
-              <div class="flex items-center gap-3">
-                <i data-lucide="linkedin" class="w-5 h-5 text-[#0A66C2]"></i>
+            <!-- Contact Card 4: LinkedIn (with verified authentic In SVG logo) -->
+            <a href="https://linkedin.com/in/athul-s-engineer" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.06] hover:border-slate-300 dark:hover:border-white/20 transition-all group">
+              <div class="flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-[#0A66C2]/10 border border-[#0A66C2]/20 flex items-center justify-center shrink-0">
+                  <svg class="w-5 h-5 fill-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 0 0-1.6 1.6 1.6 1.6 0 0 0 1.6 1.6 1.6 1.6 0 0 0 1.6-1.6 1.6 1.6 0 0 0-1.6-1.6Z"/></svg>
+                </div>
                 <div>
-                  <div class="text-[10px] font-mono text-slate-400">LINKEDIN NETWORK</div>
-                  <div class="text-xs sm:text-sm font-semibold text-white group-hover:text-blue-400">linkedin.com/in/athul-s-engineer</div>
+                  <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400">LINKEDIN NETWORK</div>
+                  <div class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">linkedin.com/in/athul-s-engineer</div>
                 </div>
               </div>
-              <i data-lucide="external-link" class="w-4 h-4 text-slate-500 group-hover:text-white"></i>
+              <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"></i>
             </a>
+
           </div>
         </div>
 
@@ -1144,26 +1211,26 @@
           <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-[11px] font-mono text-slate-400 mb-1" for="sender-name">Your Name</label>
-                <input type="text" id="sender-name" required placeholder="Alex Turner" class="w-full px-4 py-3 rounded-xl bg-base-950 border border-white/[0.1] text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-white/30 transition-colors" />
+                <label class="block text-[11px] font-mono text-slate-600 dark:text-slate-400 mb-1" for="sender-name">Your Name</label>
+                <input type="text" id="sender-name" required placeholder="Alex Turner" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.1] text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 dark:focus:border-white/30 transition-colors shadow-sm" />
               </div>
               <div>
-                <label class="block text-[11px] font-mono text-slate-400 mb-1" for="sender-email">Your Email</label>
-                <input type="email" id="sender-email" required placeholder="alex@company.com" class="w-full px-4 py-3 rounded-xl bg-base-950 border border-white/[0.1] text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-white/30 transition-colors" />
+                <label class="block text-[11px] font-mono text-slate-600 dark:text-slate-400 mb-1" for="sender-email">Your Email</label>
+                <input type="email" id="sender-email" required placeholder="alex@company.com" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.1] text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 dark:focus:border-white/30 transition-colors shadow-sm" />
               </div>
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-slate-400 mb-1" for="msg-subject">Subject</label>
-              <input type="text" id="msg-subject" required placeholder="Embedded Firmware Opportunity / Hardware Collaboration" class="w-full px-4 py-3 rounded-xl bg-base-950 border border-white/[0.1] text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-white/30 transition-colors" />
+              <label class="block text-[11px] font-mono text-slate-600 dark:text-slate-400 mb-1" for="msg-subject">Subject</label>
+              <input type="text" id="msg-subject" required placeholder="Embedded Firmware Opportunity / Hardware Collaboration" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.1] text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 dark:focus:border-white/30 transition-colors shadow-sm" />
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-slate-400 mb-1" for="msg-body">Message</label>
-              <textarea id="msg-body" rows="4" required placeholder="Hi Athul, I reviewed your hardware projects and would like to speak regarding an engineering opportunity..." class="w-full px-4 py-3 rounded-xl bg-base-950 border border-white/[0.1] text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-white/30 transition-colors resize-none"></textarea>
+              <label class="block text-[11px] font-mono text-slate-600 dark:text-slate-400 mb-1" for="msg-body">Message</label>
+              <textarea id="msg-body" rows="4" required placeholder="Hi Athul, I reviewed your hardware projects and would like to speak regarding an engineering opportunity..." class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.1] text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 dark:focus:border-white/30 transition-colors resize-none shadow-sm"></textarea>
             </div>
 
-            <button id="contact-submit-btn" type="submit" class="w-full py-3.5 rounded-xl font-medium text-sm text-black bg-white hover:bg-slate-200 transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/5 cursor-pointer">
+            <button id="contact-submit-btn" type="submit" class="w-full py-3.5 rounded-xl font-medium text-sm text-white dark:text-black bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer">
               <i data-lucide="send" class="w-4 h-4"></i>
               <span id="contact-btn-text">Send Message</span>
             </button>
@@ -1176,34 +1243,47 @@
     </div>
   </section>
 
-  <!-- Sticky Quick Action Bar -->
-  <div class="fixed bottom-6 inset-x-0 mx-auto max-w-fit z-40 px-4">
-    <div class="flex items-center gap-2 sm:gap-3 px-4 py-2.5 rounded-2xl bg-base-900/90 border border-white/[0.12] backdrop-blur-2xl shadow-2xl">
+  <!-- Complete, Finished Floating Action Dock (with verified brand SVGs & Theme Switcher) -->
+  <div class="floating-dock-container">
+    <div class="floating-dock">
       
-      <button onclick="copyToClipboard('athuls2580@gmail.com', 'Email copied!')" class="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.06] transition-all" title="Copy Email">
+      <!-- Copy Email -->
+      <button onclick="copyToClipboard('athuls2580@gmail.com', 'Email copied!')" class="dock-btn has-tooltip" data-tooltip="Copy Email" aria-label="Copy Email">
         <i data-lucide="mail" class="w-4 h-4"></i>
       </button>
 
-      <button onclick="copyToClipboard('+919207626755', 'Phone number copied!')" class="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.06] transition-all" title="Copy Phone">
+      <!-- Copy Phone -->
+      <button onclick="copyToClipboard('+919207626755', 'Phone copied!')" class="dock-btn has-tooltip" data-tooltip="Copy Phone" aria-label="Copy Phone">
         <i data-lucide="phone" class="w-4 h-4"></i>
       </button>
 
-      <a href="https://github.com/athuls-engineer" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.06] transition-all" title="GitHub Profile">
-        <i data-lucide="github" class="w-4 h-4"></i>
+      <!-- GitHub with Authentic SVG Mark -->
+      <a href="https://github.com/athuls-engineer" target="_blank" rel="noopener noreferrer" class="dock-btn has-tooltip" data-tooltip="GitHub Profile" aria-label="GitHub Profile">
+        <svg class="w-4 h-4 fill-current text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
       </a>
 
-      <a href="https://linkedin.com/in/athul-s-engineer" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl text-slate-300 hover:text-[#0A66C2] hover:bg-white/[0.06] transition-all" title="LinkedIn Profile">
-        <i data-lucide="linkedin" class="w-4 h-4"></i>
+      <!-- LinkedIn with Authentic SVG Mark -->
+      <a href="https://linkedin.com/in/athul-s-engineer" target="_blank" rel="noopener noreferrer" class="dock-btn has-tooltip" data-tooltip="LinkedIn Network" aria-label="LinkedIn Network">
+        <svg class="w-4 h-4 fill-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 0 0-1.6 1.6 1.6 1.6 0 0 0 1.6 1.6 1.6 1.6 0 0 0 1.6-1.6 1.6 1.6 0 0 0-1.6-1.6Z"/></svg>
       </a>
 
-      <div class="w-[1px] h-5 bg-white/[0.1] mx-1"></div>
+      <div class="dock-divider"></div>
 
-      <button onclick="openResumeModal()" class="px-3 py-1.5 rounded-xl text-xs font-mono font-medium text-slate-200 bg-base-800 hover:bg-white/[0.08] border border-white/[0.08] flex items-center gap-1.5 transition-all">
-        <i data-lucide="file-text" class="w-3.5 h-3.5 text-slate-400"></i>
+      <!-- Resume Preview Pill -->
+      <button onclick="openResumeModal()" class="dock-pill-btn has-tooltip" data-tooltip="Preview CV / Resume" aria-label="Resume">
+        <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
         <span>Resume</span>
       </button>
 
-      <a href="#overview" class="p-2 rounded-xl text-slate-400 hover:text-white transition-all" title="Back to Top">
+      <div class="dock-divider"></div>
+
+      <!-- Theme Switcher Button -->
+      <button class="theme-toggle-btn dock-btn has-tooltip" data-tooltip="Toggle Light / Dark Mode" aria-label="Toggle Theme">
+        <i data-lucide="moon" class="theme-icon w-4 h-4"></i>
+      </button>
+
+      <!-- Scroll to Top -->
+      <a href="#overview" class="dock-btn has-tooltip" data-tooltip="Back to Top" aria-label="Back to Top">
         <i data-lucide="arrow-up" class="w-4 h-4"></i>
       </a>
 
@@ -1212,8 +1292,8 @@
 
   <!-- Project Detail Modal -->
   <div id="project-modal" class="fixed inset-0 z-50 modal-overlay hidden items-center justify-center p-4">
-    <div class="bento-card-static max-w-2xl w-full max-h-[90vh] overflow-y-auto rounded-2xl p-6 sm:p-8 shadow-2xl relative border border-white/[0.15]">
-      <button onclick="closeProjectModal()" class="absolute top-5 right-5 p-2 rounded-xl bg-base-800 text-slate-400 hover:text-white transition-colors" aria-label="Close modal">
+    <div class="bento-card-static max-w-2xl w-full max-h-[90vh] overflow-y-auto rounded-2xl p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-white/[0.15]">
+      <button onclick="closeProjectModal()" class="absolute top-5 right-5 p-2 rounded-xl bg-slate-100 dark:bg-base-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" aria-label="Close modal">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
       <div id="modal-content" class="space-y-5"></div>
@@ -1222,36 +1302,36 @@
 
   <!-- Resume Preview Modal -->
   <div id="resume-modal" class="fixed inset-0 z-50 modal-overlay hidden items-center justify-center p-4">
-    <div class="bento-card-static max-w-3xl w-full max-h-[92vh] overflow-y-auto rounded-2xl p-6 sm:p-8 shadow-2xl relative border border-white/[0.15]">
-      <button onclick="closeResumeModal()" class="absolute top-5 right-5 p-2 rounded-xl bg-base-800 text-slate-400 hover:text-white transition-colors" aria-label="Close resume modal">
+    <div class="bento-card-static max-w-3xl w-full max-h-[92vh] overflow-y-auto rounded-2xl p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-white/[0.15]">
+      <button onclick="closeResumeModal()" class="absolute top-5 right-5 p-2 rounded-xl bg-slate-100 dark:bg-base-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" aria-label="Close resume modal">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/[0.08] pb-4 mb-6 gap-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 dark:border-white/[0.08] pb-4 mb-6 gap-3">
         <div>
-          <h3 class="text-xl font-heading font-bold text-white flex items-center gap-2">
-            <i data-lucide="file-text" class="w-5 h-5 text-slate-300"></i>
+          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <i data-lucide="file-text" class="w-5 h-5 text-blue-500"></i>
             <span>Athul S — Curriculum Vitae</span>
           </h3>
-          <p class="text-xs text-slate-400 font-mono">athuls2580@gmail.com &bull; +91 9207626755</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-mono">athuls2580@gmail.com &bull; +91 9207626755</p>
         </div>
         <div class="flex items-center gap-2">
-          <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="px-4 py-2 rounded-xl text-xs font-mono bg-white text-black font-semibold flex items-center gap-2 shadow-md hover:bg-slate-200 transition-all">
+          <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="px-4 py-2 rounded-xl text-xs font-mono bg-slate-900 text-white dark:bg-white dark:text-black font-semibold flex items-center gap-2 shadow-md hover:opacity-90 transition-all">
             <i data-lucide="download" class="w-4 h-4"></i> Download PDF
           </a>
-          <button onclick="window.print()" class="px-3.5 py-2 rounded-xl text-xs font-mono bg-base-800 text-slate-300 border border-white/[0.08] hover:text-white transition-all flex items-center gap-2">
+          <button onclick="window.print()" class="px-3.5 py-2 rounded-xl text-xs font-mono bg-slate-100 dark:bg-base-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] hover:text-slate-900 dark:hover:text-white transition-all flex items-center gap-2">
             <i data-lucide="printer" class="w-4 h-4"></i> Print
           </button>
         </div>
       </div>
 
       <!-- Printable Resume Body -->
-      <div id="printable-resume" class="space-y-6 text-slate-200 text-sm">
+      <div id="printable-resume" class="space-y-6 text-slate-700 dark:text-slate-200 text-sm">
         
-        <div class="border-b border-slate-800 pb-4">
-          <h1 class="text-2xl font-bold text-white">ATHUL S</h1>
-          <div class="text-xs text-slate-300 font-mono mt-1">Electronics and Communication Engineering Graduate</div>
-          <div class="flex flex-wrap gap-3 text-xs text-slate-400 font-mono mt-2">
+        <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
+          <h1 class="text-2xl font-bold text-slate-900 dark:text-white">ATHUL S</h1>
+          <div class="text-xs text-slate-600 dark:text-slate-300 font-mono mt-1">Electronics and Communication Engineering Graduate</div>
+          <div class="flex flex-wrap gap-3 text-xs text-slate-500 dark:text-slate-400 font-mono mt-2">
             <span>athuls2580@gmail.com</span>
             <span>+91 9207626755</span>
             <span>Trivandrum, Kerala, India</span>
@@ -1261,33 +1341,33 @@
         </div>
 
         <div>
-          <h4 class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider mb-1">Executive Summary</h4>
-          <p class="text-xs text-slate-300 leading-relaxed">
+          <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-slate-300 uppercase tracking-wider mb-1">Executive Summary</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
             Electronics and Communication Engineering graduate skilled in Image Processing, MATLAB, Machine Learning, and Computer Networks with hands-on experience in real-time embedded and IoT-based projects.
           </p>
         </div>
 
         <div>
-          <h4 class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider mb-2">Industrial Experience</h4>
+          <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-slate-300 uppercase tracking-wider mb-2">Industrial Experience</h4>
           <div class="space-y-3">
-            <div class="bg-base-950 p-3.5 rounded-xl border border-slate-800">
-              <div class="flex justify-between font-bold text-white text-xs">
+            <div class="bg-slate-50 dark:bg-base-950 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
+              <div class="flex justify-between font-bold text-slate-900 dark:text-white text-xs">
                 <span>Intern — NeST Technologies</span>
-                <span class="text-slate-300">04/2025 – 04/2025 | Kochi, Kerala</span>
+                <span class="text-slate-500 dark:text-slate-300">04/2025 – 04/2025 | Kochi, Kerala</span>
               </div>
-              <ul class="text-xs text-slate-400 mt-1.5 space-y-1 list-disc list-inside">
+              <ul class="text-xs text-slate-600 dark:text-slate-400 mt-1.5 space-y-1 list-disc list-inside">
                 <li>Completed 5-day, 30-hour practical training on Arduino/ESP8266-based IoT development.</li>
                 <li>Built 2 mini-projects involving temperature and motion sensing, achieving 100% wireless data transmission via Wi-Fi.</li>
                 <li>Implemented Histogram Equalization using OpenCV in Python to improve contrast and visibility in low-light images.</li>
               </ul>
             </div>
 
-            <div class="bg-base-950 p-3.5 rounded-xl border border-slate-800">
-              <div class="flex justify-between font-bold text-white text-xs">
+            <div class="bg-slate-50 dark:bg-base-950 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
+              <div class="flex justify-between font-bold text-slate-900 dark:text-white text-xs">
                 <span>Intern — KSEB (Kerala State Electricity Board)</span>
-                <span class="text-slate-300">01/2025 – 01/2025 | Trivandrum, Kerala</span>
+                <span class="text-slate-500 dark:text-slate-300">01/2025 – 01/2025 | Trivandrum, Kerala</span>
               </div>
-              <ul class="text-xs text-slate-400 mt-1.5 space-y-1 list-disc list-inside">
+              <ul class="text-xs text-slate-600 dark:text-slate-400 mt-1.5 space-y-1 list-disc list-inside">
                 <li>Observed real-time monitoring of 3 major grid substations using SCADA (Supervisory Control and Data Acquisition).</li>
                 <li>Gained hands-on exposure to 5+ industrial communication protocols (Modbus, TCP/IP, IEC 60870).</li>
                 <li>Analyzed industrial power grid communication workflows for reliable SCADA monitoring systems.</li>
@@ -1297,30 +1377,30 @@
         </div>
 
         <div>
-          <h4 class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider mb-2">Key Hardware &amp; Software Projects</h4>
+          <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-slate-300 uppercase tracking-wider mb-2">Key Hardware &amp; Software Projects</h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-            <div class="p-2.5 bg-base-950 rounded-lg border border-slate-800">
-              <strong class="text-white block">Chaakra IoT Bus Tracking (10/2025-05/2026)</strong>
-              <span class="text-slate-400">ESP32, React Native, Firebase, Leaflet Maps. &lt;5s live GPS sync.</span>
+            <div class="p-2.5 bg-slate-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
+              <strong class="text-slate-900 dark:text-white block">Chaakra IoT Bus Tracking (10/2025-05/2026)</strong>
+              <span class="text-slate-500 dark:text-slate-400">ESP32, React Native, Firebase, Leaflet Maps. &lt;5s live GPS sync.</span>
             </div>
-            <div class="p-2.5 bg-base-950 rounded-lg border border-slate-800">
-              <strong class="text-white block">Basys 3 FPGA Candy Vending (02/2025-03/2025)</strong>
-              <span class="text-slate-400">6 Verilog HDL modules, FSM state machine, debounce, &lt;1s response.</span>
+            <div class="p-2.5 bg-slate-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
+              <strong class="text-slate-900 dark:text-white block">Basys 3 FPGA Candy Vending (02/2025-03/2025)</strong>
+              <span class="text-slate-500 dark:text-slate-400">6 Verilog HDL modules, FSM state machine, debounce, &lt;1s response.</span>
             </div>
-            <div class="p-2.5 bg-base-950 rounded-lg border border-slate-800">
-              <strong class="text-white block">5.8 GHz V2V Antenna (11/2024-01/2025)</strong>
-              <span class="text-slate-400">2.5x2.5cm microstrip, Ansys HFSS simulation, &gt;85% efficiency, &lt;10ms latency.</span>
+            <div class="p-2.5 bg-slate-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
+              <strong class="text-slate-900 dark:text-white block">5.8 GHz V2V Antenna (11/2024-01/2025)</strong>
+              <span class="text-slate-500 dark:text-slate-400">2.5x2.5cm microstrip, Ansys HFSS simulation, &gt;85% efficiency, &lt;10ms latency.</span>
             </div>
-            <div class="p-2.5 bg-base-950 rounded-lg border border-slate-800">
-              <strong class="text-white block">Microcontroller Data Logger (12/2024)</strong>
-              <span class="text-slate-400">LM35 + ATmega328, Embedded C, &plusmn;0.5&deg;C accuracy over 24h, 16x2 LCD.</span>
+            <div class="p-2.5 bg-slate-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
+              <strong class="text-slate-900 dark:text-white block">Microcontroller Data Logger (12/2024)</strong>
+              <span class="text-slate-500 dark:text-slate-400">LM35 + ATmega328, Embedded C, &plusmn;0.5&deg;C accuracy over 24h, 16x2 LCD.</span>
             </div>
           </div>
         </div>
 
         <div>
-          <h4 class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider mb-2">Education &amp; Certifications</h4>
-          <div class="text-xs text-slate-300 space-y-1">
+          <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-slate-300 uppercase tracking-wider mb-2">Education &amp; Certifications</h4>
+          <div class="text-xs text-slate-700 dark:text-slate-300 space-y-1">
             <div>&bull; <strong>BTech ECE</strong>, Amrita Vishwa Vidyapeetham (2022–2026) — <strong>CGPA: 7.08</strong></div>
             <div>&bull; <strong>Google Advanced Data Analytics Professional Certificate</strong> (Coursera, 2026)</div>
             <div>&bull; <strong>Machine Learning Specialization</strong> (Amrita Vishwa Vidyapeetham, 2024)</div>
