@@ -48,40 +48,48 @@
 }
 
 /* -------------------------------------------------------------
- * 2. Dark Mode (Pure Professional Black)
+ * 2. Dark Mode (Refined Architectural Obsidian / Pure Precision)
  * -----------------------------------------------------------*/
 html.dark {
-  --bg-page: #000000;
-  --bg-card: #0A0A0C;
-  --bg-card-hover: #121215;
-  --bg-subtle: #111114;
-  --bg-inset: #050507;
-  --bg-elevated: #161619;
+  --bg-page: #09090B;               /* Deep obsidian canvas */
+  --bg-card: #131317;               /* Elevated, defined card surface */
+  --bg-card-hover: #191920;         /* Clear interactive hover */
+  --bg-subtle: #1C1C23;             /* Refined pills & badges */
+  --bg-inset: #0E0E12;              /* Recessed inset panels & inputs */
+  --bg-elevated: #22222B;           /* Elevated modals & dropdowns */
+  --bg-section-alt: #0D0D11;       /* Alternating section ambient contrast */
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-medium: rgba(255, 255, 255, 0.16);
-  --border-highlight: rgba(255, 255, 255, 0.32);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-medium: rgba(255, 255, 255, 0.22);
+  --border-highlight: rgba(255, 255, 255, 0.38);
 
   --text-heading: #FFFFFF;
   --text-body: #E4E4E7;
   --text-muted: #A1A1AA;
   --text-faint: #71717A;
 
-  --card-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 8px 24px -4px rgba(0, 0, 0, 0.85);
-  --card-shadow-hover: 0 0 0 1px rgba(255, 255, 255, 0.16), 0 16px 36px -4px rgba(0, 0, 0, 0.95);
-  --dock-bg: rgba(10, 10, 12, 0.94);
-  --dock-border: rgba(255, 255, 255, 0.12);
-  --dock-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.95), 0 0 1px 1px rgba(255, 255, 255, 0.08);
-  --header-bg: rgba(0, 0, 0, 0.88);
-  --modal-backdrop: rgba(0, 0, 0, 0.88);
-  --grid-dot-color: rgba(255, 255, 255, 0.04);
+  --card-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.11), 0 4px 20px -2px rgba(0, 0, 0, 0.7);
+  --card-shadow-hover: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), 0 12px 32px -4px rgba(0, 0, 0, 0.85);
 
-  --code-bg: #050507;
-  --code-text: #E4E4E7;
+  --dock-bg: rgba(19, 19, 24, 0.88);
+  --dock-border: rgba(255, 255, 255, 0.16);
+  --dock-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.16), 0 20px 48px -8px rgba(0, 0, 0, 0.95);
+
+  --header-bg: rgba(9, 9, 11, 0.85);
+  --modal-backdrop: rgba(0, 0, 0, 0.85);
+  --grid-dot-color: rgba(255, 255, 255, 0.03);
+
+  --code-bg: #0E0E12;
+  --code-text: #F4F4F5;
 
   --btn-primary-bg: #FFFFFF;
-  --btn-primary-text: #000000;
+  --btn-primary-text: #09090B;
   --btn-primary-hover: #E4E4E7;
+
+  --btn-secondary-bg: #1A1A22;
+  --btn-secondary-border: rgba(255, 255, 255, 0.16);
+  --btn-secondary-text: #F4F4F5;
+  --btn-secondary-hover: #242430;
 
   --status-live: #10B981;
 }
@@ -106,15 +114,18 @@ body {
   background-color: var(--bg-page);
   color: var(--text-body);
   font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   background-image: radial-gradient(var(--grid-dot-color) 1px, transparent 1px);
   background-size: 24px 24px;
-  background-attachment: fixed;
-  overflow-x: hidden;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.dark body {
+  background-image: 
+    radial-gradient(circle 900px at 50% -120px, rgba(255, 255, 255, 0.05), transparent 75%),
+    radial-gradient(var(--grid-dot-color) 1px, transparent 1px);
+  background-size: 100% 100%, 24px 24px;
+  background-repeat: no-repeat, repeat;
 }
 
 ::selection {
@@ -142,9 +153,6 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--border-highlight);
 }
-
-.font-heading { font-family: var(--font-heading); }
-.font-mono { font-family: var(--font-mono); }
 
 /* -------------------------------------------------------------
  * 4. Cards & Containers
@@ -454,3 +462,80 @@ body {
     display: none !important;
   }
 }
+
+/* -------------------------------------------------------------
+ * Precision Dark Mode Component Enhancements
+ * -----------------------------------------------------------*/
+html.dark .portfolio-card {
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.11), 0 4px 24px -2px rgba(0, 0, 0, 0.7);
+}
+
+html.dark .portfolio-card:hover {
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), 0 12px 32px -4px rgba(0, 0, 0, 0.85);
+  border-color: rgba(255, 255, 255, 0.24);
+  background: var(--bg-card-hover);
+}
+
+html.dark .portfolio-card-static {
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.11), 0 4px 24px -2px rgba(0, 0, 0, 0.7);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+html.dark .tech-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #E4E4E7;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+}
+
+html.dark .tech-pill:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: #FFFFFF;
+}
+
+html.dark .btn-secondary {
+  background: var(--btn-secondary-bg);
+  border-color: var(--btn-secondary-border);
+  color: var(--btn-secondary-text);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
+}
+
+html.dark .btn-secondary:hover {
+  background: var(--btn-secondary-hover);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+html.dark .filter-btn {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(255, 255, 255, 0.10);
+  color: #A1A1AA;
+}
+
+html.dark .filter-btn:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.20);
+}
+
+html.dark .filter-btn.active {
+  color: #09090B;
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+  box-shadow: 0 1px 12px rgba(255, 255, 255, 0.25);
+}
+
+html.dark .dock-pill-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+}
+
+html.dark .dock-pill-btn:hover {
+  background: #FFFFFF;
+  color: #09090B;
+  border-color: #FFFFFF;
+}
+
+.font-heading { font-family: var(--font-heading); }
+.font-mono { font-family: var(--font-mono); }
