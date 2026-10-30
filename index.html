@@ -80,7 +80,7 @@
 
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="min-h-screen relative pb-24">
+<body class="min-h-screen relative flex flex-col">
 
   <!-- Toast Notification Container -->
   <div id="toast" class="fixed top-6 right-6 z-50 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
@@ -179,6 +179,9 @@
       </div>
     </div>
   </header>
+
+  <!-- Main Content Wrapper for Sticky Footer Layout -->
+  <main class="flex-1 w-full">
 
   <!-- Hero Section -->
   <section id="overview" class="relative pt-10 pb-16 md:pt-16 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10">
@@ -1124,7 +1127,7 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-zinc-200 dark:border-white/[0.06]">
+  <section id="contact" class="pt-16 pb-12 md:pt-24 md:pb-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-zinc-200 dark:border-white/[0.06]">
     <div class="portfolio-card p-8 sm:p-12 shadow-2xl">
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
@@ -1239,9 +1242,10 @@
 
     </div>
   </section>
+  </main>
 
   <!-- Complete Site Footer -->
-  <footer class="border-t border-zinc-200 dark:border-white/[0.06] bg-zinc-50/60 dark:bg-base-950 py-12 px-4 sm:px-6 lg:px-8 text-xs text-zinc-600 dark:text-zinc-400">
+  <footer class="mt-auto w-full border-t border-zinc-200 dark:border-white/[0.08] bg-zinc-50 dark:bg-base-950 pt-8 pb-28 sm:pb-32 px-4 sm:px-6 lg:px-8 text-xs text-zinc-600 dark:text-zinc-400 relative z-10">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
       
       <div class="flex items-center gap-3">
