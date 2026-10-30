@@ -528,67 +528,92 @@ function showToast(message) {
 }
 
 /* -------------------------------------------------------------
- * 8. Contact Form Handler (Web3Forms + Mailto Fallback)
+ * 8. Contact Form Handler (Direct Multi-Channel Dispatch)
  * -----------------------------------------------------------*/
-async function handleContactSubmit(event) {
+let lastEmailDraft = '';
+
+function copyLastDraft() {
+  if (lastEmailDraft) {
+    copyToClipboard(lastEmailDraft, 'Draft copied to clipboard!');
+  }
+}
+
+function handleContactSubmit(event) {
   event.preventDefault();
-  const btn = document.getElementById('contact-submit-btn');
-  const btnText = document.getElementById('contact-btn-text');
   const statusDiv = document.getElementById('contact-status');
 
-  const name = document.getElementById('sender-name')?.value.trim() || '';
+  const name = document.getElementById('sender-name')?.value.trim() || 'Visitor';
   const email = document.getElementById('sender-email')?.value.trim() || '';
-  const subject = document.getElementById('msg-subject')?.value.trim() || '';
-  const body = document.getElementById('msg-body')?.value.trim() || '';
+  const subject = document.getElementById('msg-subject')?.value.trim() || 'Engineering Opportunity / Collaboration';
+  const message = document.getElementById('msg-body')?.value.trim() || '';
 
-  if (!name || !email || !body) return;
+  if (!email || !message) {
+    showToast('Please enter your email and message.');
+    return;
+  }
 
-  if (btn) btn.disabled = true;
-  if (btnText) btnText.textContent = 'Sending message...';
+  // Construct structured email content
+  const emailSubject = `[Portfolio Contact] ${subject} - from ${name}`;
+  const emailBody = `Hi Athul,\n\n${message}\n\n---\nSender: ${name}\nEmail: ${email}`;
+  lastEmailDraft = emailBody;
 
+  const encodedTo = encodeURIComponent('athuls2580@gmail.com');
+  const encodedSub = encodeURIComponent(emailSubject);
+  const encodedBody = encodeURIComponent(emailBody);
+
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodedTo}&su=${encodedSub}&body=${encodedBody}`;
+  const mailtoUrl = `mailto:athuls2580@gmail.com?subject=${encodedSub}&body=${encodedBody}`;
+
+  // Copy message to clipboard automatically as safety draft
+  copyToClipboard(emailBody, 'Draft copied to clipboard!');
+
+  // Display clear dispatch options directly in the card
+  if (statusDiv) {
+    statusDiv.className = 'text-left p-4 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/10 space-y-3 block mt-4 transition-all shadow-sm';
+    statusDiv.innerHTML = `
+      <div class="flex items-center justify-between border-b border-zinc-200 dark:border-white/[0.08] pb-2.5">
+        <div class="flex items-center gap-2 text-zinc-900 dark:text-white font-semibold text-xs sm:text-sm font-sans">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Message ready! Choose how you'd like to send:</span>
+        </div>
+        <span class="text-[10px] font-mono text-zinc-500 dark:text-zinc-400">Recipient: athuls2580@gmail.com</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 font-sans">
+        <a href="${gmailUrl}" target="_blank" rel="noopener noreferrer" class="btn-primary py-2.5 px-3 rounded-lg text-xs flex items-center justify-center gap-2 shadow-sm font-semibold">
+          <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+          <span>Send via Web Gmail</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+        </a>
+
+        <a href="${mailtoUrl}" class="btn-secondary py-2.5 px-3 rounded-lg text-xs flex items-center justify-center gap-2 font-medium">
+          <i data-lucide="mail" class="w-4 h-4 text-zinc-600 dark:text-zinc-300"></i>
+          <span>Default Mail App</span>
+        </a>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-2 pt-1 text-[11px] font-sans text-zinc-500 dark:text-zinc-400">
+        <span class="flex items-center gap-1.5">
+          <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 shrink-0"></i>
+          <span>Full message draft copied to your clipboard</span>
+        </span>
+        <button type="button" onclick="copyLastDraft()" class="underline text-zinc-800 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-white font-medium cursor-pointer">
+          Copy draft again
+        </button>
+      </div>
+    `;
+
+    if (window.lucide) lucide.createIcons();
+  }
+
+  showToast('Draft ready! Opening Gmail in a new tab...');
   try {
-    const response = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        access_key: 'a0a038bf-2775-430b-b184-7a33a36db5f6',
-        name: name,
-        email: email,
-        subject: `[Portfolio Inquiry] ${subject}`,
-        message: body,
-        to: 'athuls2580@gmail.com'
-      })
-    });
-
-    const result = await response.json();
-
-    if (response.ok && result.success) {
-      if (statusDiv) {
-        statusDiv.className = 'text-xs font-mono text-center p-3.5 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 text-zinc-900 dark:text-white block';
-        statusDiv.innerHTML = 'Message delivered successfully! I will get back to you shortly.';
-      }
-      showToast('Message sent to Athul S!');
-      document.getElementById('contact-form')?.reset();
-    } else {
-      throw new Error(result.message || 'Dispatch error');
+    const newWin = window.open(gmailUrl, '_blank');
+    if (!newWin || newWin.closed || typeof newWin.closed === 'undefined') {
+      // Popup blocked - on-page action buttons are visible
     }
   } catch (err) {
-    console.warn('Direct web dispatch fallback activated:', err);
-    const formattedBody = `Sender: ${name} (${email})\n\nMessage:\n${body}`;
-    const mailtoLink = `mailto:athuls2580@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formattedBody)}`;
-    if (statusDiv) {
-      statusDiv.className = 'text-xs font-mono text-center p-3 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 text-zinc-900 dark:text-white block';
-      statusDiv.innerHTML = `Email service unavailable. <a href="${mailtoLink}" class="underline font-bold text-zinc-900 dark:text-white hover:underline">Click here to send via your email client</a>.`;
-    }
-    showToast('Opening email client...');
-    window.location.href = mailtoLink;
-  } finally {
-    if (btn) btn.disabled = false;
-    if (btnText) btnText.textContent = 'Send Message';
-    if (window.lucide) lucide.createIcons();
+    // Fallback
   }
 }
 

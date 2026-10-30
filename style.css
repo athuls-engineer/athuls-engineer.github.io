@@ -42,9 +42,9 @@
 
   --status-live: #10B981;
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
 }
 
 /* -------------------------------------------------------------
@@ -255,9 +255,9 @@ body {
   align-items: center;
   padding: 0.4rem 0.85rem;
   border-radius: 0.5rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-muted);
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -338,9 +338,9 @@ body {
   gap: 0.35rem;
   padding: 0.3rem 0.75rem;
   border-radius: 9999px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-heading);
   background: var(--bg-subtle);
   border: 1px solid var(--border-subtle);

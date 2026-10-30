@@ -58,9 +58,9 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Inter"', 'sans-serif'],
-            heading: ['"Space Grotesk"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
+            sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+            heading: ['"Space Grotesk"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', '"SFMono-Regular"', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', 'monospace'],
           },
           colors: {
             base: {
@@ -84,7 +84,7 @@
 
   <!-- Toast Notification Container -->
   <div id="toast" class="fixed top-6 right-6 z-50 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
-    <div class="px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-white/10 shadow-2xl flex items-center gap-2.5 text-xs font-mono bg-white/95 dark:bg-base-900/95 text-zinc-900 dark:text-white backdrop-blur-xl">
+    <div class="px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-white/10 shadow-2xl flex items-center gap-2.5 text-xs font-sans font-medium bg-white/95 dark:bg-base-900/95 text-zinc-900 dark:text-white backdrop-blur-xl">
       <i data-lucide="check-circle" class="w-4 h-4 text-zinc-900 dark:text-white"></i>
       <span id="toast-message">Copied to clipboard!</span>
     </div>
@@ -96,7 +96,7 @@
       
       <!-- Brand Logo / Identity -->
       <a href="#overview" class="flex items-center gap-3 group">
-        <div class="w-9 h-9 rounded-lg bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center font-mono font-bold text-sm text-zinc-900 dark:text-white group-hover:border-zinc-900 dark:border-white transition-all shadow-sm">
+        <div class="w-9 h-9 rounded-lg bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center font-heading font-bold text-sm text-zinc-900 dark:text-white group-hover:border-zinc-900 dark:border-white transition-all shadow-sm">
           AS
         </div>
         <div>
@@ -104,11 +104,11 @@
             <span class="font-heading font-bold text-base tracking-tight text-zinc-900 dark:text-white group-hover:text-zinc-500 dark:group-hover:text-zinc-300 transition-colors">
               Athul S
             </span>
-            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-sans font-medium bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
               <span class="pulse-dot mr-1.5"></span> Open for Roles
             </span>
           </div>
-          <span class="hidden sm:block text-[11px] font-mono text-zinc-600 dark:text-zinc-400">Electronics, Embedded &amp; IoT Engineer</span>
+          <span class="hidden sm:block text-[11px] font-sans font-medium text-zinc-500 dark:text-zinc-400">Electronics, Embedded &amp; IoT Engineer</span>
         </div>
       </a>
 
@@ -132,7 +132,7 @@
           <svg class="w-4 h-4 block dark:hidden text-zinc-700 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
         </button>
 
-        <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-base-900 hover:bg-zinc-200 dark:hover:bg-base-800 border border-zinc-200 dark:border-white/[0.08] transition-all" title="Download Official Resume PDF">
+        <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-base-900 hover:bg-zinc-200 dark:hover:bg-base-800 border border-zinc-200 dark:border-white/[0.08] transition-all" title="Download Official Resume PDF">
           <i data-lucide="download" class="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400"></i>
           <span>Resume (.pdf)</span>
         </a>
@@ -159,7 +159,7 @@
       <a href="#credentials" class="mobile-link block py-1.5 text-sm text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">Education &amp; Credentials</a>
       <a href="#involvement" class="mobile-link block py-1.5 text-sm text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">Leadership &amp; Community</a>
       <div class="pt-1">
-        <button class="theme-toggle-btn w-full py-2 px-3 rounded-lg text-xs font-mono bg-zinc-100 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.1] text-zinc-800 dark:text-zinc-200 flex items-center justify-between transition-colors">
+        <button class="theme-toggle-btn w-full py-2 px-3 rounded-lg text-xs font-sans font-medium bg-zinc-100 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.1] text-zinc-800 dark:text-zinc-200 flex items-center justify-between transition-colors">
           <span class="flex items-center gap-2">
             <svg class="w-4 h-4 hidden dark:block text-zinc-200 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
             <svg class="w-4 h-4 block dark:hidden text-zinc-700 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
@@ -170,7 +170,7 @@
         </button>
       </div>
       <div class="pt-1 flex gap-2">
-        <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="flex-1 py-2 rounded-lg text-xs font-mono bg-zinc-100 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.1] text-zinc-900 dark:text-white flex items-center justify-center gap-1.5">
+        <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="flex-1 py-2 rounded-lg text-xs font-sans font-medium bg-zinc-100 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.1] text-zinc-900 dark:text-white flex items-center justify-center gap-1.5">
           <i data-lucide="download" class="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400"></i> Resume (.pdf)
         </a>
         <a href="#contact" class="flex-1 py-2 rounded-lg text-xs font-medium bg-zinc-900 text-white dark:bg-white dark:text-black text-center flex items-center justify-center gap-1">
@@ -188,7 +188,7 @@
       <div class="lg:col-span-7 space-y-6 min-w-0">
         
         <!-- Status Indicator Pill -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] text-xs font-mono text-zinc-700 dark:text-zinc-300 max-w-full">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] text-xs font-sans font-medium text-zinc-700 dark:text-zinc-300 max-w-full">
           <span class="w-1.5 h-1.5 rounded-full bg-zinc-900 dark:bg-white shrink-0"></span>
           <span class="sm:hidden text-[11px]">B.Tech &bull; Electronics &amp; Communication</span>
           <span class="hidden sm:inline">B.Tech in Electronics &amp; Communication Engineering</span>
@@ -263,12 +263,12 @@
           
           <div class="flex items-center justify-between border-b border-zinc-200 dark:border-white/[0.08] pb-4">
             <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center font-mono font-bold text-base text-zinc-900 dark:text-white">
+              <div class="w-11 h-11 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center font-heading font-bold text-base text-zinc-900 dark:text-white">
                 AS
               </div>
               <div>
                 <h3 class="font-heading font-bold text-zinc-900 dark:text-white text-base">Athul S</h3>
-                <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400">Electronics &amp; Communication</span>
+                <span class="text-xs font-sans font-medium text-zinc-600 dark:text-zinc-400">Electronics &amp; Communication</span>
               </div>
             </div>
             <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
@@ -280,27 +280,27 @@
           <div class="space-y-3 text-xs">
             
             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05] min-w-0">
-              <span class="text-zinc-600 dark:text-zinc-400 font-mono text-[11px] sm:text-xs shrink-0">Education:</span>
+              <span class="text-zinc-500 dark:text-zinc-400 font-sans font-medium text-[11px] sm:text-xs shrink-0">Education:</span>
               <span class="font-medium text-zinc-900 dark:text-white sm:text-right text-xs break-words min-w-0">Amrita Vishwa Vidyapeetham, Amritapuri (2022&ndash;2026)</span>
             </div>
 
             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05] min-w-0">
-              <span class="text-zinc-600 dark:text-zinc-400 font-mono text-[11px] sm:text-xs shrink-0">Location:</span>
+              <span class="text-zinc-500 dark:text-zinc-400 font-sans font-medium text-[11px] sm:text-xs shrink-0">Location:</span>
               <span class="font-medium text-zinc-900 dark:text-white sm:text-right text-xs break-words min-w-0">Trivandrum, Kerala, India</span>
             </div>
 
             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05] min-w-0">
-              <span class="text-zinc-600 dark:text-zinc-400 font-mono text-[11px] sm:text-xs shrink-0">Industry Exposure:</span>
+              <span class="text-zinc-500 dark:text-zinc-400 font-sans font-medium text-[11px] sm:text-xs shrink-0">Industry Exposure:</span>
               <span class="font-medium text-zinc-900 dark:text-white sm:text-right text-xs break-words min-w-0">NeST Technologies &bull; KSEB</span>
             </div>
 
             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05] min-w-0">
-              <span class="text-zinc-600 dark:text-zinc-400 font-mono text-[11px] sm:text-xs shrink-0">Certifications:</span>
+              <span class="text-zinc-500 dark:text-zinc-400 font-sans font-medium text-[11px] sm:text-xs shrink-0">Certifications:</span>
               <span class="font-medium text-zinc-900 dark:text-white sm:text-right text-xs break-words min-w-0">Google Advanced Data Analytics &bull; NEBOSH IGC</span>
             </div>
 
             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05] min-w-0">
-              <span class="text-zinc-600 dark:text-zinc-400 font-mono text-[11px] sm:text-xs shrink-0">Involvement:</span>
+              <span class="text-zinc-500 dark:text-zinc-400 font-sans font-medium text-[11px] sm:text-xs shrink-0">Involvement:</span>
               <span class="font-medium text-zinc-900 dark:text-white sm:text-right text-xs break-words min-w-0">Overall Coordinator &bull; SSR Program</span>
             </div>
 
@@ -308,7 +308,7 @@
 
           <!-- Hardware & Tooling Highlights -->
           <div class="pt-2 border-t border-zinc-200 dark:border-white/[0.08] space-y-2">
-            <span class="block text-[11px] font-mono text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">Primary Hardware &amp; Tooling</span>
+            <span class="block text-[11px] font-sans font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Primary Hardware &amp; Tooling</span>
             <div class="flex flex-wrap gap-1.5">
               <span class="tech-pill font-mono">ESP32</span>
               <span class="tech-pill font-mono">Basys 3 (Artix-7)</span>
@@ -330,7 +330,7 @@
     
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
       <div>
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-sans font-semibold uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
           <i data-lucide="cpu" class="w-3.5 h-3.5"></i> Engineering Case Studies
         </span>
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-zinc-900 dark:text-white tracking-tight mt-2">
@@ -383,7 +383,7 @@
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
             <span>GitHub</span>
           </a>
-          <button onclick="openProjectModal('chaakra')" class="text-xs font-mono font-medium text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
+          <button onclick="openProjectModal('chaakra')" class="text-xs font-sans font-semibold text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
             <span>Technical Specs</span>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
           </button>
@@ -418,7 +418,7 @@
 
         <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-zinc-200 dark:border-white/[0.06]">
           <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400 font-medium">Artix-7 XC7A35T</span>
-          <button onclick="openProjectModal('fpga')" class="text-xs font-mono font-medium text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
+          <button onclick="openProjectModal('fpga')" class="text-xs font-sans font-semibold text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
             <span>Technical Specs</span>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
           </button>
@@ -453,7 +453,7 @@
 
         <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-zinc-200 dark:border-white/[0.06]">
           <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400 font-medium">HFSS Simulation</span>
-          <button onclick="openProjectModal('antenna')" class="text-xs font-mono font-medium text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
+          <button onclick="openProjectModal('antenna')" class="text-xs font-sans font-semibold text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
             <span>Technical Specs</span>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
           </button>
@@ -488,7 +488,7 @@
 
         <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-zinc-200 dark:border-white/[0.06]">
           <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400 font-medium">Bare-Metal C</span>
-          <button onclick="openProjectModal('logger')" class="text-xs font-mono font-medium text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
+          <button onclick="openProjectModal('logger')" class="text-xs font-sans font-semibold text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
             <span>Technical Specs</span>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
           </button>
@@ -526,7 +526,7 @@
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
             <span>GitHub</span>
           </a>
-          <button onclick="openProjectModal('edgevision')" class="text-xs font-mono font-medium text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
+          <button onclick="openProjectModal('edgevision')" class="text-xs font-sans font-semibold text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
             <span>Technical Specs</span>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
           </button>
@@ -561,7 +561,7 @@
 
         <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-zinc-200 dark:border-white/[0.06]">
           <div class="flex items-center gap-2">
-            <a href="fsd/" class="text-xs font-mono font-semibold text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
+            <a href="fsd/" class="text-xs font-sans font-semibold text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
               <span>Launch App</span>
               <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
             </a>
@@ -570,7 +570,7 @@
               <span>GitHub</span>
             </a>
           </div>
-          <button onclick="openProjectModal('fsd')" class="text-xs font-mono font-medium text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
+          <button onclick="openProjectModal('fsd')" class="text-xs font-sans font-semibold text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
             <span>Technical Specs</span>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
           </button>
@@ -608,7 +608,7 @@
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
             <span>GitHub</span>
           </a>
-          <button onclick="openProjectModal('aegisguard')" class="text-xs font-mono font-medium text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
+          <button onclick="openProjectModal('aegisguard')" class="text-xs font-sans font-semibold text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
             <span>Technical Specs</span>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
           </button>
@@ -646,7 +646,7 @@
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
             <span>GitHub</span>
           </a>
-          <button onclick="openProjectModal('samm')" class="text-xs font-mono font-medium text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
+          <button onclick="openProjectModal('samm')" class="text-xs font-sans font-semibold text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
             <span>Technical Specs</span>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
           </button>
@@ -663,7 +663,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-12 space-y-2">
-        <span class="px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
+        <span class="px-3 py-1 rounded text-xs font-sans font-semibold uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
           Competencies
         </span>
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-zinc-900 dark:text-white tracking-tight">
@@ -800,7 +800,7 @@
     
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
       <div>
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-sans font-semibold uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
           <i data-lucide="briefcase" class="w-3.5 h-3.5"></i> Practical Training
         </span>
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-zinc-900 dark:text-white tracking-tight mt-2">
@@ -919,7 +919,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-12 space-y-2">
-        <span class="px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
+        <span class="px-3 py-1 rounded text-xs font-sans font-semibold uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
           Qualifications
         </span>
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-zinc-900 dark:text-white tracking-tight">
@@ -1057,7 +1057,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-12 space-y-2">
-        <span class="px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
+        <span class="px-3 py-1 rounded text-xs font-sans font-semibold uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
           <i data-lucide="heart-handshake" class="w-3.5 h-3.5 inline mr-1"></i> Social Responsibility
         </span>
         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-zinc-900 dark:text-white tracking-tight">
@@ -1131,7 +1131,7 @@
         
         <div class="lg:col-span-5 space-y-6">
           <div>
-            <span class="text-xs font-mono uppercase tracking-wider text-zinc-900 dark:text-white font-semibold">Get in Touch</span>
+            <span class="text-xs font-sans font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Get in Touch</span>
             <h2 class="text-3xl font-heading font-bold text-zinc-900 dark:text-white mt-1">Let's connect for engineering roles.</h2>
             <p class="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm mt-3 font-normal leading-relaxed">
               I am open to full-time roles, hardware/firmware engineering positions, IoT systems development, and technical collaborations.
@@ -1147,7 +1147,7 @@
                   <i data-lucide="mail" class="w-5 h-5"></i>
                 </div>
                 <div>
-                  <div class="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">DIRECT EMAIL</div>
+                  <div class="text-[11px] font-sans font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Direct Email</div>
                   <a href="mailto:athuls2580@gmail.com" class="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">athuls2580@gmail.com</a>
                 </div>
               </div>
@@ -1163,7 +1163,7 @@
                   <i data-lucide="phone" class="w-5 h-5"></i>
                 </div>
                 <div>
-                  <div class="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">PHONE / WHATSAPP</div>
+                  <div class="text-[11px] font-sans font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Phone / WhatsApp</div>
                   <a href="tel:+919207626755" class="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">+91 9207626755</a>
                 </div>
               </div>
@@ -1179,7 +1179,7 @@
                   <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
                 </div>
                 <div>
-                  <div class="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">GITHUB PROFILE &amp; REPOSITORIES</div>
+                  <div class="text-[11px] font-sans font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">GitHub Profile</div>
                   <div class="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300">github.com/athuls-engineer</div>
                 </div>
               </div>
@@ -1193,7 +1193,7 @@
                   <svg class="w-5 h-5 fill-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 0 0-1.6 1.6 1.6 1.6 0 0 0 1.6 1.6 1.6 1.6 0 0 0 1.6-1.6 1.6 1.6 0 0 0-1.6-1.6Z"/></svg>
                 </div>
                 <div>
-                  <div class="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">LINKEDIN NETWORK</div>
+                  <div class="text-[11px] font-sans font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">LinkedIn Network</div>
                   <div class="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300">linkedin.com/in/athul-s-engineer</div>
                 </div>
               </div>
@@ -1208,22 +1208,22 @@
           <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-[11px] font-mono text-zinc-600 dark:text-zinc-400 mb-1" for="sender-name">Your Name</label>
+                <label class="block text-xs font-sans font-medium text-zinc-700 dark:text-zinc-300 mb-1.5" for="sender-name">Your Name</label>
                 <input type="text" id="sender-name" required placeholder="Alex Turner" class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.1] text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-zinc-900 dark:border-white dark:focus:border-white/30 transition-colors shadow-sm" />
               </div>
               <div>
-                <label class="block text-[11px] font-mono text-zinc-600 dark:text-zinc-400 mb-1" for="sender-email">Your Email</label>
+                <label class="block text-xs font-sans font-medium text-zinc-700 dark:text-zinc-300 mb-1.5" for="sender-email">Your Email</label>
                 <input type="email" id="sender-email" required placeholder="alex@company.com" class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.1] text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-zinc-900 dark:border-white dark:focus:border-white/30 transition-colors shadow-sm" />
               </div>
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-zinc-600 dark:text-zinc-400 mb-1" for="msg-subject">Subject</label>
+              <label class="block text-xs font-sans font-medium text-zinc-700 dark:text-zinc-300 mb-1.5" for="msg-subject">Subject</label>
               <input type="text" id="msg-subject" required placeholder="Embedded Firmware Opportunity / Hardware Collaboration" class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.1] text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-zinc-900 dark:border-white dark:focus:border-white/30 transition-colors shadow-sm" />
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-zinc-600 dark:text-zinc-400 mb-1" for="msg-body">Message</label>
+              <label class="block text-xs font-sans font-medium text-zinc-700 dark:text-zinc-300 mb-1.5" for="msg-body">Message</label>
               <textarea id="msg-body" rows="4" required placeholder="Hi Athul, I reviewed your engineering projects and would like to speak regarding an opportunity..." class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.1] text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-zinc-900 dark:border-white dark:focus:border-white/30 transition-colors resize-none shadow-sm"></textarea>
             </div>
 
@@ -1231,7 +1231,7 @@
               <i data-lucide="send" class="w-4 h-4"></i>
               <span id="contact-btn-text">Send Message</span>
             </button>
-            <div id="contact-status" class="hidden text-xs font-mono text-center p-3.5 rounded-xl transition-all"></div>
+            <div id="contact-status" class="hidden text-xs font-sans text-center p-3.5 rounded-xl transition-all"></div>
           </form>
         </div>
 
@@ -1253,7 +1253,7 @@
         </div>
       </div>
 
-      <div class="flex flex-wrap items-center gap-4 sm:gap-6 font-mono">
+      <div class="flex flex-wrap items-center gap-4 sm:gap-6 font-sans text-xs font-medium">
         <a href="#overview" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Overview</a>
         <a href="#projects" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Projects</a>
         <a href="#skills" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Skills</a>
@@ -1262,7 +1262,7 @@
         <a href="#contact" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Contact</a>
       </div>
 
-      <div class="text-zinc-600 dark:text-zinc-400 font-mono">
+      <div class="text-zinc-500 dark:text-zinc-400 font-sans text-xs">
         &copy; 2026 Athul S. Built with HTML5, CSS &amp; JavaScript.
       </div>
 
@@ -1345,10 +1345,10 @@
           <p class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">athuls2580@gmail.com &bull; +91 9207626755</p>
         </div>
         <div class="flex items-center gap-2">
-          <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="px-4 py-2 rounded-xl text-xs font-mono bg-zinc-900 text-white dark:bg-white dark:text-black font-semibold flex items-center gap-2 shadow-md hover:opacity-90 transition-all">
+          <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="px-4 py-2 rounded-xl text-xs font-sans font-medium bg-zinc-900 text-white dark:bg-white dark:text-black font-semibold flex items-center gap-2 shadow-md hover:opacity-90 transition-all">
             <i data-lucide="download" class="w-4 h-4"></i> Download PDF
           </a>
-          <button onclick="window.print()" class="px-3.5 py-2 rounded-xl text-xs font-mono bg-zinc-100 dark:bg-base-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-white/[0.08] hover:text-zinc-900 dark:hover:text-white transition-all flex items-center gap-2">
+          <button onclick="window.print()" class="px-3.5 py-2 rounded-xl text-xs font-sans font-medium bg-zinc-100 dark:bg-base-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-white/[0.08] hover:text-zinc-900 dark:hover:text-white transition-all flex items-center gap-2">
             <i data-lucide="printer" class="w-4 h-4"></i> Print
           </button>
         </div>
@@ -1361,13 +1361,13 @@
         <!-- Header -->
         <div class="border-b border-zinc-200 dark:border-white/[0.08] pb-4">
           <h1 class="text-2xl sm:text-3xl font-heading font-bold text-zinc-900 dark:text-white">ATHUL S</h1>
-          <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-600 dark:text-zinc-300 font-mono mt-2">
+          <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-600 dark:text-zinc-300 font-sans mt-2">
             <span>athuls2580@gmail.com</span>
             <span>+91 9207626755</span>
             <span>Trivandrum, Kerala, India</span>
             <span>17th November 2004</span>
           </div>
-          <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-900 dark:text-zinc-300 font-mono mt-1">
+          <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-900 dark:text-zinc-300 font-sans mt-1">
             <a href="https://linkedin.com/in/athul-s-engineer" target="_blank" rel="noopener noreferrer" class="hover:underline">linkedin.com/in/athul-s-engineer</a>
             <a href="https://athuls-engineer.github.io" target="_blank" rel="noopener noreferrer" class="hover:underline">athuls-engineer.github.io</a>
           </div>
@@ -1375,7 +1375,7 @@
 
         <!-- Summary -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-1.5 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-sans font-semibold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-1.5 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Summary
           </h4>
           <p class="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed">
@@ -1385,7 +1385,7 @@
 
         <!-- Work Experience -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-sans font-semibold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Work Experience
           </h4>
           <div class="space-y-3.5">
@@ -1419,7 +1419,7 @@
 
         <!-- Education -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-sans font-semibold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Education
           </h4>
           <div class="space-y-2 text-xs">
@@ -1449,7 +1449,7 @@
 
         <!-- Skills Matrix -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-sans font-semibold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Skills
           </h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
@@ -1482,7 +1482,7 @@
 
         <!-- Projects -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-sans font-semibold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Projects
           </h4>
           <div class="space-y-3 text-xs">
@@ -1539,7 +1539,7 @@
 
         <!-- Certifications & Professional Development -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-sans font-semibold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Certifications &amp; Professional Development
           </h4>
           <div class="space-y-2 text-xs">
@@ -1569,7 +1569,7 @@
 
         <!-- Involvement -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-sans font-semibold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Involvement
           </h4>
           <div class="p-3 bg-zinc-50 dark:bg-base-950 rounded-lg border border-zinc-200 dark:border-white/[0.08] text-xs">
