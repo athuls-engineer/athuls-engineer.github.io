@@ -27,7 +27,9 @@ window.toggleTheme = function() {
 };
 
 function initThemeSystem() {
-  const savedTheme = localStorage.getItem('theme');
+  const urlParams = new URLSearchParams(window.location.search);
+  const themeParam = urlParams.get('theme');
+  const savedTheme = themeParam || localStorage.getItem('theme');
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
 
@@ -355,35 +357,35 @@ function openProjectModal(projectId) {
   const githubSvg = `<svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>`;
 
   content.innerHTML = `
-    <div class="border-b border-slate-200 dark:border-white/[0.08] pb-4">
+    <div class="border-b border-zinc-200 dark:border-white/[0.08] pb-4">
       <div class="flex items-center justify-between gap-2 mb-2">
         <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-semibold">${data.category}</span>
-        <span class="text-xs font-mono text-slate-500 dark:text-slate-400">${data.duration}</span>
+        <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400">${data.duration}</span>
       </div>
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-1">
-        <h3 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">${data.title}</h3>
+        <h3 class="text-xl sm:text-2xl font-heading font-bold text-zinc-900 dark:text-white">${data.title}</h3>
         <div class="flex items-center gap-2 shrink-0">
           ${data.liveUrl ? `
-            <a href="${data.liveUrl}" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:opacity-90 font-semibold transition-all flex items-center gap-1.5 shadow">
+            <a href="${data.liveUrl}" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-white bg-zinc-900 dark:bg-white dark:text-zinc-900 hover:opacity-90 font-semibold transition-all flex items-center gap-1.5 shadow">
               <span>Live App</span>
               <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
             </a>
           ` : ''}
           ${data.repoUrl ? `
-            <a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-base-800 hover:bg-slate-200 dark:hover:bg-white dark:hover:text-black border border-slate-200 dark:border-white/[0.1] transition-all flex items-center gap-1.5">
+            <a href="${data.repoUrl}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg text-xs font-mono text-zinc-700 dark:text-zinc-200 bg-zinc-100 dark:bg-base-800 hover:bg-zinc-200 dark:hover:bg-white dark:hover:text-black border border-zinc-200 dark:border-white/[0.1] transition-all flex items-center gap-1.5">
               ${githubSvg}
               <span>GitHub</span>
             </a>
           ` : ''}
         </div>
       </div>
-      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 font-normal leading-relaxed">${data.description}</p>
+      <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 mt-2 font-normal leading-relaxed">${data.description}</p>
     </div>
 
     <div>
-      <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Technical Highlights & Implementation</h4>
-      <ul class="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
-        ${data.highlights.map(h => `<li class="flex items-start gap-2"><span class="text-zinc-400 dark:text-zinc-500 font-bold mt-0.5">&bull;</span><span>${h}</span></li>`).join('')}
+      <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-white uppercase tracking-wider mb-2">Technical Highlights & Implementation</h4>
+      <ul class="space-y-2 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300">
+        ${data.highlights.map(h => `<li class="flex items-start gap-2"><span class="text-zinc-500 dark:text-zinc-400 font-bold mt-0.5">&bull;</span><span>${h}</span></li>`).join('')}
       </ul>
     </div>
 
@@ -393,12 +395,12 @@ function openProjectModal(projectId) {
         <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
         <span>Hardware Pinout & Physical Signal Mapping</span>
       </h4>
-      <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.08] text-xs font-mono">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-700 dark:text-slate-300">
+      <div class="p-3.5 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.08] text-xs font-mono">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-zinc-700 dark:text-zinc-300">
           ${data.pinouts.map(p => `
-            <div class="flex items-center justify-between p-2 rounded bg-white dark:bg-base-900 border border-slate-200 dark:border-white/[0.04]">
-              <span class="text-slate-500 dark:text-slate-400 font-medium">${p.signal}</span>
-              <span class="text-slate-900 dark:text-white font-bold">${p.pin}</span>
+            <div class="flex items-center justify-between p-2 rounded bg-white dark:bg-base-900 border border-zinc-200 dark:border-white/[0.04]">
+              <span class="text-zinc-600 dark:text-zinc-400 font-medium">${p.signal}</span>
+              <span class="text-zinc-900 dark:text-white font-bold">${p.pin}</span>
             </div>
           `).join('')}
         </div>
@@ -407,12 +409,12 @@ function openProjectModal(projectId) {
     ` : ''}
 
     <div>
-      <h4 class="text-xs font-mono font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">System Architecture Flow</h4>
-      <pre class="p-3.5 rounded-xl bg-slate-900 text-slate-200 dark:bg-base-950 dark:text-slate-300 border border-slate-800 dark:border-white/[0.08] text-xs font-mono overflow-x-auto leading-relaxed">${data.architecture}</pre>
+      <h4 class="text-xs font-mono font-bold text-zinc-700 dark:text-zinc-300 uppercase tracking-wider mb-2">System Architecture Flow</h4>
+      <pre class="p-3.5 rounded-xl bg-zinc-900 text-zinc-200 dark:bg-base-950 dark:text-zinc-300 border border-zinc-800 dark:border-white/[0.08] text-xs font-mono overflow-x-auto leading-relaxed">${data.architecture}</pre>
     </div>
 
-    <div class="pt-2 border-t border-slate-200 dark:border-white/[0.08]">
-      <h4 class="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Technologies & Tooling</h4>
+    <div class="pt-2 border-t border-zinc-200 dark:border-white/[0.08]">
+      <h4 class="text-xs font-mono font-bold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider mb-2">Technologies & Tooling</h4>
       <div class="flex flex-wrap gap-2">
         ${data.tags.map(tag => `<span class="tech-pill">${tag}</span>`).join('')}
       </div>
@@ -579,7 +581,7 @@ async function handleContactSubmit(event) {
     const mailtoLink = `mailto:athuls2580@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formattedBody)}`;
     if (statusDiv) {
       statusDiv.className = 'text-xs font-mono text-center p-3 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-800 text-zinc-900 dark:text-white block';
-      statusDiv.innerHTML = `Email service unavailable. <a href="${mailtoLink}" class="underline font-bold text-slate-900 dark:text-white hover:underline">Click here to send via your email client</a>.`;
+      statusDiv.innerHTML = `Email service unavailable. <a href="${mailtoLink}" class="underline font-bold text-zinc-900 dark:text-white hover:underline">Click here to send via your email client</a>.`;
     }
     showToast('Opening email client...');
     window.location.href = mailtoLink;

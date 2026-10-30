@@ -11,19 +11,23 @@
   <script>
     (function() {
       try {
-        const savedTheme = localStorage.getItem('theme');
+        const urlParams = new URLSearchParams(window.location.search);
+        const themeParam = urlParams.get('theme');
+        const savedTheme = themeParam || localStorage.getItem('theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
           document.documentElement.classList.add('dark');
+          document.documentElement.setAttribute('data-theme', 'dark');
         } else {
           document.documentElement.classList.remove('dark');
+          document.documentElement.setAttribute('data-theme', 'light');
         }
       } catch (e) {}
     })();
   </script>
 
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230F141E'/><rect x='1' y='1' width='30' height='30' rx='7' fill='none' stroke='rgba(255,255,255,0.15)' stroke-width='1.5'/><text x='16' y='21' font-family='monospace' font-size='13' font-weight='bold' fill='%233B82F6' text-anchor='middle'>AS</text></svg>" type="image/svg+xml" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230F141E'/><rect x='1' y='1' width='30' height='30' rx='7' fill='none' stroke='rgba(255,255,255,0.15)' stroke-width='1.5'/><text x='16' y='21' font-family='monospace' font-size='13' font-weight='bold' fill='%23FFFFFF' text-anchor='middle'>AS</text></svg>" type="image/svg+xml" />
 
   <!-- OpenGraph & Social Preview Meta Tags -->
   <meta property="og:title" content="Athul S | Electronics, Embedded Systems &amp; IoT Engineer" />
@@ -80,14 +84,14 @@
 
   <!-- Toast Notification Container -->
   <div id="toast" class="fixed top-6 right-6 z-50 transform -translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
-    <div class="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 shadow-2xl flex items-center gap-2.5 text-xs font-mono bg-white/95 dark:bg-base-900/95 text-slate-900 dark:text-white backdrop-blur-xl">
+    <div class="px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-white/10 shadow-2xl flex items-center gap-2.5 text-xs font-mono bg-white/95 dark:bg-base-900/95 text-zinc-900 dark:text-white backdrop-blur-xl">
       <i data-lucide="check-circle" class="w-4 h-4 text-zinc-900 dark:text-white"></i>
       <span id="toast-message">Copied to clipboard!</span>
     </div>
   </div>
 
   <!-- Header Navigation -->
-  <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/85 dark:bg-base-950/85 border-b border-slate-200/80 dark:border-white/[0.06] transition-colors duration-200">
+  <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/85 dark:bg-base-950/85 border-b border-zinc-200/80 dark:border-white/[0.06] transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
       
       <!-- Brand Logo / Identity -->
@@ -97,49 +101,49 @@
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-heading font-bold text-base tracking-tight text-slate-900 dark:text-white group-hover:text-zinc-500 dark:group-hover:text-zinc-300 transition-colors">
+            <span class="font-heading font-bold text-base tracking-tight text-zinc-900 dark:text-white group-hover:text-zinc-500 dark:group-hover:text-zinc-300 transition-colors">
               Athul S
             </span>
             <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
               <span class="pulse-dot mr-1.5"></span> Open for Roles
             </span>
           </div>
-          <span class="block text-[11px] font-mono text-slate-500 dark:text-slate-400">Electronics, Embedded &amp; IoT Engineer</span>
+          <span class="hidden sm:block text-[11px] font-mono text-zinc-600 dark:text-zinc-400">Electronics, Embedded &amp; IoT Engineer</span>
         </div>
       </a>
 
       <!-- Desktop Navigation Links -->
-      <nav class="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-base-900/90 p-1.5 rounded-xl border border-slate-200 dark:border-white/[0.06]">
-        <a href="#overview" class="nav-link px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">Overview</a>
-        <a href="#projects" class="nav-link px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">Projects</a>
-        <a href="#skills" class="nav-link px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">Skills</a>
-        <a href="#experience" class="nav-link px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">Experience</a>
-        <a href="#credentials" class="nav-link px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">Education</a>
-        <a href="#involvement" class="nav-link px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">Involvement</a>
+      <nav class="hidden md:flex items-center gap-1 bg-zinc-100/80 dark:bg-base-900/90 p-1.5 rounded-xl border border-zinc-200 dark:border-white/[0.06]">
+        <a href="#overview" class="nav-link px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-all">Overview</a>
+        <a href="#projects" class="nav-link px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-all">Projects</a>
+        <a href="#skills" class="nav-link px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-all">Skills</a>
+        <a href="#experience" class="nav-link px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-all">Experience</a>
+        <a href="#credentials" class="nav-link px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-all">Education</a>
+        <a href="#involvement" class="nav-link px-3 py-1.5 rounded-lg text-xs font-medium text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-all">Involvement</a>
       </nav>
 
       <!-- Action Area -->
       <div class="flex items-center gap-2 sm:gap-3">
         <!-- Theme Toggle Button -->
-        <button class="theme-toggle-btn p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-base-900 border border-slate-200 dark:border-white/[0.08] transition-all flex items-center justify-center" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+        <button class="theme-toggle-btn p-2 rounded-xl text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white bg-zinc-100 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.08] transition-all flex items-center justify-center" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
           <!-- Sun for Dark Mode -->
           <svg class="w-4 h-4 hidden dark:block text-zinc-200 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
           <!-- Moon for Light Mode -->
-          <svg class="w-4 h-4 block dark:hidden text-slate-700 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg class="w-4 h-4 block dark:hidden text-zinc-700 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
         </button>
 
-        <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-base-900 hover:bg-slate-200 dark:hover:bg-base-800 border border-slate-200 dark:border-white/[0.08] transition-all" title="Download Official Resume PDF">
-          <i data-lucide="download" class="w-3.5 h-3.5 text-slate-500 dark:text-slate-400"></i>
+        <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-base-900 hover:bg-zinc-200 dark:hover:bg-base-800 border border-zinc-200 dark:border-white/[0.08] transition-all" title="Download Official Resume PDF">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400"></i>
           <span>Resume (.pdf)</span>
         </a>
 
-        <a href="#contact" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium text-white dark:text-black bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 transition-all shadow-sm">
+        <a href="#contact" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium text-white dark:text-black bg-zinc-900 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all shadow-sm">
           <span>Contact</span>
           <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
         </a>
 
         <!-- Mobile Menu Toggle Button -->
-        <button id="mobile-toggle-btn" class="md:hidden p-2 rounded-lg bg-slate-100 dark:bg-base-900 border border-slate-200 dark:border-white/[0.1] text-slate-700 dark:text-slate-300" aria-label="Toggle Navigation">
+        <button id="mobile-toggle-btn" class="md:hidden p-2 rounded-lg bg-zinc-100 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.1] text-zinc-700 dark:text-zinc-300" aria-label="Toggle Navigation">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
       </div>
@@ -147,29 +151,29 @@
     </div>
 
     <!-- Mobile Dropdown Navigation -->
-    <div id="mobile-drawer" class="hidden md:hidden border-t border-slate-200 dark:border-white/[0.06] bg-white/95 dark:bg-base-950/95 backdrop-blur-2xl px-6 py-4 space-y-3">
-      <a href="#overview" class="mobile-link block py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:text-zinc-950 dark:hover:text-white">Overview</a>
-      <a href="#projects" class="mobile-link block py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:text-zinc-950 dark:hover:text-white">Projects &amp; Case Studies</a>
-      <a href="#skills" class="mobile-link block py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:text-zinc-950 dark:hover:text-white">Technical Skills</a>
-      <a href="#experience" class="mobile-link block py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:text-zinc-950 dark:hover:text-white">Industrial Experience</a>
-      <a href="#credentials" class="mobile-link block py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:text-zinc-950 dark:hover:text-white">Education &amp; Credentials</a>
-      <a href="#involvement" class="mobile-link block py-1.5 text-sm text-slate-700 dark:text-slate-300 hover:text-zinc-950 dark:hover:text-white">Leadership &amp; Community</a>
+    <div id="mobile-drawer" class="hidden md:hidden border-t border-zinc-200 dark:border-white/[0.06] bg-white/95 dark:bg-base-950/95 backdrop-blur-2xl px-6 py-4 space-y-3">
+      <a href="#overview" class="mobile-link block py-1.5 text-sm text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">Overview</a>
+      <a href="#projects" class="mobile-link block py-1.5 text-sm text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">Projects &amp; Case Studies</a>
+      <a href="#skills" class="mobile-link block py-1.5 text-sm text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">Technical Skills</a>
+      <a href="#experience" class="mobile-link block py-1.5 text-sm text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">Industrial Experience</a>
+      <a href="#credentials" class="mobile-link block py-1.5 text-sm text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">Education &amp; Credentials</a>
+      <a href="#involvement" class="mobile-link block py-1.5 text-sm text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white">Leadership &amp; Community</a>
       <div class="pt-1">
-        <button class="theme-toggle-btn w-full py-2 px-3 rounded-lg text-xs font-mono bg-slate-100 dark:bg-base-900 border border-slate-200 dark:border-white/[0.1] text-slate-800 dark:text-slate-200 flex items-center justify-between transition-colors">
+        <button class="theme-toggle-btn w-full py-2 px-3 rounded-lg text-xs font-mono bg-zinc-100 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.1] text-zinc-800 dark:text-zinc-200 flex items-center justify-between transition-colors">
           <span class="flex items-center gap-2">
             <svg class="w-4 h-4 hidden dark:block text-zinc-200 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-            <svg class="w-4 h-4 block dark:hidden text-slate-700 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            <svg class="w-4 h-4 block dark:hidden text-zinc-700 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
             <span class="dark:hidden">Switch to Dark Theme</span>
             <span class="hidden dark:inline">Switch to Light Theme</span>
           </span>
-          <span class="text-[10px] uppercase font-bold text-slate-500">Theme</span>
+          <span class="text-[10px] uppercase font-bold text-zinc-600 dark:text-zinc-400">Theme</span>
         </button>
       </div>
       <div class="pt-1 flex gap-2">
-        <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="flex-1 py-2 rounded-lg text-xs font-mono bg-slate-100 dark:bg-base-900 border border-slate-200 dark:border-white/[0.1] text-slate-900 dark:text-white flex items-center justify-center gap-1.5">
-          <i data-lucide="download" class="w-3.5 h-3.5 text-slate-400"></i> Resume (.pdf)
+        <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="flex-1 py-2 rounded-lg text-xs font-mono bg-zinc-100 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.1] text-zinc-900 dark:text-white flex items-center justify-center gap-1.5">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400"></i> Resume (.pdf)
         </a>
-        <a href="#contact" class="flex-1 py-2 rounded-lg text-xs font-medium bg-slate-900 text-white dark:bg-white dark:text-black text-center flex items-center justify-center gap-1">
+        <a href="#contact" class="flex-1 py-2 rounded-lg text-xs font-medium bg-zinc-900 text-white dark:bg-white dark:text-black text-center flex items-center justify-center gap-1">
           Contact <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
         </a>
       </div>
@@ -181,12 +185,13 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
       
       <!-- Hero Left: Executive Value Proposition -->
-      <div class="lg:col-span-7 space-y-6">
+      <div class="lg:col-span-7 space-y-6 min-w-0">
         
         <!-- Status Indicator Pill -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-zinc-200 dark:border-white/[0.1] text-xs font-mono text-zinc-900 dark:text-zinc-200">
-          <span class="w-1.5 h-1.5 rounded-full bg-zinc-900 dark:bg-white"></span>
-          <span>B.Tech in Electronics &amp; Communication Engineering</span>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] text-xs font-mono text-zinc-700 dark:text-zinc-300 max-w-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-zinc-900 dark:bg-white shrink-0"></span>
+          <span class="sm:hidden text-[11px]">B.Tech &bull; Electronics &amp; Communication</span>
+          <span class="hidden sm:inline">B.Tech in Electronics &amp; Communication Engineering</span>
         </div>
 
         <!-- Headline & Bio -->
@@ -194,8 +199,8 @@
           <h1 class="text-3xl sm:text-5xl lg:text-6xl font-heading font-bold tracking-tight text-zinc-900 dark:text-white leading-[1.12]">
             Engineering <span class="text-zinc-500 dark:text-zinc-400 font-medium">Embedded IoT</span>, <span class="text-zinc-900 dark:text-white underline decoration-zinc-400/40 dark:decoration-zinc-600 underline-offset-8">Data Analytics</span> &amp; AI Systems.
           </h1>
-          <p class="text-slate-600 dark:text-slate-300 text-base leading-relaxed max-w-2xl font-normal">
-            Hi, I'm <strong class="text-slate-900 dark:text-white font-semibold">Athul S</strong> &mdash; an Electronics and Communication Engineering graduate from <strong class="text-slate-900 dark:text-white font-semibold">Amrita Vishwa Vidyapeetham</strong> (CGPA: 7.08) with a rigorous STEM foundation. Certified in <strong class="text-slate-900 dark:text-white font-semibold">Google Advanced Data Analytics</strong> with proven expertise spanning image processing with <strong class="text-slate-900 dark:text-white">OpenCV</strong>, microcontroller firmware (<strong class="text-slate-900 dark:text-white">ESP32, ATmega328</strong>), digital logic in <strong class="text-slate-900 dark:text-white">Verilog HDL</strong>, and high-frequency RF simulation in <strong class="text-slate-900 dark:text-white">Ansys HFSS</strong>. Seeking to apply analytical problem-solving to AI training, model evaluation, and technical systems engineering.
+          <p class="text-zinc-600 dark:text-zinc-300 text-base leading-relaxed max-w-2xl font-normal">
+            Hi, I'm <strong class="text-zinc-900 dark:text-white font-semibold">Athul S</strong> &mdash; an Electronics and Communication Engineering graduate from <strong class="text-zinc-900 dark:text-white font-semibold">Amrita Vishwa Vidyapeetham</strong> (CGPA: 7.08) with a rigorous STEM foundation. Certified in <strong class="text-zinc-900 dark:text-white font-semibold">Google Advanced Data Analytics</strong> with proven expertise spanning image processing with <strong class="text-zinc-900 dark:text-white">OpenCV</strong>, microcontroller firmware (<strong class="text-zinc-900 dark:text-white">ESP32, ATmega328</strong>), digital logic in <strong class="text-zinc-900 dark:text-white">Verilog HDL</strong>, and high-frequency RF simulation in <strong class="text-zinc-900 dark:text-white">Ansys HFSS</strong>. Seeking to apply analytical problem-solving to AI training, model evaluation, and technical systems engineering.
           </p>
         </div>
 
@@ -210,64 +215,60 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="flex flex-wrap items-center gap-3 pt-2">
-          <a href="#projects" class="btn-primary">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 pt-2">
+          <a href="#projects" class="btn-primary w-full sm:w-auto text-center justify-center">
             <span>Explore Projects</span>
             <i data-lucide="arrow-down" class="w-4 h-4"></i>
           </a>
 
-          <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="btn-secondary">
-            <i data-lucide="download" class="w-4 h-4 text-slate-500 dark:text-slate-400"></i>
+          <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="btn-secondary w-full sm:w-auto text-center justify-center">
+            <i data-lucide="download" class="w-4 h-4 text-zinc-600 dark:text-zinc-400"></i>
             <span>Download CV (.pdf)</span>
           </a>
 
-          <button onclick="openResumeModal()" class="btn-secondary">
-            <i data-lucide="file-text" class="w-4 h-4 text-slate-500 dark:text-slate-400"></i>
+          <button onclick="openResumeModal()" class="btn-secondary w-full sm:w-auto text-center justify-center">
+            <i data-lucide="file-text" class="w-4 h-4 text-zinc-600 dark:text-zinc-400"></i>
             <span>Preview CV</span>
           </button>
         </div>
 
         <!-- Direct Contact Chips -->
-        <div class="flex flex-wrap items-center gap-2 pt-2">
-          <button onclick="copyToClipboard('athuls2580@gmail.com', 'Email copied to clipboard!')" class="tech-pill hover:border-slate-400 cursor-pointer" title="Click to copy email">
-            <i data-lucide="mail" class="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400"></i>
-            <span>athuls2580@gmail.com</span>
-            <i data-lucide="copy" class="w-3 h-3 text-slate-400"></i>
+        <div class="grid grid-cols-1 sm:flex sm:flex-wrap items-stretch sm:items-center gap-2 pt-2">
+          <button onclick="copyToClipboard('athuls2580@gmail.com', 'Email copied to clipboard!')" class="tech-pill w-full sm:w-auto justify-between sm:justify-start hover:border-zinc-400 cursor-pointer" title="Click to copy email">
+            <span class="flex items-center gap-1.5"><i data-lucide="mail" class="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400"></i><span>athuls2580@gmail.com</span></span>
+            <i data-lucide="copy" class="w-3 h-3 text-zinc-600 dark:text-zinc-400 shrink-0"></i>
           </button>
 
-          <button onclick="copyToClipboard('+919207626755', 'Phone number copied to clipboard!')" class="tech-pill hover:border-slate-400 cursor-pointer" title="Click to copy phone">
-            <i data-lucide="phone" class="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400"></i>
-            <span>+91 9207626755</span>
-            <i data-lucide="copy" class="w-3 h-3 text-slate-400"></i>
+          <button onclick="copyToClipboard('+919207626755', 'Phone number copied to clipboard!')" class="tech-pill w-full sm:w-auto justify-between sm:justify-start hover:border-zinc-400 cursor-pointer" title="Click to copy phone">
+            <span class="flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400"></i><span>+91 9207626755</span></span>
+            <i data-lucide="copy" class="w-3 h-3 text-zinc-600 dark:text-zinc-400 shrink-0"></i>
           </button>
 
-          <a href="https://github.com/athuls-engineer" target="_blank" rel="noopener noreferrer" class="tech-pill hover:border-slate-400" title="GitHub Profile">
-            <svg class="w-3.5 h-3.5 fill-current text-slate-800 dark:text-white" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
-            <span>github.com/athuls-engineer</span>
-            <i data-lucide="external-link" class="w-3 h-3 text-slate-400"></i>
+          <a href="https://github.com/athuls-engineer" target="_blank" rel="noopener noreferrer" class="tech-pill w-full sm:w-auto justify-between sm:justify-start hover:border-zinc-400" title="GitHub Profile">
+            <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-current text-zinc-800 dark:text-white" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg><span>github.com/athuls-engineer</span></span>
+            <i data-lucide="external-link" class="w-3 h-3 text-zinc-600 dark:text-zinc-400 shrink-0"></i>
           </a>
 
-          <a href="https://linkedin.com/in/athul-s-engineer" target="_blank" rel="noopener noreferrer" class="tech-pill hover:border-slate-400" title="LinkedIn Profile">
-            <svg class="w-3.5 h-3.5 fill-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 0 0-1.6 1.6 1.6 1.6 0 0 0 1.6 1.6 1.6 1.6 0 0 0 1.6-1.6 1.6 1.6 0 0 0-1.6-1.6Z"/></svg>
-            <span>linkedin.com/in/athul-s-engineer</span>
-            <i data-lucide="external-link" class="w-3 h-3 text-slate-400"></i>
+          <a href="https://linkedin.com/in/athul-s-engineer" target="_blank" rel="noopener noreferrer" class="tech-pill w-full sm:w-auto justify-between sm:justify-start hover:border-zinc-400" title="LinkedIn Profile">
+            <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 fill-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 0 0-1.6 1.6 1.6 1.6 0 0 0 1.6 1.6 1.6 1.6 0 0 0 1.6-1.6 1.6 1.6 0 0 0-1.6-1.6Z"/></svg><span>linkedin.com/in/athul-s-engineer</span></span>
+            <i data-lucide="external-link" class="w-3 h-3 text-zinc-600 dark:text-zinc-400 shrink-0"></i>
           </a>
         </div>
 
       </div>
 
       <!-- Hero Right: Authentic Engineering Profile & Summary Card -->
-      <div class="lg:col-span-5 w-full">
+      <div class="lg:col-span-5 w-full min-w-0">
         <div class="portfolio-card-static p-6 sm:p-7 space-y-5">
           
-          <div class="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.08] pb-4">
+          <div class="flex items-center justify-between border-b border-zinc-200 dark:border-white/[0.08] pb-4">
             <div class="flex items-center gap-3">
               <div class="w-11 h-11 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center font-mono font-bold text-base text-zinc-900 dark:text-white">
                 AS
               </div>
               <div>
-                <h3 class="font-heading font-bold text-slate-900 dark:text-white text-base">Athul S</h3>
-                <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Electronics &amp; Communication</span>
+                <h3 class="font-heading font-bold text-zinc-900 dark:text-white text-base">Athul S</h3>
+                <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400">Electronics &amp; Communication</span>
               </div>
             </div>
             <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
@@ -278,36 +279,36 @@
           <!-- Structured Quick Reference -->
           <div class="space-y-3 text-xs">
             
-            <div class="flex items-start justify-between gap-3 p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05]">
-              <span class="text-slate-500 dark:text-slate-400 font-mono">Education:</span>
-              <span class="font-medium text-slate-900 dark:text-white text-right">Amrita Vishwa Vidyapeetham, Amritapuri (2022&ndash;2026)</span>
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05] min-w-0">
+              <span class="text-zinc-600 dark:text-zinc-400 font-mono text-[11px] sm:text-xs shrink-0">Education:</span>
+              <span class="font-medium text-zinc-900 dark:text-white sm:text-right text-xs break-words min-w-0">Amrita Vishwa Vidyapeetham, Amritapuri (2022&ndash;2026)</span>
             </div>
 
-            <div class="flex items-start justify-between gap-3 p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05]">
-              <span class="text-slate-500 dark:text-slate-400 font-mono">Location:</span>
-              <span class="font-medium text-slate-900 dark:text-white text-right">Trivandrum, Kerala, India</span>
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05] min-w-0">
+              <span class="text-zinc-600 dark:text-zinc-400 font-mono text-[11px] sm:text-xs shrink-0">Location:</span>
+              <span class="font-medium text-zinc-900 dark:text-white sm:text-right text-xs break-words min-w-0">Trivandrum, Kerala, India</span>
             </div>
 
-            <div class="flex items-start justify-between gap-3 p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05]">
-              <span class="text-slate-500 dark:text-slate-400 font-mono">Industry Exposure:</span>
-              <span class="font-medium text-slate-900 dark:text-white text-right">NeST Technologies &bull; KSEB</span>
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05] min-w-0">
+              <span class="text-zinc-600 dark:text-zinc-400 font-mono text-[11px] sm:text-xs shrink-0">Industry Exposure:</span>
+              <span class="font-medium text-zinc-900 dark:text-white sm:text-right text-xs break-words min-w-0">NeST Technologies &bull; KSEB</span>
             </div>
 
-            <div class="flex items-start justify-between gap-3 p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05]">
-              <span class="text-slate-500 dark:text-slate-400 font-mono">Certifications:</span>
-              <span class="font-medium text-slate-900 dark:text-white text-right">Google Advanced Data Analytics &bull; NEBOSH IGC</span>
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05] min-w-0">
+              <span class="text-zinc-600 dark:text-zinc-400 font-mono text-[11px] sm:text-xs shrink-0">Certifications:</span>
+              <span class="font-medium text-zinc-900 dark:text-white sm:text-right text-xs break-words min-w-0">Google Advanced Data Analytics &bull; NEBOSH IGC</span>
             </div>
 
-            <div class="flex items-start justify-between gap-3 p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05]">
-              <span class="text-slate-500 dark:text-slate-400 font-mono">Involvement:</span>
-              <span class="font-medium text-slate-900 dark:text-white text-right">Overall Coordinator &bull; SSR Program</span>
+            <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-zinc-50 dark:bg-base-900 border border-zinc-200 dark:border-white/[0.05] min-w-0">
+              <span class="text-zinc-600 dark:text-zinc-400 font-mono text-[11px] sm:text-xs shrink-0">Involvement:</span>
+              <span class="font-medium text-zinc-900 dark:text-white sm:text-right text-xs break-words min-w-0">Overall Coordinator &bull; SSR Program</span>
             </div>
 
           </div>
 
           <!-- Hardware & Tooling Highlights -->
-          <div class="pt-2 border-t border-slate-200 dark:border-white/[0.08] space-y-2">
-            <span class="block text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">Primary Hardware &amp; Tooling</span>
+          <div class="pt-2 border-t border-zinc-200 dark:border-white/[0.08] space-y-2">
+            <span class="block text-[11px] font-mono text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">Primary Hardware &amp; Tooling</span>
             <div class="flex flex-wrap gap-1.5">
               <span class="tech-pill font-mono">ESP32</span>
               <span class="tech-pill font-mono">Basys 3 (Artix-7)</span>
@@ -325,18 +326,18 @@
   </section>
 
   <!-- Featured Engineering Projects Section -->
-  <section id="projects" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-slate-200 dark:border-white/[0.06]">
+  <section id="projects" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-zinc-200 dark:border-white/[0.06]">
     
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
       <div>
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
           <i data-lucide="cpu" class="w-3.5 h-3.5"></i> Engineering Case Studies
         </span>
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight mt-2">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-zinc-900 dark:text-white tracking-tight mt-2">
           Projects &amp; Systems
         </h2>
       </div>
-      <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-md">
+      <p class="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm max-w-md">
         Verified hardware builds, bare-metal micro-controller implementations, and full-stack telematics platforms.
       </p>
     </div>
@@ -358,14 +359,14 @@
             <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
               IoT &bull; ESP32
             </span>
-            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">10/2025 &ndash; 05/2026</span>
+            <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400">10/2025 &ndash; 05/2026</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+          <h3 class="text-xl font-heading font-bold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
             Chaakra IoT-Based GPS Bus Tracking System
           </h3>
 
-          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
+          <p class="text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm leading-relaxed font-normal">
             Academic IoT project using ESP32 and GPS receiver modules for vehicle tracking. Interfaced UART communication to parse NMEA sentences, developed Embedded C firmware for wireless transmission, and enabled continuous GPS location updates.
           </p>
 
@@ -377,8 +378,8 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-slate-200 dark:border-white/[0.06]">
-          <a href="https://github.com/athuls-engineer/chakraa-smart-bus-tracking-system" target="_blank" rel="noopener noreferrer" class="tech-pill hover:border-slate-400" title="View Source Code">
+        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-zinc-200 dark:border-white/[0.06]">
+          <a href="https://github.com/athuls-engineer/chakraa-smart-bus-tracking-system" target="_blank" rel="noopener noreferrer" class="tech-pill hover:border-zinc-400" title="View Source Code">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
             <span>GitHub</span>
           </a>
@@ -396,14 +397,14 @@
             <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
               Digital VLSI &bull; FPGA
             </span>
-            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">02/2025 &ndash; 03/2025</span>
+            <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400">02/2025 &ndash; 03/2025</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+          <h3 class="text-xl font-heading font-bold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
             FPGA Candy Vending Machine (Basys 3)
           </h3>
 
-          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
+          <p class="text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm leading-relaxed font-normal">
             Vending-machine control system engineered using Verilog HDL on a Basys 3 FPGA. Developed modules for finite-state-machine control, button debouncing, BCD conversion, and display driving, with verified coin handling and item selection.
           </p>
 
@@ -415,8 +416,8 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-slate-200 dark:border-white/[0.06]">
-          <span class="text-xs font-mono text-slate-400">Artix-7 XC7A35T</span>
+        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-zinc-200 dark:border-white/[0.06]">
+          <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400 font-medium">Artix-7 XC7A35T</span>
           <button onclick="openProjectModal('fpga')" class="text-xs font-mono font-medium text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
             <span>Technical Specs</span>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
@@ -431,14 +432,14 @@
             <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
               RF &bull; Electromagnetics
             </span>
-            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">11/2024 &ndash; 01/2025</span>
+            <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400">11/2024 &ndash; 01/2025</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+          <h3 class="text-xl font-heading font-bold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
             5.8 GHz Automotive V2V Patch Antenna
           </h3>
 
-          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
+          <p class="text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm leading-relaxed font-normal">
             Designed an ultra-compact 2.5 &times; 2.5 cm microstrip patch antenna operating at 5.8 GHz for Vehicle-to-Vehicle (V2V) telematics. Simulated in Ansys HFSS with &gt;85% radiation efficiency and -18.4 dB return loss.
           </p>
 
@@ -450,8 +451,8 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-slate-200 dark:border-white/[0.06]">
-          <span class="text-xs font-mono text-slate-400">HFSS Simulation</span>
+        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-zinc-200 dark:border-white/[0.06]">
+          <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400 font-medium">HFSS Simulation</span>
           <button onclick="openProjectModal('antenna')" class="text-xs font-mono font-medium text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
             <span>Technical Specs</span>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
@@ -466,14 +467,14 @@
             <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
               Embedded Firmware
             </span>
-            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">12/2024</span>
+            <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400">12/2024</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+          <h3 class="text-xl font-heading font-bold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
             Microcontroller Temperature Data Logger
           </h3>
 
-          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
+          <p class="text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm leading-relaxed font-normal">
             Continuous thermal acquisition system utilizing LM35 transducer + bare-metal ATmega328P. Configured Timer1 CTC interrupts for periodic 10-second sampling with &plusmn;0.5&deg;C accuracy over 24-hour cycles on 16&times;2 LCD.
           </p>
 
@@ -485,8 +486,8 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-slate-200 dark:border-white/[0.06]">
-          <span class="text-xs font-mono text-slate-400">Bare-Metal C</span>
+        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-zinc-200 dark:border-white/[0.06]">
+          <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400 font-medium">Bare-Metal C</span>
           <button onclick="openProjectModal('logger')" class="text-xs font-mono font-medium text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
             <span>Technical Specs</span>
             <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
@@ -501,14 +502,14 @@
             <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
               Edge AI &bull; Computer Vision
             </span>
-            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">04/2025 &ndash; 08/2026</span>
+            <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400">04/2025 &ndash; 08/2026</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+          <h3 class="text-xl font-heading font-bold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
             EdgeVision: Edge AI Surveillance &amp; CLAHE
           </h3>
 
-          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
+          <p class="text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm leading-relaxed font-normal">
             Surveillance monitor utilizing Adaptive CLAHE contrast equalization for low-light camera environments (&lt;15 lux), real-time HOG pedestrian detection, and sub-500ms Telegram Bot photo alerts.
           </p>
 
@@ -520,8 +521,8 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-slate-200 dark:border-white/[0.06]">
-          <a href="https://github.com/athuls-engineer/edgevision-iot" target="_blank" rel="noopener noreferrer" class="tech-pill hover:border-slate-400" title="View Source Code">
+        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-zinc-200 dark:border-white/[0.06]">
+          <a href="https://github.com/athuls-engineer/edgevision-iot" target="_blank" rel="noopener noreferrer" class="tech-pill hover:border-zinc-400" title="View Source Code">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
             <span>GitHub</span>
           </a>
@@ -539,14 +540,14 @@
             <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
               Web &bull; Telemetry
             </span>
-            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">2026</span>
+            <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400">2026</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+          <h3 class="text-xl font-heading font-bold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
             Tesla FSD Fleet Telemetry Tracker
           </h3>
 
-          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
+          <p class="text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm leading-relaxed font-normal">
             Live interactive telemetry application tracking cumulative Tesla Full Self-Driving (Supervised) fleet mileage across 2M+ vehicles in 12 countries. Hosted directly as a sub-app on GitHub Pages.
           </p>
 
@@ -558,13 +559,13 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-slate-200 dark:border-white/[0.06]">
+        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-zinc-200 dark:border-white/[0.06]">
           <div class="flex items-center gap-2">
             <a href="fsd/" class="text-xs font-mono font-semibold text-zinc-900 dark:text-white hover:underline flex items-center gap-1">
               <span>Launch App</span>
               <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
             </a>
-            <a href="https://github.com/athuls-engineer/tesla-fsd-tracker" target="_blank" rel="noopener noreferrer" class="tech-pill hover:border-slate-400" title="View Repository">
+            <a href="https://github.com/athuls-engineer/tesla-fsd-tracker" target="_blank" rel="noopener noreferrer" class="tech-pill hover:border-zinc-400" title="View Repository">
               <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
               <span>GitHub</span>
             </a>
@@ -583,14 +584,14 @@
             <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
               Android &bull; Security
             </span>
-            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Open Source</span>
+            <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400">Open Source</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+          <h3 class="text-xl font-heading font-bold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
             AegisGuard: Rootless Android DNS Sinkhole
           </h3>
 
-          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
+          <p class="text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm leading-relaxed font-normal">
             Android local DNS sinkhole and ad blocker built using Android's native VpnService API. Operates 100% locally on-device without root privileges or battery overhead.
           </p>
 
@@ -602,8 +603,8 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-slate-200 dark:border-white/[0.06]">
-          <a href="https://github.com/athuls-engineer/aegisguard-android" target="_blank" rel="noopener noreferrer" class="tech-pill hover:border-slate-400" title="View Source Code">
+        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-zinc-200 dark:border-white/[0.06]">
+          <a href="https://github.com/athuls-engineer/aegisguard-android" target="_blank" rel="noopener noreferrer" class="tech-pill hover:border-zinc-400" title="View Source Code">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
             <span>GitHub</span>
           </a>
@@ -621,14 +622,14 @@
             <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
               Systems &bull; Rust
             </span>
-            <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Open Source</span>
+            <span class="text-xs font-mono text-zinc-600 dark:text-zinc-400">Open Source</span>
           </div>
 
-          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+          <h3 class="text-xl font-heading font-bold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
             SAMM: Desktop Mod Manager (Rust + Tauri)
           </h3>
 
-          <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
+          <p class="text-zinc-600 dark:text-zinc-300 text-xs sm:text-sm leading-relaxed font-normal">
             Cross-platform desktop application built in Rust and React for managing game modifications with conflict detection, profile switching, and virtual directory linking.
           </p>
 
@@ -640,8 +641,8 @@
           </div>
         </div>
 
-        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-slate-200 dark:border-white/[0.06]">
-          <a href="https://github.com/athuls-engineer/samm" target="_blank" rel="noopener noreferrer" class="tech-pill hover:border-slate-400" title="View Source Code">
+        <div class="flex items-center justify-between gap-2 pt-5 mt-4 border-t border-zinc-200 dark:border-white/[0.06]">
+          <a href="https://github.com/athuls-engineer/samm" target="_blank" rel="noopener noreferrer" class="tech-pill hover:border-zinc-400" title="View Source Code">
             <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
             <span>GitHub</span>
           </a>
@@ -658,17 +659,17 @@
 
   <!-- Technical Skills & Competencies -->
     <!-- Technical Skills Matrix Section -->
-  <section id="skills" class="py-16 md:py-24 border-t border-slate-200 dark:border-white/[0.06] bg-zinc-50/50 dark:bg-base-900/40 relative z-10">
+  <section id="skills" class="py-16 md:py-24 border-t border-zinc-200 dark:border-white/[0.06] bg-zinc-50/50 dark:bg-base-900/40 relative z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-12 space-y-2">
         <span class="px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
           Competencies
         </span>
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-zinc-900 dark:text-white tracking-tight">
           Technical Skills Matrix
         </h2>
-        <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm">
+        <p class="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm">
           Hands-on technical competencies structured directly from academic engineering and industry training.
         </p>
       </div>
@@ -681,12 +682,12 @@
             <div class="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center text-zinc-900 dark:text-white mb-4">
               <i data-lucide="code-2" class="w-5 h-5"></i>
             </div>
-            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-1.5">Programming</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed font-normal">
+            <h3 class="font-heading font-bold text-lg text-zinc-900 dark:text-white mb-1.5">Programming</h3>
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed font-normal">
               Core programming languages for embedded firmware routines, hardware control, and analytical data scripting.
             </p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-zinc-200 dark:border-white/[0.06]">
             <span class="tech-pill">Python</span>
             <span class="tech-pill">Embedded C</span>
             <span class="tech-pill">Assembly Language</span>
@@ -699,12 +700,12 @@
             <div class="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center text-zinc-900 dark:text-white mb-4">
               <i data-lucide="binary" class="w-5 h-5"></i>
             </div>
-            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-1.5">Data Analysis &amp; Machine Learning</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed font-normal">
+            <h3 class="font-heading font-bold text-lg text-zinc-900 dark:text-white mb-1.5">Data Analysis &amp; Machine Learning</h3>
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed font-normal">
               Exploratory data analysis, statistical modeling, predictive algorithms, and structured AI model evaluation.
             </p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-zinc-200 dark:border-white/[0.06]">
             <span class="tech-pill">Python</span>
             <span class="tech-pill">Statistics</span>
             <span class="tech-pill">Data Exploration</span>
@@ -718,12 +719,12 @@
             <div class="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center text-zinc-900 dark:text-white mb-4">
               <i data-lucide="cpu" class="w-5 h-5"></i>
             </div>
-            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-1.5">Embedded Systems</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed font-normal">
+            <h3 class="font-heading font-bold text-lg text-zinc-900 dark:text-white mb-1.5">Embedded Systems</h3>
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed font-normal">
               Microcontroller firmware architectures, sensor conditioning, hardware timers, and peripheral buses.
             </p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-zinc-200 dark:border-white/[0.06]">
             <span class="tech-pill">ESP32</span>
             <span class="tech-pill">ESP8266</span>
             <span class="tech-pill">ATmega328</span>
@@ -739,12 +740,12 @@
             <div class="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center text-zinc-900 dark:text-white mb-4">
               <i data-lucide="radio" class="w-5 h-5"></i>
             </div>
-            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-1.5">Electronics &amp; Simulation</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed font-normal">
+            <h3 class="font-heading font-bold text-lg text-zinc-900 dark:text-white mb-1.5">Electronics &amp; Simulation</h3>
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed font-normal">
               3D electromagnetic high-frequency simulation, S-parameter characterization, and numerical system modeling.
             </p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-zinc-200 dark:border-white/[0.06]">
             <span class="tech-pill">Ansys HFSS</span>
             <span class="tech-pill">MATLAB</span>
             <span class="tech-pill">Antenna Parameter Analysis</span>
@@ -757,12 +758,12 @@
             <div class="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center text-zinc-900 dark:text-white mb-4">
               <i data-lucide="network" class="w-5 h-5"></i>
             </div>
-            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-1.5">Digital Design</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed font-normal">
+            <h3 class="font-heading font-bold text-lg text-zinc-900 dark:text-white mb-1.5">Digital Design</h3>
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed font-normal">
               RTL digital design in Verilog HDL, Mealy/Moore finite-state machines, switch debouncing, and FPGA synthesis.
             </p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-zinc-200 dark:border-white/[0.06]">
             <span class="tech-pill">Verilog HDL</span>
             <span class="tech-pill">Basys 3 FPGA</span>
             <span class="tech-pill">Finite-State Machines (FSM)</span>
@@ -775,12 +776,12 @@
             <div class="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center text-zinc-900 dark:text-white mb-4">
               <i data-lucide="zap" class="w-5 h-5"></i>
             </div>
-            <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white mb-1.5">Vision &amp; Industrial Systems</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed font-normal">
+            <h3 class="font-heading font-bold text-lg text-zinc-900 dark:text-white mb-1.5">Vision &amp; Industrial Systems</h3>
+            <p class="text-xs text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed font-normal">
               Computer vision image contrast enhancement, industrial SCADA electrical grid monitoring, and field bus protocols.
             </p>
           </div>
-          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
+          <div class="flex flex-wrap gap-1.5 pt-3 border-t border-zinc-200 dark:border-white/[0.06]">
             <span class="tech-pill">OpenCV</span>
             <span class="tech-pill">Histogram Equalisation</span>
             <span class="tech-pill">TCP/IP</span>
@@ -795,18 +796,18 @@
   </section>
 
   <!-- Industrial Experience Section -->
-  <section id="experience" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-slate-200 dark:border-white/[0.06]">
+  <section id="experience" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-zinc-200 dark:border-white/[0.06]">
     
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
       <div>
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
           <i data-lucide="briefcase" class="w-3.5 h-3.5"></i> Practical Training
         </span>
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight mt-2">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-zinc-900 dark:text-white tracking-tight mt-2">
           Industrial Internships
         </h2>
       </div>
-      <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm max-w-md">
+      <p class="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm max-w-md">
         Field engineering exposure across commercial IoT hardware development and high-voltage substation grid monitoring.
       </p>
     </div>
@@ -820,8 +821,8 @@
             <span class="font-mono text-xs px-2.5 py-0.5 rounded bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.08] font-medium">
               04/2025 &ndash; 04/2025
             </span>
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-mono flex items-center gap-1">
-              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i> Kochi, Kerala
+            <span class="text-xs text-zinc-600 dark:text-zinc-400 font-mono flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400"></i> Kochi, Kerala
             </span>
           </div>
 
@@ -830,30 +831,30 @@
               <i data-lucide="cpu" class="w-5 h-5"></i>
             </div>
             <div>
-              <h3 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+              <h3 class="text-xl sm:text-2xl font-heading font-bold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
                 Embedded Systems and IoT Training
               </h3>
-              <div class="text-sm font-semibold text-slate-700 dark:text-slate-300">NeST Technologies</div>
+              <div class="text-sm font-semibold text-zinc-700 dark:text-zinc-300">NeST Technologies</div>
             </div>
           </div>
 
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal mt-4">
+          <ul class="space-y-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 font-normal mt-4">
             <li class="flex items-start gap-2.5">
-              <span class="text-zinc-400 dark:text-zinc-500 font-bold mt-1">&bull;</span>
-              <span>Completed five-day practical training in <strong class="text-slate-900 dark:text-white font-medium">Arduino and ESP8266-based IoT development</strong>.</span>
+              <span class="text-zinc-500 dark:text-zinc-400 font-bold mt-1">&bull;</span>
+              <span>Completed five-day practical training in <strong class="text-zinc-900 dark:text-white font-medium">Arduino and ESP8266-based IoT development</strong>.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-zinc-400 dark:text-zinc-500 font-bold mt-1">&bull;</span>
-              <span>Worked on mini-projects involving <strong class="text-slate-900 dark:text-white font-medium">temperature and motion sensors</strong> with Wi-Fi-based data transmission.</span>
+              <span class="text-zinc-500 dark:text-zinc-400 font-bold mt-1">&bull;</span>
+              <span>Worked on mini-projects involving <strong class="text-zinc-900 dark:text-white font-medium">temperature and motion sensors</strong> with Wi-Fi-based data transmission.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-zinc-400 dark:text-zinc-500 font-bold mt-1">&bull;</span>
-              <span>Implemented <strong class="text-slate-900 dark:text-white font-medium">histogram equalisation using Python and OpenCV</strong> for image contrast enhancement.</span>
+              <span class="text-zinc-500 dark:text-zinc-400 font-bold mt-1">&bull;</span>
+              <span>Implemented <strong class="text-zinc-900 dark:text-white font-medium">histogram equalisation using Python and OpenCV</strong> for image contrast enhancement.</span>
             </li>
           </ul>
         </div>
 
-        <div class="flex flex-wrap gap-1.5 pt-6 mt-6 border-t border-slate-200 dark:border-white/[0.06]">
+        <div class="flex flex-wrap gap-1.5 pt-6 mt-6 border-t border-zinc-200 dark:border-white/[0.06]">
           <span class="tech-pill">ESP8266 Wi-Fi</span>
           <span class="tech-pill">OpenCV Python</span>
           <span class="tech-pill">Wireless DAQ</span>
@@ -868,8 +869,8 @@
             <span class="font-mono text-xs px-2.5 py-0.5 rounded bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.08] font-medium">
               01/2025 &ndash; 01/2025
             </span>
-            <span class="text-xs text-slate-500 dark:text-slate-400 font-mono flex items-center gap-1">
-              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i> Trivandrum, Kerala
+            <span class="text-xs text-zinc-600 dark:text-zinc-400 font-mono flex items-center gap-1">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400"></i> Trivandrum, Kerala
             </span>
           </div>
 
@@ -878,30 +879,30 @@
               <i data-lucide="zap" class="w-5 h-5"></i>
             </div>
             <div>
-              <h3 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+              <h3 class="text-xl sm:text-2xl font-heading font-bold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
                 Industrial Networking and SCADA Exposure
               </h3>
-              <div class="text-sm font-semibold text-slate-700 dark:text-slate-300">KSEB (Kerala State Electricity Board)</div>
+              <div class="text-sm font-semibold text-zinc-700 dark:text-zinc-300">KSEB (Kerala State Electricity Board)</div>
             </div>
           </div>
 
-          <ul class="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal mt-4">
+          <ul class="space-y-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 font-normal mt-4">
             <li class="flex items-start gap-2.5">
-              <span class="text-zinc-400 dark:text-zinc-500 font-bold mt-1">&bull;</span>
-              <span>Gained exposure to <strong class="text-slate-900 dark:text-white font-medium">SCADA-based monitoring</strong> of electrical grid substations.</span>
+              <span class="text-zinc-500 dark:text-zinc-400 font-bold mt-1">&bull;</span>
+              <span>Gained exposure to <strong class="text-zinc-900 dark:text-white font-medium">SCADA-based monitoring</strong> of electrical grid substations.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-zinc-400 dark:text-zinc-500 font-bold mt-1">&bull;</span>
-              <span>Studied industrial communication concepts involving <strong class="text-slate-900 dark:text-white font-medium">Modbus, TCP/IP and IEC 60870</strong>.</span>
+              <span class="text-zinc-500 dark:text-zinc-400 font-bold mt-1">&bull;</span>
+              <span>Studied industrial communication concepts involving <strong class="text-zinc-900 dark:text-white font-medium">Modbus, TCP/IP and IEC 60870</strong>.</span>
             </li>
             <li class="flex items-start gap-2.5">
-              <span class="text-zinc-400 dark:text-zinc-500 font-bold mt-1">&bull;</span>
-              <span>Observed how communication networks support <strong class="text-slate-900 dark:text-white font-medium">monitoring and telemetry</strong> in power-system operations.</span>
+              <span class="text-zinc-500 dark:text-zinc-400 font-bold mt-1">&bull;</span>
+              <span>Observed how communication networks support <strong class="text-zinc-900 dark:text-white font-medium">monitoring and telemetry</strong> in power-system operations.</span>
             </li>
           </ul>
         </div>
 
-        <div class="flex flex-wrap gap-1.5 pt-6 mt-6 border-t border-slate-200 dark:border-white/[0.06]">
+        <div class="flex flex-wrap gap-1.5 pt-6 mt-6 border-t border-zinc-200 dark:border-white/[0.06]">
           <span class="tech-pill">SCADA Systems</span>
           <span class="tech-pill">Modbus RTU/TCP</span>
           <span class="tech-pill">IEC 60870 Protocol</span>
@@ -914,14 +915,14 @@
   </section>
 
   <!-- Education & Credentials Section -->
-  <section id="credentials" class="py-16 md:py-24 border-t border-slate-200 dark:border-white/[0.06] bg-zinc-50/50 dark:bg-base-900/40 relative z-10">
+  <section id="credentials" class="py-16 md:py-24 border-t border-zinc-200 dark:border-white/[0.06] bg-zinc-50/50 dark:bg-base-900/40 relative z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-12 space-y-2">
         <span class="px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
           Qualifications
         </span>
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-zinc-900 dark:text-white tracking-tight">
           Education &amp; Credentials
         </h2>
       </div>
@@ -945,34 +946,34 @@
                 <i data-lucide="graduation-cap" class="w-5 h-5"></i>
               </div>
               <div>
-                <h3 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white">
+                <h3 class="text-xl sm:text-2xl font-heading font-bold text-zinc-900 dark:text-white">
                   B.Tech &mdash; Electronics and Communication Engineering
                 </h3>
-                <div class="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                <div class="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
                   Amrita Vishwa Vidyapeetham, Amritapuri Campus &bull; Karunagappally, Kollam
                 </div>
               </div>
             </div>
 
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-normal mb-4">
+            <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal mb-4">
               Undergraduate engineering curriculum covering Embedded Systems, Microcontroller Programming, Digital Logic Design, Image Processing with OpenCV, Python, and Signals &amp; Systems.
             </p>
           </div>
 
-          <div class="space-y-2.5 pt-4 border-t border-slate-200 dark:border-white/[0.06] text-xs text-slate-500 dark:text-slate-400">
+          <div class="space-y-2.5 pt-4 border-t border-zinc-200 dark:border-white/[0.06] text-xs text-zinc-600 dark:text-zinc-400">
             <div class="flex justify-between items-center">
               <div>
-                <strong class="text-slate-900 dark:text-white">Higher Secondary (Class XII)</strong>
-                <span class="block text-[11px] text-slate-500">Jyothis Central School &bull; Kazhakuttam</span>
+                <strong class="text-zinc-900 dark:text-white">Higher Secondary (Class XII)</strong>
+                <span class="block text-[11px] text-zinc-600 dark:text-zinc-400">Jyothis Central School &bull; Kazhakuttam</span>
               </div>
-              <span class="font-mono text-slate-700 dark:text-slate-300">2020 &ndash; 2022</span>
+              <span class="font-mono text-zinc-700 dark:text-zinc-300">2020 &ndash; 2022</span>
             </div>
             <div class="flex justify-between items-center">
               <div>
-                <strong class="text-slate-900 dark:text-white">Secondary School (Class X)</strong>
-                <span class="block text-[11px] text-slate-500">Blue Mount Public School &bull; Thonnakkal</span>
+                <strong class="text-zinc-900 dark:text-white">Secondary School (Class X)</strong>
+                <span class="block text-[11px] text-zinc-600 dark:text-zinc-400">Blue Mount Public School &bull; Thonnakkal</span>
               </div>
-              <span class="font-mono text-slate-700 dark:text-slate-300">2018 &ndash; 2020</span>
+              <span class="font-mono text-zinc-700 dark:text-zinc-300">2018 &ndash; 2020</span>
             </div>
           </div>
         </div>
@@ -986,15 +987,15 @@
               <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-semibold">
                 Professional Certificate &bull; 2026
               </span>
-              <span class="text-xs text-slate-500 dark:text-slate-400 font-mono">Google Career Certificates, Coursera</span>
+              <span class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">Google Career Certificates, Coursera</span>
             </div>
             <div class="flex items-start gap-3">
               <div class="w-9 h-9 rounded-lg bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center shrink-0">
                 <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
               </div>
               <div>
-                <h4 class="text-base font-heading font-bold text-slate-900 dark:text-white">Google Advanced Data Analytics</h4>
-                <p class="text-xs text-slate-600 dark:text-slate-300 font-normal mt-1 leading-relaxed">
+                <h4 class="text-base font-heading font-bold text-zinc-900 dark:text-white">Google Advanced Data Analytics</h4>
+                <p class="text-xs text-zinc-600 dark:text-zinc-300 font-normal mt-1 leading-relaxed">
                   Completed an 8-course professional certification covering Python, machine learning, data analysis, statistics, predictive modeling, and data visualization.
                 </p>
               </div>
@@ -1007,15 +1008,15 @@
               <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-semibold">
                 International Certificate &bull; Result Awaited
               </span>
-              <span class="text-xs text-slate-500 dark:text-slate-400 font-mono">NEBOSH UK</span>
+              <span class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">NEBOSH UK</span>
             </div>
             <div class="flex items-start gap-3">
               <div class="w-9 h-9 rounded-lg bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center text-zinc-900 dark:text-white shrink-0">
                 <i data-lucide="shield-check" class="w-4 h-4"></i>
               </div>
               <div>
-                <h4 class="text-base font-heading font-bold text-slate-900 dark:text-white">NEBOSH International General Certificate (IGC)</h4>
-                <p class="text-xs text-slate-600 dark:text-slate-300 font-normal mt-1 leading-relaxed">
+                <h4 class="text-base font-heading font-bold text-zinc-900 dark:text-white">NEBOSH International General Certificate (IGC)</h4>
+                <p class="text-xs text-zinc-600 dark:text-zinc-300 font-normal mt-1 leading-relaxed">
                   Examination completed; result pending. Comprehensive training in occupational health and safety, hazard identification, and workplace risk evaluation.
                 </p>
               </div>
@@ -1028,15 +1029,15 @@
               <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-semibold">
                 Specialized Training &bull; 2024
               </span>
-              <span class="text-xs text-slate-500 dark:text-slate-400 font-mono">Amrita Vishwa Vidyapeetham</span>
+              <span class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">Amrita Vishwa Vidyapeetham</span>
             </div>
             <div class="flex items-start gap-3">
               <div class="w-9 h-9 rounded-lg bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center text-zinc-900 dark:text-white shrink-0">
                 <i data-lucide="sparkles" class="w-4 h-4"></i>
               </div>
               <div>
-                <h4 class="text-base font-heading font-bold text-slate-900 dark:text-white">Machine Learning Training</h4>
-                <p class="text-xs text-slate-600 dark:text-slate-300 font-normal mt-1 leading-relaxed">
+                <h4 class="text-base font-heading font-bold text-zinc-900 dark:text-white">Machine Learning Training</h4>
+                <p class="text-xs text-zinc-600 dark:text-zinc-300 font-normal mt-1 leading-relaxed">
                   Covered Introduction to Machine Learning, Python, data exploration, pre-processing, linear regression, and dimensionality reduction.
                 </p>
               </div>
@@ -1052,24 +1053,24 @@
 
   
   <!-- Leadership & Community Involvement Section -->
-  <section id="involvement" class="py-16 md:py-24 border-t border-slate-200 dark:border-white/[0.06] relative z-10">
+  <section id="involvement" class="py-16 md:py-24 border-t border-zinc-200 dark:border-white/[0.06] relative z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-12 space-y-2">
         <span class="px-3 py-1 rounded text-xs font-mono uppercase tracking-wider bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-medium">
           <i data-lucide="heart-handshake" class="w-3.5 h-3.5 inline mr-1"></i> Social Responsibility
         </span>
-        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 dark:text-white tracking-tight">
+        <h2 class="text-3xl sm:text-4xl font-heading font-bold text-zinc-900 dark:text-white tracking-tight">
           Leadership &amp; Community Involvement
         </h2>
-        <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm">
+        <p class="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm">
           Collaborative leadership, social welfare engagement, and student volunteer coordination.
         </p>
       </div>
 
       <div class="max-w-4xl mx-auto">
         <div class="portfolio-card p-7 sm:p-8 relative overflow-hidden">
-          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-5 border-b border-slate-200 dark:border-white/[0.08] pb-5">
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-5 border-b border-zinc-200 dark:border-white/[0.08] pb-5">
             <div class="flex items-start gap-4">
               <div class="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center text-zinc-900 dark:text-white shrink-0">
                 <i data-lucide="users" class="w-6 h-6"></i>
@@ -1078,23 +1079,23 @@
                 <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-zinc-100 dark:bg-white/[0.06] text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-white/[0.1] font-semibold">
                   Overall Coordinator
                 </span>
-                <h3 class="text-xl sm:text-2xl font-heading font-bold text-slate-900 dark:text-white mt-1.5">
+                <h3 class="text-xl sm:text-2xl font-heading font-bold text-zinc-900 dark:text-white mt-1.5">
                   Old Age Home Program
                 </h3>
-                <div class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5 font-medium">
+                <div class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-0.5 font-medium">
                   Student Social Responsibility (SSR) Initiative &bull; Amrita Vishwa Vidyapeetham
                 </div>
               </div>
             </div>
 
             <div class="sm:text-right shrink-0">
-              <span class="inline-block px-3 py-1 rounded-lg text-xs font-mono bg-slate-100 dark:bg-base-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.08]">
+              <span class="inline-block px-3 py-1 rounded-lg text-xs font-mono bg-zinc-100 dark:bg-base-900 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-white/[0.08]">
                 Nov 2024 &ndash; Nov 2024
               </span>
             </div>
           </div>
 
-          <div class="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <div class="space-y-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
             <div class="flex items-start gap-3">
               <i data-lucide="check-circle" class="w-4 h-4 text-zinc-500 dark:text-zinc-400 shrink-0 mt-0.5"></i>
               <span>Coordinated social engagement activities for 20+ elderly residents to promote interaction, emotional well-being, and community participation.</span>
@@ -1109,7 +1110,7 @@
             </div>
           </div>
 
-          <div class="flex flex-wrap gap-2 pt-6 mt-6 border-t border-slate-200 dark:border-white/[0.06]">
+          <div class="flex flex-wrap gap-2 pt-6 mt-6 border-t border-zinc-200 dark:border-white/[0.06]">
             <span class="tech-pill">Community Engagement</span>
             <span class="tech-pill">Volunteer Leadership</span>
             <span class="tech-pill">Event Coordination</span>
@@ -1123,7 +1124,7 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-slate-200 dark:border-white/[0.06]">
+  <section id="contact" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 border-t border-zinc-200 dark:border-white/[0.06]">
     <div class="portfolio-card p-8 sm:p-12 shadow-2xl">
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
@@ -1131,8 +1132,8 @@
         <div class="lg:col-span-5 space-y-6">
           <div>
             <span class="text-xs font-mono uppercase tracking-wider text-zinc-900 dark:text-white font-semibold">Get in Touch</span>
-            <h2 class="text-3xl font-heading font-bold text-slate-900 dark:text-white mt-1">Let's connect for engineering roles.</h2>
-            <p class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-3 font-normal leading-relaxed">
+            <h2 class="text-3xl font-heading font-bold text-zinc-900 dark:text-white mt-1">Let's connect for engineering roles.</h2>
+            <p class="text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm mt-3 font-normal leading-relaxed">
               I am open to full-time roles, hardware/firmware engineering positions, IoT systems development, and technical collaborations.
             </p>
           </div>
@@ -1140,63 +1141,63 @@
           <div class="space-y-3">
             
             <!-- Email -->
-            <div class="flex items-center justify-between p-4 rounded-xl bg-zinc-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.06]">
+            <div class="flex items-center justify-between p-4 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.06]">
               <div class="flex items-center gap-3.5">
                 <div class="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center text-zinc-900 dark:text-white shrink-0">
                   <i data-lucide="mail" class="w-5 h-5"></i>
                 </div>
                 <div>
-                  <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400">DIRECT EMAIL</div>
-                  <a href="mailto:athuls2580@gmail.com" class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">athuls2580@gmail.com</a>
+                  <div class="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">DIRECT EMAIL</div>
+                  <a href="mailto:athuls2580@gmail.com" class="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">athuls2580@gmail.com</a>
                 </div>
               </div>
-              <button onclick="copyToClipboard('athuls2580@gmail.com', 'Email copied!')" class="p-2.5 rounded-lg bg-white dark:bg-base-900 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-white/[0.08] transition-all shadow-sm" title="Copy Email">
+              <button onclick="copyToClipboard('athuls2580@gmail.com', 'Email copied!')" class="p-2.5 rounded-lg bg-white dark:bg-base-900 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white border border-zinc-200 dark:border-white/[0.08] transition-all shadow-sm" title="Copy Email">
                 <i data-lucide="copy" class="w-4 h-4"></i>
               </button>
             </div>
 
             <!-- Phone -->
-            <div class="flex items-center justify-between p-4 rounded-xl bg-zinc-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.06]">
+            <div class="flex items-center justify-between p-4 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.06]">
               <div class="flex items-center gap-3.5">
                 <div class="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-white/[0.06] border border-zinc-200 dark:border-white/[0.1] flex items-center justify-center text-zinc-900 dark:text-white shrink-0">
                   <i data-lucide="phone" class="w-5 h-5"></i>
                 </div>
                 <div>
-                  <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400">PHONE / WHATSAPP</div>
-                  <a href="tel:+919207626755" class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">+91 9207626755</a>
+                  <div class="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">PHONE / WHATSAPP</div>
+                  <a href="tel:+919207626755" class="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">+91 9207626755</a>
                 </div>
               </div>
-              <button onclick="copyToClipboard('+919207626755', 'Phone number copied!')" class="p-2.5 rounded-lg bg-white dark:bg-base-900 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-white/[0.08] transition-all shadow-sm" title="Copy Phone">
+              <button onclick="copyToClipboard('+919207626755', 'Phone number copied!')" class="p-2.5 rounded-lg bg-white dark:bg-base-900 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white border border-zinc-200 dark:border-white/[0.08] transition-all shadow-sm" title="Copy Phone">
                 <i data-lucide="copy" class="w-4 h-4"></i>
               </button>
             </div>
 
             <!-- GitHub -->
-            <a href="https://github.com/athuls-engineer" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-xl bg-zinc-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.06] hover:border-slate-300 dark:hover:border-white/20 transition-all group">
+            <a href="https://github.com/athuls-engineer" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.06] hover:border-zinc-300 dark:hover:border-white/20 transition-all group">
               <div class="flex items-center gap-3.5">
-                <div class="w-10 h-10 rounded-xl bg-slate-900 dark:bg-white/[0.08] border border-slate-800 dark:border-white/[0.1] flex items-center justify-center text-white shrink-0">
+                <div class="w-10 h-10 rounded-xl bg-zinc-900 dark:bg-white/[0.08] border border-zinc-800 dark:border-white/[0.1] flex items-center justify-center text-white shrink-0">
                   <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
                 </div>
                 <div>
-                  <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400">GITHUB PROFILE &amp; REPOSITORIES</div>
-                  <div class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300">github.com/athuls-engineer</div>
+                  <div class="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">GITHUB PROFILE &amp; REPOSITORIES</div>
+                  <div class="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300">github.com/athuls-engineer</div>
                 </div>
               </div>
-              <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"></i>
+              <i data-lucide="external-link" class="w-4 h-4 text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors"></i>
             </a>
 
             <!-- LinkedIn -->
-            <a href="https://linkedin.com/in/athul-s-engineer" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-xl bg-zinc-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.06] hover:border-slate-300 dark:hover:border-white/20 transition-all group">
+            <a href="https://linkedin.com/in/athul-s-engineer" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.06] hover:border-zinc-300 dark:hover:border-white/20 transition-all group">
               <div class="flex items-center gap-3.5">
                 <div class="w-10 h-10 rounded-xl bg-[#0A66C2]/10 border border-[#0A66C2]/20 flex items-center justify-center shrink-0">
                   <svg class="w-5 h-5 fill-[#0A66C2]" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 0 0-1.6 1.6 1.6 1.6 0 0 0 1.6 1.6 1.6 1.6 0 0 0 1.6-1.6 1.6 1.6 0 0 0-1.6-1.6Z"/></svg>
                 </div>
                 <div>
-                  <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400">LINKEDIN NETWORK</div>
-                  <div class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300">linkedin.com/in/athul-s-engineer</div>
+                  <div class="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">LINKEDIN NETWORK</div>
+                  <div class="text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white group-hover:text-zinc-600 dark:group-hover:text-zinc-300">linkedin.com/in/athul-s-engineer</div>
                 </div>
               </div>
-              <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors"></i>
+              <i data-lucide="external-link" class="w-4 h-4 text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors"></i>
             </a>
 
           </div>
@@ -1207,26 +1208,26 @@
           <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-[11px] font-mono text-slate-600 dark:text-slate-400 mb-1" for="sender-name">Your Name</label>
-                <input type="text" id="sender-name" required placeholder="Alex Turner" class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.1] text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-zinc-900 dark:border-white dark:focus:border-white/30 transition-colors shadow-sm" />
+                <label class="block text-[11px] font-mono text-zinc-600 dark:text-zinc-400 mb-1" for="sender-name">Your Name</label>
+                <input type="text" id="sender-name" required placeholder="Alex Turner" class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.1] text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-zinc-900 dark:border-white dark:focus:border-white/30 transition-colors shadow-sm" />
               </div>
               <div>
-                <label class="block text-[11px] font-mono text-slate-600 dark:text-slate-400 mb-1" for="sender-email">Your Email</label>
-                <input type="email" id="sender-email" required placeholder="alex@company.com" class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.1] text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-zinc-900 dark:border-white dark:focus:border-white/30 transition-colors shadow-sm" />
+                <label class="block text-[11px] font-mono text-zinc-600 dark:text-zinc-400 mb-1" for="sender-email">Your Email</label>
+                <input type="email" id="sender-email" required placeholder="alex@company.com" class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.1] text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-zinc-900 dark:border-white dark:focus:border-white/30 transition-colors shadow-sm" />
               </div>
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-slate-600 dark:text-slate-400 mb-1" for="msg-subject">Subject</label>
-              <input type="text" id="msg-subject" required placeholder="Embedded Firmware Opportunity / Hardware Collaboration" class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.1] text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-zinc-900 dark:border-white dark:focus:border-white/30 transition-colors shadow-sm" />
+              <label class="block text-[11px] font-mono text-zinc-600 dark:text-zinc-400 mb-1" for="msg-subject">Subject</label>
+              <input type="text" id="msg-subject" required placeholder="Embedded Firmware Opportunity / Hardware Collaboration" class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.1] text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-zinc-900 dark:border-white dark:focus:border-white/30 transition-colors shadow-sm" />
             </div>
 
             <div>
-              <label class="block text-[11px] font-mono text-slate-600 dark:text-slate-400 mb-1" for="msg-body">Message</label>
-              <textarea id="msg-body" rows="4" required placeholder="Hi Athul, I reviewed your engineering projects and would like to speak regarding an opportunity..." class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-base-950 border border-slate-200 dark:border-white/[0.1] text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-zinc-900 dark:border-white dark:focus:border-white/30 transition-colors resize-none shadow-sm"></textarea>
+              <label class="block text-[11px] font-mono text-zinc-600 dark:text-zinc-400 mb-1" for="msg-body">Message</label>
+              <textarea id="msg-body" rows="4" required placeholder="Hi Athul, I reviewed your engineering projects and would like to speak regarding an opportunity..." class="w-full px-4 py-3 rounded-xl bg-zinc-50 dark:bg-base-950 border border-zinc-200 dark:border-white/[0.1] text-xs sm:text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-zinc-900 dark:border-white dark:focus:border-white/30 transition-colors resize-none shadow-sm"></textarea>
             </div>
 
-            <button id="contact-submit-btn" type="submit" class="w-full py-3.5 rounded-xl font-medium text-sm text-white dark:text-black bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer">
+            <button id="contact-submit-btn" type="submit" class="w-full py-3.5 rounded-xl font-medium text-sm text-white dark:text-black bg-zinc-900 dark:bg-white hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer">
               <i data-lucide="send" class="w-4 h-4"></i>
               <span id="contact-btn-text">Send Message</span>
             </button>
@@ -1240,7 +1241,7 @@
   </section>
 
   <!-- Complete Site Footer -->
-  <footer class="border-t border-slate-200 dark:border-white/[0.06] bg-slate-50/60 dark:bg-base-950 py-12 px-4 sm:px-6 lg:px-8 text-xs text-slate-500 dark:text-slate-400">
+  <footer class="border-t border-zinc-200 dark:border-white/[0.06] bg-zinc-50/60 dark:bg-base-950 py-12 px-4 sm:px-6 lg:px-8 text-xs text-zinc-600 dark:text-zinc-400">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
       
       <div class="flex items-center gap-3">
@@ -1248,20 +1249,20 @@
           AS
         </div>
         <div>
-          <span class="font-semibold text-slate-900 dark:text-white">Athul S</span> &bull; Electronics &amp; Embedded Systems Engineer
+          <span class="font-semibold text-zinc-900 dark:text-white">Athul S</span> &bull; Electronics &amp; Embedded Systems Engineer
         </div>
       </div>
 
       <div class="flex flex-wrap items-center gap-4 sm:gap-6 font-mono">
-        <a href="#overview" class="hover:text-slate-900 dark:hover:text-white transition-colors">Overview</a>
-        <a href="#projects" class="hover:text-slate-900 dark:hover:text-white transition-colors">Projects</a>
-        <a href="#skills" class="hover:text-slate-900 dark:hover:text-white transition-colors">Skills</a>
-        <a href="#experience" class="hover:text-slate-900 dark:hover:text-white transition-colors">Experience</a>
-        <a href="#credentials" class="hover:text-slate-900 dark:hover:text-white transition-colors">Education</a>
-        <a href="#contact" class="hover:text-slate-900 dark:hover:text-white transition-colors">Contact</a>
+        <a href="#overview" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Overview</a>
+        <a href="#projects" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Projects</a>
+        <a href="#skills" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Skills</a>
+        <a href="#experience" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Experience</a>
+        <a href="#credentials" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Education</a>
+        <a href="#contact" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Contact</a>
       </div>
 
-      <div class="text-slate-400 dark:text-slate-500">
+      <div class="text-zinc-600 dark:text-zinc-400 font-mono">
         &copy; 2026 Athul S. Built with HTML5, CSS &amp; JavaScript.
       </div>
 
@@ -1284,7 +1285,7 @@
 
       <!-- GitHub -->
       <a href="https://github.com/athuls-engineer" target="_blank" rel="noopener noreferrer" class="dock-btn has-tooltip" data-tooltip="GitHub Profile" aria-label="GitHub Profile">
-        <svg class="w-4 h-4 fill-current text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
+        <svg class="w-4 h-4 fill-current text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
       </a>
 
       <!-- LinkedIn -->
@@ -1307,7 +1308,7 @@
         <!-- Sun for Dark Mode -->
         <svg class="w-4 h-4 hidden dark:block text-zinc-200 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
         <!-- Moon for Light Mode -->
-        <svg class="w-4 h-4 block dark:hidden text-slate-700 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <svg class="w-4 h-4 block dark:hidden text-zinc-700 fill-none stroke-current stroke-2" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
       </button>
 
       <!-- Scroll to Top -->
@@ -1320,8 +1321,8 @@
 
   <!-- Project Detail Modal -->
   <div id="project-modal" class="fixed inset-0 z-50 modal-overlay hidden items-center justify-center p-4">
-    <div class="portfolio-card-static max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-white/[0.15]">
-      <button onclick="closeProjectModal()" class="absolute top-5 right-5 p-2 rounded-xl bg-slate-100 dark:bg-base-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" aria-label="Close modal">
+    <div class="portfolio-card-static max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative border border-zinc-200 dark:border-white/[0.15]">
+      <button onclick="closeProjectModal()" class="absolute top-5 right-5 p-2 rounded-xl bg-zinc-100 dark:bg-base-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" aria-label="Close modal">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
       <div id="modal-content" class="space-y-5"></div>
@@ -1330,24 +1331,24 @@
 
   <!-- Resume Preview Modal -->
   <div id="resume-modal" class="fixed inset-0 z-50 modal-overlay hidden items-center justify-center p-4">
-    <div class="portfolio-card-static max-w-3xl w-full max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-white/[0.15]">
-      <button onclick="closeResumeModal()" class="absolute top-5 right-5 p-2 rounded-xl bg-slate-100 dark:bg-base-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" aria-label="Close resume modal">
+    <div class="portfolio-card-static max-w-3xl w-full max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative border border-zinc-200 dark:border-white/[0.15]">
+      <button onclick="closeResumeModal()" class="absolute top-5 right-5 p-2 rounded-xl bg-zinc-100 dark:bg-base-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" aria-label="Close resume modal">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 dark:border-white/[0.08] pb-4 mb-6 gap-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-zinc-200 dark:border-white/[0.08] pb-4 mb-6 gap-3">
         <div>
-          <h3 class="text-xl font-heading font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <h3 class="text-xl font-heading font-bold text-zinc-900 dark:text-white flex items-center gap-2">
             <i data-lucide="file-text" class="w-5 h-5 text-zinc-900 dark:text-white"></i>
             <span>Athul S | Curriculum Vitae</span>
           </h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400 font-mono">athuls2580@gmail.com &bull; +91 9207626755</p>
+          <p class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">athuls2580@gmail.com &bull; +91 9207626755</p>
         </div>
         <div class="flex items-center gap-2">
-          <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="px-4 py-2 rounded-xl text-xs font-mono bg-slate-900 text-white dark:bg-white dark:text-black font-semibold flex items-center gap-2 shadow-md hover:opacity-90 transition-all">
+          <a href="Athul_S_Resume.pdf" download="Athul_S_Resume.pdf" class="px-4 py-2 rounded-xl text-xs font-mono bg-zinc-900 text-white dark:bg-white dark:text-black font-semibold flex items-center gap-2 shadow-md hover:opacity-90 transition-all">
             <i data-lucide="download" class="w-4 h-4"></i> Download PDF
           </a>
-          <button onclick="window.print()" class="px-3.5 py-2 rounded-xl text-xs font-mono bg-slate-100 dark:bg-base-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] hover:text-slate-900 dark:hover:text-white transition-all flex items-center gap-2">
+          <button onclick="window.print()" class="px-3.5 py-2 rounded-xl text-xs font-mono bg-zinc-100 dark:bg-base-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-white/[0.08] hover:text-zinc-900 dark:hover:text-white transition-all flex items-center gap-2">
             <i data-lucide="printer" class="w-4 h-4"></i> Print
           </button>
         </div>
@@ -1355,12 +1356,12 @@
 
       <!-- Printable Resume Body -->
             <!-- Printable Resume Body -->
-      <div id="printable-resume" class="space-y-6 text-slate-700 dark:text-slate-200 text-sm">
+      <div id="printable-resume" class="space-y-6 text-zinc-700 dark:text-zinc-200 text-sm">
         
         <!-- Header -->
-        <div class="border-b border-slate-200 dark:border-slate-800 pb-4">
-          <h1 class="text-2xl sm:text-3xl font-heading font-bold text-slate-900 dark:text-white">ATHUL S</h1>
-          <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600 dark:text-slate-300 font-mono mt-2">
+        <div class="border-b border-zinc-200 dark:border-white/[0.08] pb-4">
+          <h1 class="text-2xl sm:text-3xl font-heading font-bold text-zinc-900 dark:text-white">ATHUL S</h1>
+          <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-600 dark:text-zinc-300 font-mono mt-2">
             <span>athuls2580@gmail.com</span>
             <span>+91 9207626755</span>
             <span>Trivandrum, Kerala, India</span>
@@ -1374,39 +1375,39 @@
 
         <!-- Summary -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-slate-300 uppercase tracking-wider mb-1.5 pb-1 border-b border-slate-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-1.5 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Summary
           </h4>
-          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p class="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Electronics and Communication Engineering graduate from Amrita Vishwa Vidyapeetham with a CGPA of 7.08 and a strong STEM foundation. Skilled in Python, data analysis, statistics, and introductory machine learning through the Google Advanced Data Analytics Professional Certificate. Academic and practical experience spans image processing with OpenCV, embedded systems, microcontroller programming, and digital logic design. Seeking to apply analytical problem-solving and rigorous STEM domain knowledge to AI training, model evaluation, and technical content assessment.
           </p>
         </div>
 
         <!-- Work Experience -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-slate-300 uppercase tracking-wider mb-2 pb-1 border-b border-slate-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Work Experience
           </h4>
           <div class="space-y-3.5">
             
-            <div class="bg-zinc-50 dark:bg-base-950 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
-              <div class="flex flex-col sm:flex-row sm:justify-between font-bold text-slate-900 dark:text-white text-xs gap-1">
+            <div class="bg-zinc-50 dark:bg-base-950 p-3.5 rounded-xl border border-zinc-200 dark:border-white/[0.08]">
+              <div class="flex flex-col sm:flex-row sm:justify-between font-bold text-zinc-900 dark:text-white text-xs gap-1">
                 <span>Embedded Systems and IoT Training &bull; NeST Technologies</span>
-                <span class="text-slate-500 dark:text-slate-400 font-mono">Apr 2025 &ndash; Apr 2025 | Kochi, Kerala</span>
+                <span class="text-zinc-600 dark:text-zinc-400 font-mono">Apr 2025 &ndash; Apr 2025 | Kochi, Kerala</span>
               </div>
-              <ul class="text-xs text-slate-600 dark:text-slate-300 mt-2 space-y-1 list-disc list-inside leading-relaxed">
+              <ul class="text-xs text-zinc-600 dark:text-zinc-300 mt-2 space-y-1 list-disc list-inside leading-relaxed">
                 <li>Completed five-day practical training in Arduino and ESP8266-based IoT development.</li>
                 <li>Worked on mini-projects involving temperature and motion sensors with Wi-Fi-based data transmission.</li>
                 <li>Implemented histogram equalisation using Python and OpenCV for image contrast enhancement.</li>
               </ul>
             </div>
 
-            <div class="bg-zinc-50 dark:bg-base-950 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
-              <div class="flex flex-col sm:flex-row sm:justify-between font-bold text-slate-900 dark:text-white text-xs gap-1">
+            <div class="bg-zinc-50 dark:bg-base-950 p-3.5 rounded-xl border border-zinc-200 dark:border-white/[0.08]">
+              <div class="flex flex-col sm:flex-row sm:justify-between font-bold text-zinc-900 dark:text-white text-xs gap-1">
                 <span>Industrial Networking and SCADA Exposure &bull; KSEB</span>
-                <span class="text-slate-500 dark:text-slate-400 font-mono">Jan 2025 &ndash; Jan 2025 | Trivandrum, Kerala</span>
+                <span class="text-zinc-600 dark:text-zinc-400 font-mono">Jan 2025 &ndash; Jan 2025 | Trivandrum, Kerala</span>
               </div>
-              <ul class="text-xs text-slate-600 dark:text-slate-300 mt-2 space-y-1 list-disc list-inside leading-relaxed">
+              <ul class="text-xs text-zinc-600 dark:text-zinc-300 mt-2 space-y-1 list-disc list-inside leading-relaxed">
                 <li>Gained exposure to SCADA-based monitoring of electrical grid substations.</li>
                 <li>Studied industrial communication concepts involving Modbus, TCP/IP and IEC 60870.</li>
                 <li>Observed how communication networks support monitoring and telemetry in power-system operations.</li>
@@ -1418,79 +1419,79 @@
 
         <!-- Education -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-slate-300 uppercase tracking-wider mb-2 pb-1 border-b border-slate-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Education
           </h4>
           <div class="space-y-2 text-xs">
             <div class="flex justify-between items-start">
               <div>
-                <strong class="text-slate-900 dark:text-white">B.Tech &mdash; Electronics and Communication Engineering</strong> (CGPA: 7.08)
-                <div class="text-slate-500 dark:text-slate-400">Amrita Vishwa Vidyapeetham, Amritapuri Campus &bull; Karunagappally, Kollam</div>
+                <strong class="text-zinc-900 dark:text-white">B.Tech &mdash; Electronics and Communication Engineering</strong> (CGPA: 7.08)
+                <div class="text-zinc-600 dark:text-zinc-400">Amrita Vishwa Vidyapeetham, Amritapuri Campus &bull; Karunagappally, Kollam</div>
               </div>
-              <span class="font-mono text-slate-600 dark:text-slate-300 shrink-0">2022 &ndash; 2026</span>
+              <span class="font-mono text-zinc-600 dark:text-zinc-300 shrink-0">2022 &ndash; 2026</span>
             </div>
             <div class="flex justify-between items-start">
               <div>
-                <strong class="text-slate-900 dark:text-white">Higher Secondary (Class XII)</strong>
-                <div class="text-slate-500 dark:text-slate-400">Jyothis Central School &bull; Kazhakuttam</div>
+                <strong class="text-zinc-900 dark:text-white">Higher Secondary (Class XII)</strong>
+                <div class="text-zinc-600 dark:text-zinc-400">Jyothis Central School &bull; Kazhakuttam</div>
               </div>
-              <span class="font-mono text-slate-600 dark:text-slate-300 shrink-0">2020 &ndash; 2022</span>
+              <span class="font-mono text-zinc-600 dark:text-zinc-300 shrink-0">2020 &ndash; 2022</span>
             </div>
             <div class="flex justify-between items-start">
               <div>
-                <strong class="text-slate-900 dark:text-white">Secondary School (Class X)</strong>
-                <div class="text-slate-500 dark:text-slate-400">Blue Mount Public School &bull; Thonnakkal</div>
+                <strong class="text-zinc-900 dark:text-white">Secondary School (Class X)</strong>
+                <div class="text-zinc-600 dark:text-zinc-400">Blue Mount Public School &bull; Thonnakkal</div>
               </div>
-              <span class="font-mono text-slate-600 dark:text-slate-300 shrink-0">2018 &ndash; 2020</span>
+              <span class="font-mono text-zinc-600 dark:text-zinc-300 shrink-0">2018 &ndash; 2020</span>
             </div>
           </div>
         </div>
 
         <!-- Skills Matrix -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-slate-300 uppercase tracking-wider mb-2 pb-1 border-b border-slate-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Skills
           </h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-            <div class="p-2.5 bg-zinc-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
-              <strong class="text-slate-900 dark:text-white block font-mono text-[11px] text-zinc-900 dark:text-white">Programming</strong>
-              <span class="text-slate-600 dark:text-slate-300">Python, Embedded C, Assembly Language</span>
+            <div class="p-2.5 bg-zinc-50 dark:bg-base-950 rounded-lg border border-zinc-200 dark:border-white/[0.08]">
+              <strong class="text-zinc-900 dark:text-white block font-mono text-[11px] text-zinc-900 dark:text-white">Programming</strong>
+              <span class="text-zinc-600 dark:text-zinc-300">Python, Embedded C, Assembly Language</span>
             </div>
-            <div class="p-2.5 bg-zinc-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
-              <strong class="text-slate-900 dark:text-white block font-mono text-[11px] text-zinc-900 dark:text-zinc-300">Data Analysis &amp; Machine Learning</strong>
-              <span class="text-slate-600 dark:text-slate-300">Python, Statistics, Data Exploration, Predictive Modeling</span>
+            <div class="p-2.5 bg-zinc-50 dark:bg-base-950 rounded-lg border border-zinc-200 dark:border-white/[0.08]">
+              <strong class="text-zinc-900 dark:text-white block font-mono text-[11px] text-zinc-900 dark:text-zinc-300">Data Analysis &amp; Machine Learning</strong>
+              <span class="text-zinc-600 dark:text-zinc-300">Python, Statistics, Data Exploration, Predictive Modeling</span>
             </div>
-            <div class="p-2.5 bg-zinc-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
-              <strong class="text-slate-900 dark:text-white block font-mono text-[11px] text-zinc-900 dark:text-zinc-300">Embedded Systems</strong>
-              <span class="text-slate-600 dark:text-slate-300">ESP32, ESP8266, ATmega328, Arduino IDE, Keil &micro;Vision, sensor interfacing</span>
+            <div class="p-2.5 bg-zinc-50 dark:bg-base-950 rounded-lg border border-zinc-200 dark:border-white/[0.08]">
+              <strong class="text-zinc-900 dark:text-white block font-mono text-[11px] text-zinc-900 dark:text-zinc-300">Embedded Systems</strong>
+              <span class="text-zinc-600 dark:text-zinc-300">ESP32, ESP8266, ATmega328, Arduino IDE, Keil &micro;Vision, sensor interfacing</span>
             </div>
-            <div class="p-2.5 bg-zinc-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
-              <strong class="text-slate-900 dark:text-white block font-mono text-[11px] text-zinc-900 dark:text-zinc-300">Electronics &amp; Simulation</strong>
-              <span class="text-slate-600 dark:text-slate-300">Ansys HFSS, MATLAB, antenna parameter analysis</span>
+            <div class="p-2.5 bg-zinc-50 dark:bg-base-950 rounded-lg border border-zinc-200 dark:border-white/[0.08]">
+              <strong class="text-zinc-900 dark:text-white block font-mono text-[11px] text-zinc-900 dark:text-zinc-300">Electronics &amp; Simulation</strong>
+              <span class="text-zinc-600 dark:text-zinc-300">Ansys HFSS, MATLAB, antenna parameter analysis</span>
             </div>
-            <div class="p-2.5 bg-zinc-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
-              <strong class="text-slate-900 dark:text-white block font-mono text-[11px] text-zinc-900 dark:text-white">Digital Design</strong>
-              <span class="text-slate-600 dark:text-slate-300">Verilog HDL, Basys 3 FPGA, finite-state machines</span>
+            <div class="p-2.5 bg-zinc-50 dark:bg-base-950 rounded-lg border border-zinc-200 dark:border-white/[0.08]">
+              <strong class="text-zinc-900 dark:text-white block font-mono text-[11px] text-zinc-900 dark:text-white">Digital Design</strong>
+              <span class="text-zinc-600 dark:text-zinc-300">Verilog HDL, Basys 3 FPGA, finite-state machines</span>
             </div>
-            <div class="p-2.5 bg-zinc-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
-              <strong class="text-slate-900 dark:text-white block font-mono text-[11px] text-zinc-900 dark:text-zinc-300">Vision &amp; Industrial Systems</strong>
-              <span class="text-slate-600 dark:text-slate-300">OpenCV, Histogram Equalisation, TCP/IP, Modbus, SCADA</span>
+            <div class="p-2.5 bg-zinc-50 dark:bg-base-950 rounded-lg border border-zinc-200 dark:border-white/[0.08]">
+              <strong class="text-zinc-900 dark:text-white block font-mono text-[11px] text-zinc-900 dark:text-zinc-300">Vision &amp; Industrial Systems</strong>
+              <span class="text-zinc-600 dark:text-zinc-300">OpenCV, Histogram Equalisation, TCP/IP, Modbus, SCADA</span>
             </div>
           </div>
         </div>
 
         <!-- Projects -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-slate-300 uppercase tracking-wider mb-2 pb-1 border-b border-slate-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Projects
           </h4>
           <div class="space-y-3 text-xs">
-            <div class="p-3 bg-zinc-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
-              <div class="flex justify-between font-bold text-slate-900 dark:text-white mb-1">
+            <div class="p-3 bg-zinc-50 dark:bg-base-950 rounded-lg border border-zinc-200 dark:border-white/[0.08]">
+              <div class="flex justify-between font-bold text-zinc-900 dark:text-white mb-1">
                 <span>Chaakra IoT-Based GPS Bus Tracking System</span>
-                <span class="font-mono text-slate-500 dark:text-slate-400">Oct 2025 &ndash; May 2026</span>
+                <span class="font-mono text-zinc-600 dark:text-zinc-400">Oct 2025 &ndash; May 2026</span>
               </div>
-              <ul class="text-slate-600 dark:text-slate-300 space-y-0.5 list-disc list-inside">
+              <ul class="text-zinc-600 dark:text-zinc-300 space-y-0.5 list-disc list-inside">
                 <li>Developed an academic IoT project using an ESP32 microcontroller and GPS receiver modules for vehicle location tracking.</li>
                 <li>Worked with UART communication to receive GPS data and parse NMEA sentences to obtain location coordinates.</li>
                 <li>Developed Embedded C firmware for wireless transmission of location data.</li>
@@ -1498,36 +1499,36 @@
               </ul>
             </div>
 
-            <div class="p-3 bg-zinc-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
-              <div class="flex justify-between font-bold text-slate-900 dark:text-white mb-1">
+            <div class="p-3 bg-zinc-50 dark:bg-base-950 rounded-lg border border-zinc-200 dark:border-white/[0.08]">
+              <div class="flex justify-between font-bold text-zinc-900 dark:text-white mb-1">
                 <span>Microcontroller Temperature Data Logger</span>
-                <span class="font-mono text-slate-500 dark:text-slate-400">Dec 2024 &ndash; Dec 2024</span>
+                <span class="font-mono text-zinc-600 dark:text-zinc-400">Dec 2024 &ndash; Dec 2024</span>
               </div>
-              <ul class="text-slate-600 dark:text-slate-300 space-y-0.5 list-disc list-inside">
+              <ul class="text-zinc-600 dark:text-zinc-300 space-y-0.5 list-disc list-inside">
                 <li>Developed a temperature data logger using an LM35 temperature sensor and ATmega328 microcontroller.</li>
                 <li>Wrote Embedded C code for periodic temperature sampling.</li>
                 <li>Interfaced a 16&times;2 LCD to display temperature readings and system status.</li>
               </ul>
             </div>
 
-            <div class="p-3 bg-zinc-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
-              <div class="flex justify-between font-bold text-slate-900 dark:text-white mb-1">
+            <div class="p-3 bg-zinc-50 dark:bg-base-950 rounded-lg border border-zinc-200 dark:border-white/[0.08]">
+              <div class="flex justify-between font-bold text-zinc-900 dark:text-white mb-1">
                 <span>Compact Automotive Antenna Design and Simulation</span>
-                <span class="font-mono text-slate-500 dark:text-slate-400">Nov 2024 &ndash; Jan 2025</span>
+                <span class="font-mono text-zinc-600 dark:text-zinc-400">Nov 2024 &ndash; Jan 2025</span>
               </div>
-              <ul class="text-slate-600 dark:text-slate-300 space-y-0.5 list-disc list-inside">
+              <ul class="text-zinc-600 dark:text-zinc-300 space-y-0.5 list-disc list-inside">
                 <li>Designed and simulated a compact antenna for 5.8 GHz vehicle-to-vehicle communication using Ansys HFSS.</li>
                 <li>Analysed antenna performance using return loss, gain and radiation-pattern simulations.</li>
                 <li>Studied the simulated antenna characteristics in relation to the intended V2V application.</li>
               </ul>
             </div>
 
-            <div class="p-3 bg-zinc-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800">
-              <div class="flex justify-between font-bold text-slate-900 dark:text-white mb-1">
+            <div class="p-3 bg-zinc-50 dark:bg-base-950 rounded-lg border border-zinc-200 dark:border-white/[0.08]">
+              <div class="flex justify-between font-bold text-zinc-900 dark:text-white mb-1">
                 <span>FPGA Candy Vending Machine (Basys 3)</span>
-                <span class="font-mono text-slate-500 dark:text-slate-400">Feb 2025 &ndash; Mar 2025</span>
+                <span class="font-mono text-zinc-600 dark:text-zinc-400">Feb 2025 &ndash; Mar 2025</span>
               </div>
-              <ul class="text-slate-600 dark:text-slate-300 space-y-0.5 list-disc list-inside">
+              <ul class="text-zinc-600 dark:text-zinc-300 space-y-0.5 list-disc list-inside">
                 <li>Designed a vending-machine control system using Verilog HDL and a Basys 3 FPGA development board.</li>
                 <li>Developed modules for finite-state-machine control, button debouncing, BCD conversion and display driving.</li>
                 <li>Simulated the control logic to test coin-input handling and item-selection behaviour.</li>
@@ -1538,45 +1539,45 @@
 
         <!-- Certifications & Professional Development -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-slate-300 uppercase tracking-wider mb-2 pb-1 border-b border-slate-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Certifications &amp; Professional Development
           </h4>
           <div class="space-y-2 text-xs">
             <div class="flex justify-between items-start">
               <div>
-                <strong class="text-slate-900 dark:text-white">Google Advanced Data Analytics Professional Certificate</strong> &bull; Google Career Certificates, Coursera
-                <div class="text-slate-500 dark:text-slate-400">Completed an 8-course professional certification covering Python, machine learning, data analysis, statistics, predictive modeling, and data visualization.</div>
+                <strong class="text-zinc-900 dark:text-white">Google Advanced Data Analytics Professional Certificate</strong> &bull; Google Career Certificates, Coursera
+                <div class="text-zinc-600 dark:text-zinc-400">Completed an 8-course professional certification covering Python, machine learning, data analysis, statistics, predictive modeling, and data visualization.</div>
               </div>
-              <span class="font-mono text-slate-600 dark:text-slate-300 shrink-0">2026</span>
+              <span class="font-mono text-zinc-600 dark:text-zinc-300 shrink-0">2026</span>
             </div>
             <div class="flex justify-between items-start">
               <div>
-                <strong class="text-slate-900 dark:text-white">NEBOSH International General Certificate (IGC)</strong>
-                <div class="text-slate-500 dark:text-slate-400">Examination completed; result pending. Occupational health and safety risk governance.</div>
+                <strong class="text-zinc-900 dark:text-white">NEBOSH International General Certificate (IGC)</strong>
+                <div class="text-zinc-600 dark:text-zinc-400">Examination completed; result pending. Occupational health and safety risk governance.</div>
               </div>
               <span class="font-mono text-zinc-900 dark:text-zinc-300 shrink-0">Result Awaited</span>
             </div>
             <div class="flex justify-between items-start">
               <div>
-                <strong class="text-slate-900 dark:text-white">Machine Learning Training</strong> &bull; Amrita Vishwa Vidyapeetham
-                <div class="text-slate-500 dark:text-slate-400">Covered Introduction to Machine Learning, Python, data exploration, pre-processing, linear regression, and dimensionality reduction.</div>
+                <strong class="text-zinc-900 dark:text-white">Machine Learning Training</strong> &bull; Amrita Vishwa Vidyapeetham
+                <div class="text-zinc-600 dark:text-zinc-400">Covered Introduction to Machine Learning, Python, data exploration, pre-processing, linear regression, and dimensionality reduction.</div>
               </div>
-              <span class="font-mono text-slate-600 dark:text-slate-300 shrink-0">2024</span>
+              <span class="font-mono text-zinc-600 dark:text-zinc-300 shrink-0">2024</span>
             </div>
           </div>
         </div>
 
         <!-- Involvement -->
         <div>
-          <h4 class="text-xs font-mono font-bold text-slate-900 dark:text-slate-300 uppercase tracking-wider mb-2 pb-1 border-b border-slate-200 dark:border-white/[0.08]">
+          <h4 class="text-xs font-mono font-bold text-zinc-900 dark:text-zinc-300 uppercase tracking-wider mb-2 pb-1 border-b border-zinc-200 dark:border-white/[0.08]">
             Involvement
           </h4>
-          <div class="p-3 bg-zinc-50 dark:bg-base-950 rounded-lg border border-slate-200 dark:border-slate-800 text-xs">
-            <div class="flex justify-between font-bold text-slate-900 dark:text-white mb-1">
+          <div class="p-3 bg-zinc-50 dark:bg-base-950 rounded-lg border border-zinc-200 dark:border-white/[0.08] text-xs">
+            <div class="flex justify-between font-bold text-zinc-900 dark:text-white mb-1">
               <span>Old Age Home Program &bull; Overall Coordinator</span>
-              <span class="font-mono text-slate-500 dark:text-slate-400">Nov 2024 &ndash; Nov 2024</span>
+              <span class="font-mono text-zinc-600 dark:text-zinc-400">Nov 2024 &ndash; Nov 2024</span>
             </div>
-            <ul class="text-slate-600 dark:text-slate-300 space-y-0.5 list-disc list-inside">
+            <ul class="text-zinc-600 dark:text-zinc-300 space-y-0.5 list-disc list-inside">
               <li>Coordinated social engagement activities for 20+ elderly residents to promote interaction, emotional well-being, and community participation.</li>
               <li>Organized and managed event activities in collaboration with the Student Social Responsibility (SSR) initiative.</li>
               <li>Assisted in coordinating student volunteers and activity planning for community engagement programs involving 20+ participants.</li>
@@ -1590,5 +1591,65 @@
   </div>
 
   <script src="app.js"></script>
+
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const bad = [];
+    document.querySelectorAll('*').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.right > window.innerWidth + 1) {
+        bad.push({
+          tag: el.tagName,
+          id: el.id,
+          cls: el.className,
+          right: Math.round(r.right),
+          width: Math.round(r.width),
+          winW: window.innerWidth
+        });
+      }
+    });
+    fetch('http://localhost:8888/report', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        winW: window.innerWidth,
+        scrollW: document.documentElement.scrollWidth,
+        bad: bad
+      })
+    });
+  }, 200);
+});
+</script>
+
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const bad = [];
+    document.querySelectorAll('*').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.right > window.innerWidth + 1) {
+        bad.push({
+          tag: el.tagName,
+          id: el.id,
+          cls: el.className,
+          right: Math.round(r.right),
+          width: Math.round(r.width),
+          text: (el.innerText || '').slice(0, 30)
+        });
+      }
+    });
+    fetch('http://localhost:8889/report', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        winW: window.innerWidth,
+        scrollW: document.documentElement.scrollWidth,
+        bad: bad
+      })
+    });
+  }, 200);
+});
+</script>
 </body>
 </html>
